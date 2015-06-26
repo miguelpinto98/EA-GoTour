@@ -9,9 +9,16 @@
     
     <property name="show_sql">true</property>
     
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     
     <mapping class="models.User"/>
     <mapping class="models.Tourist"/>
+    <mapping class="models.Guide"/>
+    <mapping class="models.Tour"/>
+    <mapping class="models.Theme"/>
+    <mapping class="models.Language"/>
+    <mapping class="models.City"/>
+    <mapping class="models.PointOfInterest"/>
+    <mapping class="models.Review"/>
   </session-factory>
 </hibernate-configuration>

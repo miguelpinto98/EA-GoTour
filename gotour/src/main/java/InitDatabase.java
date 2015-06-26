@@ -20,14 +20,11 @@ public class InitDatabase {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Tourist u = new Tourist();
-        u.setName("Teste");
-        
+
         SessionFactory s = new AnnotationConfiguration().configure().buildSessionFactory();
         org.hibernate.Session se = s.openSession();
         se.beginTransaction();
         
-        se.save(u);
         
         se.getTransaction().commit();
         s.close();
