@@ -7,6 +7,8 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -59,10 +62,14 @@ public class Tour implements Serializable {
     @ManyToOne
     @JoinColumn(name = "guide")
     private Guide guide;
-    
+
     @OneToMany
     @JoinColumn(name = "tour_id")
     private Set<Review> reviews;
+
+    @OneToMany(mappedBy="tour")
+    @MapKeyColumn(name = "date")
+    Map<Date,Enrollments> enrollments;
 
     public Long getId() {
         return id;
