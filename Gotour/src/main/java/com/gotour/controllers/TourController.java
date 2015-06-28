@@ -11,6 +11,6 @@ public class TourController {
   @RequestMapping("Tour")
   public String index(ModelMap map) {
     map.put("msg", "Hello World!");
-    return "tour/index";
+    return "tour/list";
   }
 }
