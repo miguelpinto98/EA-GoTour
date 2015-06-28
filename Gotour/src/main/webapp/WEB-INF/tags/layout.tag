@@ -31,7 +31,7 @@
   <body>
     <!-- HEADER -->
     <div id="navigation" class="wrapper">
-      <jsp:include page="header.jsp" />
+      <jsp:include page="/WEB-INF/jsp/header.jsp" />
     </div>
     
     <!-- BODY -->
@@ -41,7 +41,7 @@
     
     <!-- FOOTER -->
     <footer id="footer">
-      <jsp:include page="footer.jsp" />
+      <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     </footer>
   </body>
 </html>
