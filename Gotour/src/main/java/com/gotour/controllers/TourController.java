@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TourController {
 
-  @RequestMapping("Tour")
+  @RequestMapping(value = "tour", method = RequestMethod.GET)
   public String index(ModelMap map) {
     map.put("msg", "Hello World!");
     return "tour/list";

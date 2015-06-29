@@ -26,4 +26,10 @@ public class HomeController {
     map.put("msg", "Hello World!");
     return "index";
   }
+  
+  @RequestMapping(value = "/searchByCityTour", method = RequestMethod.POST)
+  public String search(ModelMap map) {
+    
+    return "";
+  }
 }

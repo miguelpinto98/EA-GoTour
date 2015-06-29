@@ -21,23 +21,26 @@
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/flag-icon.min.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/custom-style.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/theme-style.min.css" />
+    <link rel="stylesheet" type="text/css" href="${context}/resources/css/colour-blue.css" />
     
     <!-- JS -->
     <script src="${context}/resources/js/app.js"></script>
     <script src="${context}/resources/js/jquery.min.js"></script>
     <script src="${context}/resources/js/bootstrap.min.js"></script>
     <script src="${context}/resources/js/script.min.js"></script>
+        
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Rambla' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
   </head>
-  <body>
+  <body class="page">
     <!-- HEADER -->
     <div id="navigation" class="wrapper">
       <jsp:include page="/WEB-INF/jsp/header.jsp" />
     </div>
     
     <!-- BODY -->
-    <div id="content">
-      <jsp:doBody/>
-    </div>
+    <jsp:doBody/>
     
     <!-- FOOTER -->
     <footer id="footer">

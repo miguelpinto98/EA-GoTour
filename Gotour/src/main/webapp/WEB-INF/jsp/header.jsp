@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="navbar-static-top">
 
@@ -10,7 +11,6 @@
 
           <!--social media icons-->
           <div class="social-media">
-            <!--@todo: replace with company social media details-->
             <a href="#"> <i class="fa fa-twitter-square"></i> </a>
             <a href="#"> <i class="fa fa-facebook-square"></i> </a>
             <a href="#"> <i class="fa fa-linkedin-square"></i> </a>
@@ -22,24 +22,27 @@
           <!--user menu-->
           <div class="btn-group user-menu">
             <a href="login.htm" class="btn btn-link login-mobile"><i class="fa fa-user"></i></a>
-            <a href="index.html#signup-modal" class="btn btn-link signup" data-toggle="modal">Sign Up</a>
+            <a href="<c:url value="/user/signup"/>" class="btn btn-link signup" data-toggle="modal">Sign Up</a>
             </li>
-            <a href="index.html#login-modal" class="btn btn-link login" data-toggle="modal">Login</a> 
+            <a href="<c:url value="/user/login"/>" class="btn btn-link login" data-toggle="modal">Login</a> 
             <div class="btn-group language-menu">
               <!--language menu-->
-              <a href="index.html#en" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><span class="flag-icon flag-icon-gb"></span></a>
+              <a href="#en" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="flag-icon flag-icon-gb"></span></a>
               <ul class="dropdown-menu dropdown-menu-mini dropdown-menu-primary">
                 <li>
-                  <a href="index.html#es" class="lang-es"><span class="flag-icon flag-icon-es"></span> Spanish</a>
+                  <a href="#en" class="lang-en"><span class="flag-icon flag-icon-gb"></span> English</a>
                 </li>
                 <li>
-                  <a href="index.html#pt" class="lang-pt"><span class="flag-icon flag-icon-pt"></span> Portguese</a>
+                  <a href="#es" class="lang-es"><span class="flag-icon flag-icon-es"></span> Spanish</a>
                 </li>
                 <li>
-                  <a href="index.html#cn" class="lang-cn"><span class="flag-icon flag-icon-cn"></span> Chinese</a>
+                  <a href="#pt" class="lang-pt"><span class="flag-icon flag-icon-pt"></span> Portuguese</a>
                 </li>
                 <li>
-                  <a href="index.html#se" class="lang-se"><span class="flag-icon flag-icon-se"></span> Swedish</a>
+                  <a href="#cn" class="lang-cn"><span class="flag-icon flag-icon-cn"></span> Chinese</a>
+                </li>
+                <li>
+                  <a href="#se" class="lang-se"><span class="flag-icon flag-icon-se"></span> Swedish</a>
                 </li>
               </ul>
             </div>
@@ -64,13 +67,19 @@
       <div class="navbar">
         <div class="pull-left">
           <!--branding/logo-->
-          <a class="navbar-brand" href="#" title="Home">
+          <a class="navbar-brand" href="<c:url value="/"/>" title="Home">
             <h1>
               <span>Go</span>Tour
             </h1>
           </a>
           <div class="slogan">Go Easy</div>
         </div>
+        
+        <!--Search trigger -->
+        <a href="#search" class="search-form-tigger" data-toggle="search-form" data-target=".header-search">
+          </span>
+          <i class="fa fa-search fa-flip-horizontal search-icon"></i>
+        </a>
       </div>
     </div>
   </div>
