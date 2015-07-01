@@ -20,8 +20,9 @@
               <div class="row">
                 <div class="col-md-9">
                   <div class="input-group input-group-lg">
-                    <%--<form:label path="city" class="sr-only" for="city-field">City</form:label>--%>
-                    <%--<form:input path="city" type="text" class="form-control" id="city-field" placeholder="City"/>--%>
+                    <%--<form:label path="" class="sr-only" for="city-field">City</form:label>--%>
+                    <input class="form-control"/>
+                    <%--<form:input path="" type="text" class="form-control" id="city-field" placeholder="City"/>--%>
                     <span class="input-group-btn">
                       <button class="btn btn-primary" type="button">Go!</button>
                     </span>

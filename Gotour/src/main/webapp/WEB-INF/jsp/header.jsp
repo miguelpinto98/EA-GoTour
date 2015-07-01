@@ -22,9 +22,9 @@
           <!--user menu-->
           <div class="btn-group user-menu">
             <a href="login.htm" class="btn btn-link login-mobile"><i class="fa fa-user"></i></a>
-            <a href="<c:url value="/user/signup"/>" class="btn btn-link signup" data-toggle="modal">Sign Up</a>
+            <a href="<c:url value="/users/signup"/>" class="btn btn-link signup" data-toggle="modal">Sign Up</a>
             </li>
-            <a href="<c:url value="/user/login"/>" class="btn btn-link login" data-toggle="modal">Login</a> 
+            <a href="<c:url value="/users/login"/>" class="btn btn-link login" data-toggle="modal">Login</a> 
             <div class="btn-group language-menu">
               <!--language menu-->
               <a href="#en" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="flag-icon flag-icon-gb"></span></a>

@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class UserController {
+public class UsersController {
 
-  @RequestMapping(value = "/user/signup", method = RequestMethod.GET)
+  @RequestMapping(value = "/users/signup", method = RequestMethod.GET)
   public String signup(ModelMap map) {
     map.put("msg", "Hello World!");
     return "user/signup";
   }
   
-  @RequestMapping(value = "/user/signup", method = RequestMethod.POST)
+  @RequestMapping(value = "/users/new", method = RequestMethod.POST)
   public String register(ModelMap map) {
     
     return "";
   }
   
-  @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+  @RequestMapping(value = "/users/login", method = RequestMethod.GET)
   public String login(ModelMap map) {
     map.put("msg", "Hello World!");
     return "user/login";

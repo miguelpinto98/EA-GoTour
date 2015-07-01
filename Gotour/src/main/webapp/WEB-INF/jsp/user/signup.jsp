@@ -8,7 +8,7 @@
     <form class="form-login form-wrapper form-medium" role="form">
       <h3 class="title-divider">
         <span>Sign Up</span> 
-        <small>Already signed up? <a href="<c:url value="/user/login"/>">Login here</a>.</small>
+        <small>Already signed up? <a href="<c:url value="/users/login"/>">Login here</a>.</small>
       </h3>
       <h5>
         Price Plan
