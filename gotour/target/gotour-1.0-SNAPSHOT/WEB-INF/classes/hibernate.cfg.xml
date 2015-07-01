@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/aa</property>
+    <property name="hibernate.connection.username">postgres</property>
+    
+    <property name="show_sql">true</property>
+    
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    
+    <mapping class="models.User"/>
+    <mapping class="models.Tourist"/>
+    <mapping class="models.Guide"/>
+    <mapping class="models.Tour"/>
+    <mapping class="models.Theme"/>
+    <mapping class="models.Language"/>
+    <mapping class="models.City"/>
+    <mapping class="models.PointOfInterest"/>
+    <mapping class="models.Review"/>
+    <mapping class="models.Enrollments"/>
+  </session-factory>
+</hibernate-configuration>
