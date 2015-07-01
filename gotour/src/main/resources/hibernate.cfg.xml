@@ -11,15 +11,15 @@
     
     <property name="hibernate.hbm2ddl.auto">update</property>
     
-    <mapping class="models.User"/>
-    <mapping class="models.Tourist"/>
-    <mapping class="models.Guide"/>
-    <mapping class="models.Tour"/>
-    <mapping class="models.Theme"/>
-    <mapping class="models.Language"/>
-    <mapping class="models.City"/>
-    <mapping class="models.PointOfInterest"/>
-    <mapping class="models.Review"/>
-    <mapping class="models.Enrollments"/>
+    <mapping class="com.gotour.models.User"/>
+    <mapping class="com.gotour.models.Tourist"/>
+    <mapping class="com.gotour.models.Guide"/>
+    <mapping class="com.gotour.models.Tour"/>
+    <mapping class="com.gotour.models.Theme"/>
+    <mapping class="com.gotour.models.Language"/>
+    <mapping class="com.gotour.models.City"/>
+    <mapping class="com.gotour.models.PointOfInterest"/>
+    <mapping class="com.gotour.models.Review"/>
+    <mapping class="com.gotour.models.Enrollments"/>
   </session-factory>
 </hibernate-configuration>
