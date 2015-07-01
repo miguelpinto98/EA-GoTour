@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Tourist extends User implements Serializable  {
 
     @OneToMany
-    @JoinColumn(name="tourist_id")
+    @JoinColumn(name="tourist_fk")
     private Set<Review> reviews;
     
     @ManyToMany

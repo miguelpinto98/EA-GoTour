@@ -27,7 +27,7 @@ public class Tour implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     private String description;
 
@@ -35,7 +35,7 @@ public class Tour implements Serializable {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "theme")
+    @JoinColumn(name = "theme_fk")
     private Theme theme;
 
     @ManyToMany
@@ -43,7 +43,7 @@ public class Tour implements Serializable {
     private Set<Language> languages;
 
     @ManyToOne
-    @JoinColumn(name = "city")
+    @JoinColumn(name = "city_fk")
     private City city;
 
     @ManyToMany
@@ -55,7 +55,7 @@ public class Tour implements Serializable {
     private Guide guide;
 
     @OneToMany
-    @JoinColumn(name = "tour_id")
+    @JoinColumn(name = "tour_fk")
     private Set<Review> reviews;
 
     @OneToMany(mappedBy="tour")
@@ -98,15 +98,15 @@ public class Tour implements Serializable {
     /**
      * @return the title
      */
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param title the title to set
+     * @param name the title to set
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

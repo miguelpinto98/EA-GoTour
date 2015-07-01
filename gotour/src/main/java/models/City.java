@@ -21,7 +21,7 @@ public class City implements Serializable {
     private String name;
     
     @OneToMany
-    @JoinColumn(name="city_id")
+    @JoinColumn(name="city_fk")
     private Set<PointOfInterest> points_of_interest;
     
     @OneToMany(mappedBy="city")

@@ -24,11 +24,15 @@ public class Enrollments implements Serializable {
     @JoinColumn(name = "tour_fk")
     private Tour tour;
     
-    @Column(name = "\"limit\"")
-    private int limit;
+    @Column(name = "max_enrollments")
+    private int maxEnrollments;
     
     @ManyToMany(mappedBy="enrollments")
     private Set<Tourist> tourists;
+    
+    @ManyToOne
+    @JoinColumn(name = "language_fk")
+    private Language language;
 
     public Long getId() {
         return id;
@@ -80,15 +84,15 @@ public class Enrollments implements Serializable {
     /**
      * @return the limit
      */
-    public int getLimit() {
-        return limit;
+    public int getMaxEnrollments() {
+        return maxEnrollments;
     }
 
     /**
-     * @param limit the limit to set
+     * @param maxEnrollments the limit to set
      */
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setMaxEnrollments(int maxEnrollments) {
+        this.maxEnrollments = maxEnrollments;
     }
 
     /**
@@ -103,6 +107,20 @@ public class Enrollments implements Serializable {
      */
     public void setTourists(Set<Tourist> tourists) {
         this.tourists = tourists;
+    }
+
+    /**
+     * @return the language
+     */
+    public Language getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
 }
