@@ -1,32 +1,24 @@
-package models;
+package com.gotour.models;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cities")
-public class City implements Serializable {
+@Table(name="points_of_interest")
+public class PointOfInterest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
     private String name;
-    
-    @OneToMany
-    @JoinColumn(name="city_fk")
-    private Set<PointOfInterest> points_of_interest;
-    
-    @OneToMany(mappedBy="city")
-    private Set<Tour> tours;
-    
+    private String description;
+    private String location;
+
     public Long getId() {
         return id;
     }
@@ -45,10 +37,10 @@ public class City implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof City)) {
+        if (!(object instanceof PointOfInterest)) {
             return false;
         }
-        City other = (City) object;
+        PointOfInterest other = (PointOfInterest) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -57,7 +49,7 @@ public class City implements Serializable {
 
     @Override
     public String toString() {
-        return "models.City[ id=" + id + " ]";
+        return "models.PointOfInterest[ id=" + id + " ]";
     }
 
     /**
@@ -75,31 +67,31 @@ public class City implements Serializable {
     }
 
     /**
-     * @return the tours
+     * @return the description
      */
-    public Set<Tour> getTours() {
-        return tours;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param tours the tours to set
+     * @param description the description to set
      */
-    public void setTours(Set<Tour> tours) {
-        this.tours = tours;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
-     * @return the points_of_interest
+     * @return the location
      */
-    public Set<PointOfInterest> getPoints_of_interest() {
-        return points_of_interest;
+    public String getLocation() {
+        return location;
     }
 
     /**
-     * @param points_of_interest the points_of_interest to set
+     * @param location the location to set
      */
-    public void setPoints_of_interest(Set<PointOfInterest> points_of_interest) {
-        this.points_of_interest = points_of_interest;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
 }

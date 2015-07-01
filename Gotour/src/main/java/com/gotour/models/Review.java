@@ -1,4 +1,4 @@
-package models;
+package com.gotour.models;
 
 import java.io.Serializable;
 import java.util.Date;
