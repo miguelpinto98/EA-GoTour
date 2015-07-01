@@ -1,4 +1,4 @@
-package models;
+package com.gotour.models;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -7,13 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="themes")
-public class Theme implements Serializable {
-    
+@Table(name="languages")
+public class Language implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,7 +21,7 @@ public class Theme implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
     
-    @OneToMany(mappedBy="theme")
+    @ManyToMany(mappedBy="languages")
     private Set<Tour> tours;
     
     public Long getId() {
@@ -42,10 +42,10 @@ public class Theme implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Theme)) {
+        if (!(object instanceof Language)) {
             return false;
         }
-        Theme other = (Theme) object;
+        Language other = (Language) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -54,7 +54,7 @@ public class Theme implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Theme[ id=" + id + " ]";
+        return "models.Language[ id=" + id + " ]";
     }
 
     /**

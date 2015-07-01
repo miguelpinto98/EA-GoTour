@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package models;
+package com.gotour.models;
 
 import java.io.Serializable;
 import java.util.Set;

@@ -25,4 +25,10 @@ public class UsersController {
     map.put("msg", "Hello World!");
     return "user/login";
   }
+  
+  @RequestMapping(value = "/users/signin", method = RequestMethod.POST)
+  public String signin(ModelMap map) {
+    
+    return "";
+  }
 }

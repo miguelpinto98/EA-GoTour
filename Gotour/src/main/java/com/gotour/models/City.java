@@ -1,27 +1,30 @@
-package models;
+package com.gotour.models;
 
 import java.io.Serializable;
 import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="languages")
-public class Language implements Serializable {
+@Table(name="cities")
+public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String name;
     
-    @ManyToMany(mappedBy="languages")
+    @OneToMany
+    @JoinColumn(name="city_fk")
+    private Set<PointOfInterest> points_of_interest;
+    
+    @OneToMany(mappedBy="city")
     private Set<Tour> tours;
     
     public Long getId() {
@@ -42,10 +45,10 @@ public class Language implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Language)) {
+        if (!(object instanceof City)) {
             return false;
         }
-        Language other = (Language) object;
+        City other = (City) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -54,7 +57,7 @@ public class Language implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Language[ id=" + id + " ]";
+        return "models.City[ id=" + id + " ]";
     }
 
     /**
@@ -83,6 +86,20 @@ public class Language implements Serializable {
      */
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
+    }
+
+    /**
+     * @return the points_of_interest
+     */
+    public Set<PointOfInterest> getPoints_of_interest() {
+        return points_of_interest;
+    }
+
+    /**
+     * @param points_of_interest the points_of_interest to set
+     */
+    public void setPoints_of_interest(Set<PointOfInterest> points_of_interest) {
+        this.points_of_interest = points_of_interest;
     }
 
 }
