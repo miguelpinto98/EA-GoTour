@@ -1,32 +1,69 @@
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import com.gotour.config.HibernateConfiguration;
+import com.gotour.models.City;
+import com.gotour.services.CityService;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author ZÃ©
- */
+@Component
 public class InitDatabase {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    @Autowired
+    private CityService cs;
 
-        SessionFactory s = new AnnotationConfiguration().configure().buildSessionFactory();
-        org.hibernate.Session se = s.openSession();
-        se.beginTransaction();
-        
-        
-        se.getTransaction().commit();
-        s.close();
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(HibernateConfiguration.class);
+        ctx.register(InitDatabase.class);
+        ctx.scan("com.gotour.daos");
+        ctx.scan("com.gotour.services");
+        ctx.refresh();
+        InitDatabase x = ctx.getBean(InitDatabase.class);
+        x.load();
     }
 
+    void load() {
+        List<City> cities = cities();
+
+        for (City c : cities) {
+            cs.saveCity(c);
+        }
+    }
+
+    List<City> cities() {
+        String[] cityNames = {
+            "Aveiro",
+            "Beja",
+            "Braga",
+            "Bragança",
+            "Castelo Branco",
+            "Coimbra",
+            "Évora",
+            "Faro",
+            "Guarda",
+            "Leiria",
+            "Lisboa",
+            "Portalegre",
+            "Porto",
+            "Santarém",
+            "Setúbal",
+            "Viana do Castelo",
+            "Vila Real",
+            "Viseu"
+        };
+
+        List<City> cities = new ArrayList<City>();
+        City city;
+
+        for (String c : cityNames) {
+            city = new City();
+            city.setName(c);
+            cities.add(city);
+        }
+
+        return cities;
+    }
 }
