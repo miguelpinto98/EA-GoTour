@@ -2,8 +2,7 @@ package com.gotour.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -15,10 +14,11 @@ public abstract class User implements Serializable {
 
     private String password;
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String email;
 
     public Long getId() {

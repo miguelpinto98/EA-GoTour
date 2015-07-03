@@ -6,7 +6,7 @@
 <t:layout pageTitle="GoTour - Sign Up">
   <div id="content">
     <div class="container">
-      <form:form method="POST" action="/users/new" class="form-login form-wrapper form-medium form-horizontal" role="form">
+      <form:form method="POST" action="new" class="form-login form-wrapper form-medium form-horizontal" role="form">
         <h3 class="title-divider">
           <span>Sign Up</span> 
           <small>Already signed up? <a href="<c:url value="/users/login"/>">Login here</a>.</small>
@@ -15,7 +15,7 @@
         <div class="form-group">
           <label class="col-sm-3" for="signup-first-name-page">First Name</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="signup-first-name-page">
+            <input name="name" type="text" class="form-control" id="signup-first-name-page">
           </div>
         </div>
         <div class="form-group">
@@ -27,7 +27,7 @@
         <div class="form-group">
           <label class="col-sm-3" for="signup-email-page">Email</label>
           <div class="col-sm-9">
-            <input type="email" class="form-control" id="signup-email-page">
+            <input name="email" type="email" class="form-control" id="signup-email-page">
           </div>
         </div>
         <div class="form-group">
