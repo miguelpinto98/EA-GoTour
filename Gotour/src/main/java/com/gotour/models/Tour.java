@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tours")
@@ -31,7 +33,8 @@ public class Tour implements Serializable {
 
     private String description;
 
-    @Column(precision = 3, scale = 2, nullable = false)
+    @NotNull
+    @Digits(integer=3, fraction=2)
     private BigDecimal price;
 
     @ManyToOne
