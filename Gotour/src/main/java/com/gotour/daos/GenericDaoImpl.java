@@ -46,10 +46,16 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     @Override
-    public void saveOrUpdate(T obj) {
-        getSessionFactory().getCurrentSession().saveOrUpdate(obj);
+    public void save(T obj) {
+        getSessionFactory().getCurrentSession().save(obj);
     }
 
+    @Override
+    public void update(T obj) {
+        getSessionFactory().getCurrentSession().update(obj);
+    }
+
+    @Override
     public List<T> getAll() {
         final Session session = sessionFactory.getCurrentSession();
         final Criteria crit = session.createCriteria(type);

@@ -1,9 +1,8 @@
 
 import com.gotour.config.HibernateConfiguration;
 import com.gotour.models.City;
+import com.gotour.models.PointOfInterest;
 import com.gotour.services.CityService;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -26,44 +25,14 @@ public class InitDatabase {
     }
 
     void load() {
-        List<City> cities = cities();
-
-        for (City c : cities) {
-            cs.saveCity(c);
-        }
+        City c = new City();
+        c.setName("Braga");
+        cs.addCity(c);
+        PointOfInterest p = new PointOfInterest();
+        p.setName("Sameiro");
+        p.setDescription("The Sanctuary of Our Lady of Sameiro (or Sanctuary of Sameiro) is a sanctuary and Marian shrine located in Braga, in the surroundings of the city of Braga, Portugal.");
+        p.setLocation("WTF?");
+        cs.addPointOfInterest(c,p);
     }
 
-    List<City> cities() {
-        String[] cityNames = {
-            "Aveiro",
-            "Beja",
-            "Braga",
-            "Bragança",
-            "Castelo Branco",
-            "Coimbra",
-            "Évora",
-            "Faro",
-            "Guarda",
-            "Leiria",
-            "Lisboa",
-            "Portalegre",
-            "Porto",
-            "Santarém",
-            "Setúbal",
-            "Viana do Castelo",
-            "Vila Real",
-            "Viseu"
-        };
-
-        List<City> cities = new ArrayList<City>();
-        City city;
-
-        for (String c : cityNames) {
-            city = new City();
-            city.setName(c);
-            cities.add(city);
-        }
-
-        return cities;
-    }
 }

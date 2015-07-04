@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private TouristDAO dao;
 
     @Override
-    public void saveTourist(Tourist t) {
-        dao.saveOrUpdate(t);
+    public void addTourist(Tourist t) {
+        dao.save(t);
     }   
 }
