@@ -1,8 +1,11 @@
 package com.gotour.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,11 +21,12 @@ public class City implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String name;
     
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="city_fk")
-    private Set<PointOfInterest> points_of_interest;
+    private Set<PointOfInterest> pointsOfInterest;
     
     @OneToMany(mappedBy="city")
     private Set<Tour> tours;
@@ -92,14 +96,17 @@ public class City implements Serializable {
      * @return the points_of_interest
      */
     public Set<PointOfInterest> getPoints_of_interest() {
-        return points_of_interest;
+        if (pointsOfInterest == null)
+            return new HashSet<PointOfInterest>();
+        else
+            return pointsOfInterest;
     }
 
     /**
      * @param points_of_interest the points_of_interest to set
      */
     public void setPoints_of_interest(Set<PointOfInterest> points_of_interest) {
-        this.points_of_interest = points_of_interest;
+        this.pointsOfInterest = points_of_interest;
     }
 
 }

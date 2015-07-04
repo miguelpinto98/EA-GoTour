@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.gotour.config" })
+//@ComponentScan({ "com.gotour.config" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
  

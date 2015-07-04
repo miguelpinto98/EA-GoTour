@@ -1,32 +1,38 @@
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import com.gotour.config.HibernateConfiguration;
+import com.gotour.models.City;
+import com.gotour.models.PointOfInterest;
+import com.gotour.services.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Zé
- */
+@Component
 public class InitDatabase {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    @Autowired
+    private CityService cs;
 
-        SessionFactory s = new AnnotationConfiguration().configure().buildSessionFactory();
-        org.hibernate.Session se = s.openSession();
-        se.beginTransaction();
-        
-        
-        se.getTransaction().commit();
-        s.close();
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(HibernateConfiguration.class);
+        ctx.register(InitDatabase.class);
+        ctx.scan("com.gotour.daos");
+        ctx.scan("com.gotour.services");
+        ctx.refresh();
+        InitDatabase x = ctx.getBean(InitDatabase.class);
+        x.load();
+    }
+
+    void load() {
+        City c = new City();
+        c.setName("Braga");
+        cs.addCity(c);
+        PointOfInterest p = new PointOfInterest();
+        p.setName("Sameiro");
+        p.setDescription("The Sanctuary of Our Lady of Sameiro (or Sanctuary of Sameiro) is a sanctuary and Marian shrine located in Braga, in the surroundings of the city of Braga, Portugal.");
+        p.setLocation("WTF?");
+        cs.addPointOfInterest(c,p);
     }
 
 }

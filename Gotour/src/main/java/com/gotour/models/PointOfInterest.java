@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,9 @@ public class PointOfInterest implements Serializable {
     private String name;
     private String description;
     private String location;
+    @ManyToOne
+    @JoinColumn(name = "city_fk")
+    private City city;
 
     public Long getId() {
         return id;
@@ -92,6 +97,20 @@ public class PointOfInterest implements Serializable {
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    /**
+     * @return the city
+     */
+    public City getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(City city) {
+        this.city = city;
     }
 
 }
