@@ -6,20 +6,11 @@
 
 package com.gotour.services;
 
-import com.gotour.daos.TouristDAO;
-import com.gotour.models.Tourist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("userService")
+@Service("tourService")
 @Transactional
-public class UserServiceImpl implements UserService{
-    @Autowired
-    private TouristDAO dao;
-
-    @Override
-    public void saveTourist(Tourist t) {
-        dao.saveOrUpdate(t);
-    }   
+public class TourServiceImpl implements TourService {
 }
