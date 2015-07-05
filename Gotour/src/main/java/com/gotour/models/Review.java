@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "reviews")
@@ -21,9 +23,9 @@ public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "\"date\"")
-    private Date date;
+    @Column(name = "date")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime date;
 
     @ManyToOne
     @JoinColumn(name = "tourist_fk")
@@ -32,6 +34,10 @@ public class Review implements Serializable {
     private String comment;
     private Byte rating;
 
+    @ManyToOne
+    @JoinColumn(name = "tour_fk")
+    private Tour tour;
+    
     public Long getId() {
         return id;
     }
@@ -68,14 +74,14 @@ public class Review implements Serializable {
     /**
      * @return the date
      */
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Date date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 
@@ -119,6 +125,20 @@ public class Review implements Serializable {
      */
     public void setTourist(Tourist tourist) {
         this.tourist = tourist;
+    }
+
+    /**
+     * @return the tour
+     */
+    public Tour getTour() {
+        return tour;
+    }
+
+    /**
+     * @param tour the tour to set
+     */
+    public void setTour(Tour tour) {
+        this.tour = tour;
     }
 
 }

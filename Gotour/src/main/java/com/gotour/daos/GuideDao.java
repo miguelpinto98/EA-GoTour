@@ -6,9 +6,11 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Guide;
 
 
-public interface PointOfInterestDao extends GenericDao<PointOfInterest>{
+public interface GuideDao extends GenericDao<Guide>{
+
+    public Guide getGuide(String email);
 
 }

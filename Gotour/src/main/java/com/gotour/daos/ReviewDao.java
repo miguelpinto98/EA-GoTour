@@ -6,9 +6,9 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Review;
 
 
-public interface PointOfInterestDao extends GenericDao<PointOfInterest>{
+public interface ReviewDao extends GenericDao<Review>{
 
 }

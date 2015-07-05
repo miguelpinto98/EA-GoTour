@@ -6,10 +6,13 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Guide;
 import org.springframework.stereotype.Repository;
 
-@Repository("pointOfInterestDao")
-public class PointOfInterestDaoImpl extends GenericDaoImpl<PointOfInterest> implements PointOfInterestDao{
+@Repository("guideDao")
+public class GuideDaoImpl extends GenericDaoImpl<Guide> implements GuideDao {   
 
+    public Guide getGuide(String email) {
+        return find("email", email).get(0);
+    }
 }

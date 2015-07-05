@@ -6,9 +6,11 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Language;
 
 
-public interface PointOfInterestDao extends GenericDao<PointOfInterest>{
+public interface LanguageDao extends GenericDao<Language> {
+
+    public Language getLanguage(String language);
 
 }

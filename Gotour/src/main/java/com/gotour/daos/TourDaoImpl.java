@@ -6,10 +6,10 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Tour;
 import org.springframework.stereotype.Repository;
 
-@Repository("pointOfInterestDao")
-public class PointOfInterestDaoImpl extends GenericDaoImpl<PointOfInterest> implements PointOfInterestDao{
+@Repository("tourDao")
+public class TourDaoImpl extends GenericDaoImpl<Tour> implements TourDao{
 
 }

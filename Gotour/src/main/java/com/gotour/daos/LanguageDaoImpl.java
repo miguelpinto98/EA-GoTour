@@ -6,10 +6,13 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Language;
 import org.springframework.stereotype.Repository;
 
-@Repository("pointOfInterestDao")
-public class PointOfInterestDaoImpl extends GenericDaoImpl<PointOfInterest> implements PointOfInterestDao{
+@Repository("languageDao")
+public class LanguageDaoImpl extends GenericDaoImpl<Language> implements LanguageDao {
 
+    public Language getLanguage(String language) {
+        return find("name", language).get(0);
+    }
 }

@@ -6,10 +6,20 @@
 
 package com.gotour.services;
 
-import com.gotour.models.City;
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Language;
+import com.gotour.models.Theme;
+import com.gotour.models.Tour;
+import com.gotour.models.Tourist;
+import org.joda.time.DateTime;
 
 
 public interface TourService {
-    
+    public void addTheme(Theme t);
+    public void addLanguage(Language l);
+    public Language getLanguage(String language);
+    public Theme getTheme(String theme);
+    public void addTour(Tour t);
+    public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
+    public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist);
+    public void addReview(Tour tour, Tourist tourist, String comment, byte rating);
 }

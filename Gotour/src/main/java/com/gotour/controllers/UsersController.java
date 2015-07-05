@@ -10,43 +10,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/users/")
+@RequestMapping("/users")
 public class UsersController {
 
     @Autowired
     UserService service;
     
-    @RequestMapping(value = "signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(ModelMap map) {
         map.put("msg", "Hello World!");
         return "user/signup";
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String register(@RequestParam("name") String name, @RequestParam("email") String email) {
-
-        /*
-        if (result.hasErrors()) {
-            return "/user/signup";
-        }
-        */
-        
-        Tourist t = new Tourist();
-        t.setName(name);
-        t.setEmail(email);
-        
-        service.addTourist(t);
-        
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String register(ModelMap model) {       
         return "";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap map) {
         map.put("msg", "Hello World!");
         return "user/login";
     }
 
-    @RequestMapping(value = "signin", method = RequestMethod.POST)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public String signin(ModelMap map) {
 
         return "";

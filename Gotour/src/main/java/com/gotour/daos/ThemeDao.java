@@ -6,9 +6,10 @@
 
 package com.gotour.daos;
 
-import com.gotour.models.PointOfInterest;
+import com.gotour.models.Theme;
 
+public interface ThemeDao extends GenericDao<Theme>{
 
-public interface PointOfInterestDao extends GenericDao<PointOfInterest>{
+    public Theme getTheme(String theme);
 
 }
