@@ -20,8 +20,9 @@ public class PointOfInterest implements Serializable {
     private String name;
     private String description;
     private String location;
+    
     @ManyToOne
-    @JoinColumn(name = "city_fk")
+    @JoinColumn(name="city_fk")
     private City city;
 
     public Long getId() {

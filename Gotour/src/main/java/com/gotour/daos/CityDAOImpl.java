@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class CityDaoImpl extends GenericDaoImpl<City> implements CityDao {
     
     public City getCity(String name){
-        return find("name", name).get(0);
+        return findUnique("name", name);
     }
     
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository("touristDao")
 public class TouristDaoImpl extends GenericDaoImpl<Tourist> implements TouristDao{
     public Tourist getTourist(String email) {
-        return find("email", email).get(0);
+        return findUnique("email", email);
     }
 }

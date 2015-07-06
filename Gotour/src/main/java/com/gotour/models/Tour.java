@@ -62,7 +62,7 @@ public class Tour implements Serializable {
     @JoinColumn(name = "tour_fk")
     private Set<Review> reviews;
 
-    @OneToMany(mappedBy="tour", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="tour")
     private List<Enrollments> enrollments;
 
     public Long getId() {

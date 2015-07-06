@@ -24,8 +24,7 @@ public class City implements Serializable {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "city_fk")
+    @OneToMany(mappedBy="city")
     private Set<PointOfInterest> pointsOfInterest;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.EAGER)

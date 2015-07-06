@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public class GuideDaoImpl extends GenericDaoImpl<Guide> implements GuideDao {   
 
     public Guide getGuide(String email) {
-        return find("email", email).get(0);
+        return findUnique("email", email);
     }
 }

@@ -81,4 +81,12 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
         crit.add(Restrictions.eq(property, value));
         return crit.list();
     }
+    
+    @Override
+    public T findUnique(String property, Object value){
+        Criteria crit = getSession().createCriteria(type);
+        crit.add(Restrictions.eq(property, value));
+        crit.setMaxResults(1);
+        return (T) crit.uniqueResult();
+    }
 }

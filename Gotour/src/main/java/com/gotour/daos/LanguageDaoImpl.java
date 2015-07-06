@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public class LanguageDaoImpl extends GenericDaoImpl<Language> implements LanguageDao {
 
     public Language getLanguage(String language) {
-        return find("name", language).get(0);
+        return findUnique("name", language);
     }
 }

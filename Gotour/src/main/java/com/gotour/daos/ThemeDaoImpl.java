@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ThemeDaoImpl extends GenericDaoImpl<Theme> implements ThemeDao {
 
     public Theme getTheme(String theme) {
-        return find("name", theme).get(0);
+        return findUnique("name", theme);
     }
 
 }

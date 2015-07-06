@@ -36,7 +36,7 @@ public class Enrollments implements Serializable {
     @Column(name = "max_enrollments")
     private int maxEnrollments;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name="tourists_enrollments",
             joinColumns=@JoinColumn(name="enrollments_id"),
