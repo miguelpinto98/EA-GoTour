@@ -53,7 +53,7 @@ public class Tour implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "tours_points_of_interest")
-    private Set<PointOfInterest> pointsOfInterest;
+    private List<PointOfInterest> pointsOfInterest;
 
     @ManyToOne
     private Guide guide;
@@ -199,14 +199,14 @@ public class Tour implements Serializable {
     /**
      * @return the pointsOfInterest
      */
-    public Set<PointOfInterest> getPointsOfInterest() {
+    public List<PointOfInterest> getPointsOfInterest() {
         return pointsOfInterest;
     }
 
     /**
      * @param pointsOfInterest the pointsOfInterest to set
      */
-    public void setPointsOfInterest(Set<PointOfInterest> pointsOfInterest) {
+    public void setPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
         this.pointsOfInterest = pointsOfInterest;
     }
 

@@ -5,6 +5,7 @@ import com.gotour.daos.CityDao;
 import com.gotour.daos.PointOfInterestDao;
 import com.gotour.models.City;
 import com.gotour.models.PointOfInterest;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,10 @@ public class CityServiceImpl implements CityService{
 
     public City getCity(String name) {
         return cityDao.getCity(name);
+    }
+
+    public Set<PointOfInterest> getPointsOfInterest(City c) {
+        return poiDao.getPointsOfInterest(c);
     }
 
 }

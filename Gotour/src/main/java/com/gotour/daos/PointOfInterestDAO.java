@@ -6,9 +6,13 @@
 
 package com.gotour.daos;
 
+import com.gotour.models.City;
 import com.gotour.models.PointOfInterest;
+import java.util.Set;
 
 
 public interface PointOfInterestDao extends GenericDao<PointOfInterest>{
+
+    public Set<PointOfInterest> getPointsOfInterest(City c);
 
 }

@@ -11,6 +11,7 @@ import com.gotour.services.CityService;
 import com.gotour.services.TourService;
 import com.gotour.services.UserService;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.joda.time.DateTime;
@@ -102,7 +103,7 @@ public class TestDatabase {
         l.add(ts.getLanguage("Portuguese"));
         t.setLanguages(l);
         t.setName("Enchanted Tour");
-        t.setPointsOfInterest(c.getPoints_of_interest());
+        t.setPointsOfInterest(new ArrayList<PointOfInterest>(cs.getPointsOfInterest(c)));
         t.setPrice(new BigDecimal(12.2));
         t.setTheme(ts.getTheme("Free"));
         ts.addTour(t);

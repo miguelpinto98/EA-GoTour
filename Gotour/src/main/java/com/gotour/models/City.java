@@ -94,15 +94,15 @@ public class City implements Serializable {
     /**
      * @return the points_of_interest
      */
-    public Set<PointOfInterest> getPoints_of_interest() {
+    public Set<PointOfInterest> getPointsOfInterest() {
         return pointsOfInterest;
     }
 
     /**
      * @param points_of_interest the points_of_interest to set
      */
-    public void setPoints_of_interest(Set<PointOfInterest> points_of_interest) {
-        this.pointsOfInterest = points_of_interest;
+    public void setPointsOfInterest(Set<PointOfInterest> pointsOfInterest) {
+        this.pointsOfInterest = pointsOfInterest;
     }
 
 }
