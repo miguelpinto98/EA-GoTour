@@ -68,10 +68,10 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     @Override
-    public List<T> getAll(int offset, int limit) {
+    public List<T> getPage(int pageNumber, int pageSize) {
         Criteria crit = getSession().createCriteria(type);
-        crit.setFirstResult(offset);
-        crit.setMaxResults(limit);
+        crit.setFirstResult((pageNumber - 1) * pageSize);
+        crit.setMaxResults(pageSize);
         return crit.list();
     }
 
@@ -88,5 +88,11 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
         crit.add(Restrictions.eq(property, value));
         crit.setMaxResults(1);
         return (T) crit.uniqueResult();
+    }
+    
+    protected List<T> getPageByCriteria(int pageNumber, int pageSize, Criteria crit){
+        crit.setFirstResult((pageNumber - 1) * pageSize);
+        crit.setMaxResults(pageSize);
+        return crit.list();
     }
 }

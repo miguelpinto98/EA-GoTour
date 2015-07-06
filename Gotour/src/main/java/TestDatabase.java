@@ -109,13 +109,13 @@ public class TestDatabase {
     }
 
     private void addEnrollments() {
-        Tour t = cs.getCity("Braga").getTours().iterator().next();
+        Tour t = ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0);
         DateTime date = new DateTime();
         ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 20);
         ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
     }
 
     private void addReviews() {
-       ts.addReview(cs.getCity("Braga").getTours().iterator().next(), us.getTourist("teste@teste.com"), "Muito bom!", (byte) 2);
+       ts.addReview(ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0), us.getTourist("teste@teste.com"), "Muito bom!", (byte) 2);
     }
 }

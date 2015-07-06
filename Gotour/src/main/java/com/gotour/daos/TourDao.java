@@ -6,8 +6,12 @@
 
 package com.gotour.daos;
 
+import com.gotour.models.City;
+import com.gotour.models.Theme;
 import com.gotour.models.Tour;
+import java.util.List;
 
 
 public interface TourDao extends GenericDao<Tour>{
+    public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
 }

@@ -11,12 +11,14 @@ import com.gotour.daos.LanguageDao;
 import com.gotour.daos.ReviewDao;
 import com.gotour.daos.ThemeDao;
 import com.gotour.daos.TourDao;
+import com.gotour.models.City;
 import com.gotour.models.Enrollments;
 import com.gotour.models.Language;
 import com.gotour.models.Review;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
+import java.util.List;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +80,10 @@ public class TourServiceImpl implements TourService {
         r.setTourist(tourist);
         r.setTour(tour);
         reviews.save(r);
+    }
+
+    public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize) {
+        return tours.getTours(c, t, pageNumber, pageSize);
     }
 
 }

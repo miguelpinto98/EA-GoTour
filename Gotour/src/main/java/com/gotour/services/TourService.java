@@ -6,10 +6,12 @@
 
 package com.gotour.services;
 
+import com.gotour.models.City;
 import com.gotour.models.Language;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
+import java.util.List;
 import org.joda.time.DateTime;
 
 
@@ -22,4 +24,5 @@ public interface TourService {
     public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
     public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist);
     public void addReview(Tour tour, Tourist tourist, String comment, byte rating);
+    public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
 }

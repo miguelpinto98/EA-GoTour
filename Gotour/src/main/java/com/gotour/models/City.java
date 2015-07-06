@@ -27,7 +27,7 @@ public class City implements Serializable {
     @OneToMany(mappedBy="city")
     private Set<PointOfInterest> pointsOfInterest;
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "city")
     private Set<Tour> tours;
 
     public Long getId() {

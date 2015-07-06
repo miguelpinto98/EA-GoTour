@@ -10,5 +10,5 @@ public interface GenericDao<T> {
     public void save(T obj);
     public void update(T obj);
     public List<T> getAll();
-    public List<T> getAll(int offset, int limit);
+    public List<T> getPage(int pageNumber, int pageSize);
 }
