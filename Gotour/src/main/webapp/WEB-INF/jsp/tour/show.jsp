@@ -57,25 +57,25 @@
         <div class="customers-carousel" data-toggle="owl-carousel" data-owl-carousel-settings='{"items": 3, "lazyLoad":true, "navigation":true, "scrollPerPage":true}'>
 
           <a href="img/sameiro.jpg">
-            <img data-src="resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
+            <img data-src="${context}/resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
             <h6>
               Bom Jesus
             </h6>
           </a>
           <a href="elements.htm#">
-            <img data-src="resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
+            <img data-src="${context}/resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
             <h6>
               Sameiro
             </h6>
           </a>
           <a href="elements.htm#">
-            <img data-src="resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
+            <img data-src="${context}/resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
             <h6>
               SÃ© Cathedral
             </h6>
           </a>
           <a href="elements.htm#">
-            <img data-src="resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
+            <img data-src="${context}/resources/img/points_of_interest/Braga/Bom Jesus.jpg" class="lazyOwl img-responsive underlay" />
             <h6>
               Municipal Square
             </h6>
@@ -90,7 +90,7 @@
           <ul class="media-list">
             <li class="media">
               <a class="pull-left" href="blog-post-slideshow.htm#">
-                <img src="resources/img/team/robert.jpg" alt="Picture of Alex" class="media-object img-thumbnail img-responsive" />
+                <img src="${context}/resources/img/team/robert.jpg" alt="Picture of Alex" class="media-object img-thumbnail img-responsive" />
               </a>
               <div class="media-body">
                 <ul class="list-inline meta text-muted">
@@ -106,7 +106,7 @@
             </li>
             <li class="media">
               <a class="pull-left" href="blog-post-slideshow.htm#">
-                <img src="resources/img/team/adele.jpg" alt="Picture of Erin" class="media-object img-thumbnail img-responsive" />
+                <img src="${context}/resources/img/team/adele.jpg" alt="Picture of Erin" class="media-object img-thumbnail img-responsive" />
               </a>
               <div class="media-body">
                 <ul class="list-inline meta text-muted">

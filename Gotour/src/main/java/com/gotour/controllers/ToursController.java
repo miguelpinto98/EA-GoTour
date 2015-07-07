@@ -2,6 +2,7 @@ package com.gotour.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,8 +16,8 @@ public class ToursController {
     return "tour/list";
   }
   
-  @RequestMapping(value = "/show", method = RequestMethod.GET)
-  public String show(ModelMap map) {
+  @RequestMapping(value = "/{tourId}", method = RequestMethod.GET)
+  public String show(@PathVariable int tourId, ModelMap map) {
 
     return "tour/show";
   }
