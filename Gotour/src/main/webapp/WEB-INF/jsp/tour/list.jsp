@@ -1,8 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 
 <t:layout pageTitle="GoTour">
   <div id="content">
-    <h1>HELLO WORLD</h1>
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li class="active">Tours</li>
+      </ol>
+    </div>
   </div>
 </t:layout>

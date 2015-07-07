@@ -1,12 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 
 <t:layout pageTitle="GoTour">
   <div id="content">
     <div class="container">
       <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Tours</a></li>
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li><a href="<c:url value="/tours"/>">Tours</a></li>
         <li class="active">Create</li>
       </ol>
       <!-- Add tour form -->
