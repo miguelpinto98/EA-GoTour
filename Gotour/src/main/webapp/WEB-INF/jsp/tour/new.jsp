@@ -12,7 +12,7 @@
       <!-- Add tour form -->
       <form class="form-login form-narrow form-medium form-horizontal" role="form">
         <h3 class="title-divider">
-          <span>Create <span class="de-em">Tour</span></span> 
+          <span>Create <span class="de-em">Tour</span></span>
           <small>Add a new tour for a city!</small>
         </h3>
 
@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="checkbox"></div>
-        
+
         <div class="form-group">
           <div class="col-sm-4"></div>
           <div class="col-sm-8">
