@@ -8,3 +8,6 @@ and open the template in the editor.
     color:blue;
 }
 
+textarea {
+  resize: vertical;
+}

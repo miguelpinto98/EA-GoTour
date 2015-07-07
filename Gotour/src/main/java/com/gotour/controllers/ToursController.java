@@ -21,4 +21,11 @@ public class ToursController {
     return "tour/show";
   }
   
+  @RequestMapping(value = "/new", method = RequestMethod.GET)
+  public String newTour(ModelMap map) {
+
+    return "tour/new";
+  }
+  
+  
 }
