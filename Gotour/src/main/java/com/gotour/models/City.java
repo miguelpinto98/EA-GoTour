@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cities")
+@Table(name = "cities")
 public class City implements Serializable {
 
     @Id
@@ -23,14 +23,13 @@ public class City implements Serializable {
 
     @Column(unique = true)
     private String name;
-    
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="city_fk")
-    private Set<PointOfInterest> pointsOfInterest;
-    
+
     @OneToMany(mappedBy="city")
+    private Set<PointOfInterest> pointsOfInterest;
+
+    @OneToMany(mappedBy = "city")
     private Set<Tour> tours;
-    
+
     public Long getId() {
         return id;
     }
@@ -95,18 +94,15 @@ public class City implements Serializable {
     /**
      * @return the points_of_interest
      */
-    public Set<PointOfInterest> getPoints_of_interest() {
-        if (pointsOfInterest == null)
-            return new HashSet<PointOfInterest>();
-        else
-            return pointsOfInterest;
+    public Set<PointOfInterest> getPointsOfInterest() {
+        return pointsOfInterest;
     }
 
     /**
      * @param points_of_interest the points_of_interest to set
      */
-    public void setPoints_of_interest(Set<PointOfInterest> points_of_interest) {
-        this.pointsOfInterest = points_of_interest;
+    public void setPointsOfInterest(Set<PointOfInterest> pointsOfInterest) {
+        this.pointsOfInterest = pointsOfInterest;
     }
 
 }

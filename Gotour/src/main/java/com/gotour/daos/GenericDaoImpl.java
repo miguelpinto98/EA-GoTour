@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
@@ -25,6 +26,10 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     protected SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+
+    protected Session getSession() {
+        return sessionFactory.getCurrentSession();
     }
 
     public Class<T> getType() {
@@ -57,8 +62,37 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Override
     public List<T> getAll() {
-        final Session session = sessionFactory.getCurrentSession();
-        final Criteria crit = session.createCriteria(type);
+        Session session = sessionFactory.getCurrentSession();
+        Criteria crit = session.createCriteria(type);
+        return crit.list();
+    }
+
+    @Override
+    public List<T> getPage(int pageNumber, int pageSize) {
+        Criteria crit = getSession().createCriteria(type);
+        crit.setFirstResult((pageNumber - 1) * pageSize);
+        crit.setMaxResults(pageSize);
+        return crit.list();
+    }
+
+    @Override
+    public List<T> find(String property, Object value) {
+        Criteria crit = getSession().createCriteria(type);
+        crit.add(Restrictions.eq(property, value));
+        return crit.list();
+    }
+    
+    @Override
+    public T findUnique(String property, Object value){
+        Criteria crit = getSession().createCriteria(type);
+        crit.add(Restrictions.eq(property, value));
+        crit.setMaxResults(1);
+        return (T) crit.uniqueResult();
+    }
+    
+    protected List<T> getPageByCriteria(int pageNumber, int pageSize, Criteria crit){
+        crit.setFirstResult((pageNumber - 1) * pageSize);
+        crit.setMaxResults(pageSize);
         return crit.list();
     }
 }

@@ -2,11 +2,13 @@ package com.gotour.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,10 +53,9 @@ public class Tour implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "tours_points_of_interest")
-    private Set<PointOfInterest> pointsOfInterest;
+    private List<PointOfInterest> pointsOfInterest;
 
     @ManyToOne
-    @JoinColumn(name = "guide")
     private Guide guide;
 
     @OneToMany
@@ -62,8 +63,7 @@ public class Tour implements Serializable {
     private Set<Review> reviews;
 
     @OneToMany(mappedBy="tour")
-    @MapKeyColumn(name = "date")
-    Map<Date,Enrollments> enrollments;
+    private List<Enrollments> enrollments;
 
     public Long getId() {
         return id;
@@ -199,14 +199,14 @@ public class Tour implements Serializable {
     /**
      * @return the pointsOfInterest
      */
-    public Set<PointOfInterest> getPointsOfInterest() {
+    public List<PointOfInterest> getPointsOfInterest() {
         return pointsOfInterest;
     }
 
     /**
      * @param pointsOfInterest the pointsOfInterest to set
      */
-    public void setPointsOfInterest(Set<PointOfInterest> pointsOfInterest) {
+    public void setPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
         this.pointsOfInterest = pointsOfInterest;
     }
 

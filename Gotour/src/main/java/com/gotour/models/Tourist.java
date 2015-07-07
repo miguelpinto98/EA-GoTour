@@ -5,15 +5,14 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tourists")
-public class Tourist extends User implements Serializable  {
+@Table(name = "tourists")
+public class Tourist extends User implements Serializable {
 
     @OneToMany
-    @JoinColumn(name="tourist_fk")
+    @JoinColumn(name = "tourist_fk")
     private Set<Review> reviews;
-    
-    @ManyToMany
-    @JoinTable(name = "tourists_enrollments")
+
+    @ManyToMany(mappedBy = "tourists")
     private Set<Enrollments> enrollments;
 
     /**
@@ -43,5 +42,5 @@ public class Tourist extends User implements Serializable  {
     public void setEnrollments(Set<Enrollments> enrollments) {
         this.enrollments = enrollments;
     }
-    
+
 }
