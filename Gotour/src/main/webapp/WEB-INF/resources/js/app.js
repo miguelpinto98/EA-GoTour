@@ -6,6 +6,8 @@ $(document).ready(function() {
   });
   
   $(".poi-add").click(function(){
+    $('input').val('');
+    
     var city_name = $("#tour_city option:selected").text();
     var city_id = $("#tour_city").val();
     
