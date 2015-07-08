@@ -22,13 +22,16 @@
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/custom-style.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/theme-style.min.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/colour-blue.css" />
+    <link rel="stylesheet" type="text/css" href="${context}/resources/css/select2.css" />
     
     <!-- JS -->
-    <script src="${context}/resources/js/app.js"></script>
     <script src="${context}/resources/js/jquery.min.js"></script>
     <script src="${context}/resources/js/bootstrap.min.js"></script>
     <script src="${context}/resources/js/script.min.js"></script>
-        
+    <script src="${context}/resources/js/select2.full.js"></script>
+    <script src="${context}/resources/js/select2.sortable.js"></script>
+    <script src="${context}/resources/js/app.js"></script>
+    
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Rambla' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>

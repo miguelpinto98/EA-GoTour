@@ -9,6 +9,12 @@
         <li><a href="<c:url value="/"/>">Home</a></li>
         <li class="active">Tours</li>
       </ol>
+      
+      <ol>
+        <c:forEach items="${cityList}" var="city">
+          <li><c:out value="${city.name}" /></li>
+        </c:forEach>
+      </ol>
     </div>
   </div>
 </t:layout>
