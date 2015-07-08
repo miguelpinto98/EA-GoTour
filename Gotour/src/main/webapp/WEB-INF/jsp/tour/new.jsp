@@ -8,7 +8,7 @@
     <div class="container">
       <ol class="breadcrumb">
         <li><a href="<c:url value="/"/>">Home</a></li>
-        <li><a href="<c:url value="/tours"/>">Tours</a></li>
+        <li><a href="<c:url value="/tours/"/>">Tours</a></li>
         <li class="active">Create</li>
       </ol>
       <!-- Add tour form -->
@@ -39,7 +39,7 @@
         <div class="form-group">
           <form:label path="city.id" class="col-sm-4">City</form:label>
             <div class="col-sm-6">
-            <form:select path="city.id" class="form-control"  items="${cityList}" itemValue="id" itemLabel="name" />
+            <form:select path="city.id" id="tour_city" class="form-control"  items="${cityList}" itemValue="id" itemLabel="name" />
           </div>
         </div>
         <div class="form-group">
@@ -54,14 +54,14 @@
                 <option value="${poi.id}">${poi.name}</option>
               </c:forEach>
             </form:select>
-            </div>
-            <div class="col-sm-1">
-              <a href="#">
-                <i class="fa fa-plus fa-2x"></i>
-              </a>
-            </div>
           </div>
-          <div class="form-group">
+          <div class="col-sm-1">
+            <a href="#" class="poi-add">
+              <i class="fa fa-plus fa-2x"></i>
+            </a>
+          </div>
+        </div>
+        <div class="form-group">
           <form:label path="duration" class="col-sm-4">Duration</form:label>
             <div class="col-sm-4">
             <form:input path="duration" class="form-control" />
@@ -95,4 +95,47 @@
       </form:form>
     </div>
   </div>
+
+  <!-- MODAL -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create a Point of Interest for <small id="poi-title">City</small></h4>
+        </div>
+        <form role="form" enctype="multipart/form-data">
+          <div class="modal-body">
+            <h5>
+              Point of Interest Information
+            </h5>
+            
+            <input value="x" id="poi-city" type="hidden" type="text">
+            
+            <div class="form-group">
+              <label class="sr-only" for="poi_name">Name</label>
+              <input type="text" class="form-control" id="poi-name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="poi_desc">Description</label>
+              <input type="text" class="form-control" id="poi-desc" placeholder="Description" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="poi-coord">GPS coordinates</label>
+              <input type="text" class="form-control" id="poi-coord" placeholder="GPS Coordinates" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="poi-save btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </t:layout>
+
+<script>
+  
+</script>

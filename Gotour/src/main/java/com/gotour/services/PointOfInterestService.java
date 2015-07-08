@@ -8,4 +8,6 @@ public interface PointOfInterestService {
   public List<PointOfInterest> getPoints();
 
   public List<PointOfInterest> getSelectedPoints(String[] points);
+
+  public void addPointOfInterest(PointOfInterest point);
 }

@@ -29,4 +29,8 @@ public class PointOfInterestServiceImpl implements PointOfInterestService {
     
     return lpoints;
   }
+
+  public void addPointOfInterest(PointOfInterest point) {
+    poiDao.save(point);
+  }
 }
