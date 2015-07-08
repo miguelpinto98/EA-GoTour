@@ -8,6 +8,7 @@ package com.gotour.services;
 
 import com.gotour.models.City;
 import com.gotour.models.Language;
+import com.gotour.models.Review;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
@@ -23,6 +24,7 @@ public interface TourService {
     public void addTour(Tour t);
     public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
     public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist);
-    public void addReview(Tour tour, Tourist tourist, String comment, byte rating);
+    public void addReview(Tour tour, Tourist tourist, Review r);
+    public Tour getTour(Long tourId);
     public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
 }

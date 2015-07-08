@@ -2,8 +2,6 @@ package com.gotour.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -16,18 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "tours")
 public class Tour implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(nullable = false)
@@ -39,11 +38,11 @@ public class Tour implements Serializable {
     @Digits(integer=3, fraction=2)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "theme_fk")
     private Theme theme;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "tours_languages")
     private Set<Language> languages;
 
@@ -51,14 +50,15 @@ public class Tour implements Serializable {
     @JoinColumn(name = "city_fk")
     private City city;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
+    @Fetch (FetchMode.SELECT)
     @JoinTable(name = "tours_points_of_interest")
     private List<PointOfInterest> pointsOfInterest;
 
     @ManyToOne
     private Guide guide;
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name = "tour_fk")
     private Set<Review> reviews;
 
@@ -222,6 +222,20 @@ public class Tour implements Serializable {
      */
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    /**
+     * @return the enrollments
+     */
+    public List<Enrollments> getEnrollments() {
+        return enrollments;
+    }
+
+    /**
+     * @param enrollments the enrollments to set
+     */
+    public void setEnrollments(List<Enrollments> enrollments) {
+        this.enrollments = enrollments;
     }
 
 }

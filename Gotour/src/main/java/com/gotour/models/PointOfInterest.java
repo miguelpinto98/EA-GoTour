@@ -8,13 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="points_of_interest")
+@Table(
+        name="points_of_interest",
+        uniqueConstraints=@UniqueConstraint(columnNames={"city_fk", "name"})
+)
 public class PointOfInterest implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     
     private String name;

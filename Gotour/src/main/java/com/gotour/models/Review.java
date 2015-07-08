@@ -20,7 +20,7 @@ import org.joda.time.DateTime;
 public class Review implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(name = "date")
@@ -31,6 +31,7 @@ public class Review implements Serializable {
     @JoinColumn(name = "tourist_fk")
     private Tourist tourist;
 
+    private String title;
     private String comment;
     private Byte rating;
 
@@ -139,6 +140,20 @@ public class Review implements Serializable {
      */
     public void setTour(Tour tour) {
         this.tour = tour;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

@@ -4,6 +4,7 @@ import com.gotour.models.City;
 import com.gotour.models.Guide;
 import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
+import com.gotour.models.Review;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
@@ -71,7 +72,9 @@ public class TestDatabase {
     void addLanguages() {
         Language l1 = new Language(), l2 = new Language();
         l1.setName("English");
+        l1.setCode("gb");
         l2.setName("Portuguese");
+        l2.setCode("pt");
         ts.addLanguage(l1);
         ts.addLanguage(l2);
     }
@@ -117,6 +120,10 @@ public class TestDatabase {
     }
 
     private void addReviews() {
-       ts.addReview(ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0), us.getTourist("teste@teste.com"), "Muito bom!", (byte) 2);
+       Review r = new Review();
+       r.setComment("Muito Bom!");
+       r.setRating((byte) 5);
+       r.setTitle("Top!");
+       ts.addReview(ts.getTour(1L), us.getTourist("teste@teste.com"), r);
     }
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.gotour.services;
 
 import com.gotour.daos.EnrollmentsDao;
@@ -28,12 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TourServiceImpl implements TourService {
 
-    @Autowired private ThemeDao themes;
-    @Autowired private LanguageDao languages;
-    @Autowired private TourDao tours;
-    @Autowired private EnrollmentsDao enrollments;
-    @Autowired private ReviewDao reviews;
-    
+    @Autowired
+    private ThemeDao themes;
+    @Autowired
+    private LanguageDao languages;
+    @Autowired
+    private TourDao tours;
+    @Autowired
+    private EnrollmentsDao enrollments;
+    @Autowired
+    private ReviewDao reviews;
+
     public void addTheme(Theme t) {
         themes.save(t);
     }
@@ -72,11 +76,8 @@ public class TourServiceImpl implements TourService {
         else return false;
     }
 
-    public void addReview(Tour tour, Tourist tourist, String comment, byte rating) {
-        Review r = new Review();
-        r.setComment(comment);
+    public void addReview(Tour tour, Tourist tourist, Review r) {
         r.setDate(new DateTime());
-        r.setRating(rating);
         r.setTourist(tourist);
         r.setTour(tour);
         reviews.save(r);
@@ -84,6 +85,10 @@ public class TourServiceImpl implements TourService {
 
     public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize) {
         return tours.getTours(c, t, pageNumber, pageSize);
+    }
+
+    public Tour getTour(Long tourId) {
+        return tours.find(tourId);
     }
 
 }
