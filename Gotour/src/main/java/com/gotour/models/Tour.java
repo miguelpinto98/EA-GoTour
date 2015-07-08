@@ -2,6 +2,7 @@ package com.gotour.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -62,7 +63,8 @@ public class Tour implements Serializable {
     @JoinColumn(name = "tour_fk")
     private Set<Review> reviews;
 
-    @OneToMany(mappedBy="tour")
+    @OneToMany(mappedBy="tour", fetch=FetchType.EAGER)
+    @Fetch (FetchMode.SELECT)
     private List<Enrollments> enrollments;
 
     public Long getId() {
@@ -238,4 +240,12 @@ public class Tour implements Serializable {
         this.enrollments = enrollments;
     }
 
+    public List<Enrollments> getAvailableEnrollments(){
+        List<Enrollments> res = new ArrayList<Enrollments>();
+        for(Enrollments e : enrollments){
+            if (e.getDate().isAfterNow() && !e.full())
+                res.add(e);
+        }
+        return res;
+    }
 }

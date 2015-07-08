@@ -33,6 +33,7 @@ public class ToursController {
         model.addAttribute("idioms", t.getLanguages());
         model.addAttribute("pois", t.getPointsOfInterest());
         model.addAttribute("reviews", t.getReviews());
+        model.addAttribute("enrollments", t.getAvailableEnrollments());
         return "tour/show";
     }
 

@@ -23,9 +23,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestDatabase {
 
-    @Autowired CityService cs;
-    @Autowired TourService ts;
-    @Autowired UserService us;
+    @Autowired
+    CityService cs;
+    @Autowired
+    TourService ts;
+    @Autowired
+    UserService us;
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
@@ -85,7 +88,7 @@ public class TestDatabase {
         t.setEmail("teste@teste.com");
         t.setPassword("teste");
         us.addTourist(t);
-        
+
         Guide g = new Guide();
         g.setName("Guia");
         g.setEmail("guia@guia.com");
@@ -113,17 +116,21 @@ public class TestDatabase {
     }
 
     private void addEnrollments() {
-        Tour t = ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0);
+        Tour t = ts.getTour(1L);
         DateTime date = new DateTime();
-        ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 20);
+        ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
+        ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
+        date = new DateTime(2015, 7, 25, 15, 15);
+        ts.addTourDate(t, ts.getLanguage("English"), date, 20);
+        ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
         ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
     }
 
     private void addReviews() {
-       Review r = new Review();
-       r.setComment("Muito Bom!");
-       r.setRating((byte) 5);
-       r.setTitle("Top!");
-       ts.addReview(ts.getTour(1L), us.getTourist("teste@teste.com"), r);
+        Review r = new Review();
+        r.setComment("Muito Bom!");
+        r.setRating((byte) 5);
+        r.setTitle("Top!");
+        ts.addReview(ts.getTour(1L), us.getTourist("teste@teste.com"), r);
     }
 }

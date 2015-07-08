@@ -16,11 +16,24 @@
 
                 <div class="jumbotron">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-lg btn-info">June 15, Monday, 9h / English</button>
-                        <button aria-expanded="false" type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
-                        <ul class="dropdown-menu dropdown-menu-info" role="menu">
-                            <li><a href="">June 23, Tuesday, 14h / Portuguese</a></li>
-                        </ul>
+                        <c:forEach items="${enrollments}" var="enrollment" varStatus="status">
+                            <c:choose>
+                                <c:when test="${status.first}">
+                                    <button id="${enrollment.id}" type="button" class="btn btn-lg btn-info"><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</button>
+                                    <button aria-expanded="false" type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
+                                </c:when>
+                                <c:when test="${status.count == 2}">
+                                    <ul class="dropdown-menu dropdown-menu-info" role="menu">
+                                    </c:when>
+                                    <c:when test="${status.last}">
+                                        <li id="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
+                                    </ul>
+                                </c:when>
+                                <c:otherwise>
+                                    <li id="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-lg btn-primary">BOOK NOW</button>
@@ -71,7 +84,7 @@
                                         <li><i class="fa fa-user"></i> <a href="/tourists/${review.tourist.id}">${review.tourist.name}</a></li>
                                         <li>
                                             <c:forEach begin="1" end="${review.rating}">
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
+                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
                                             </c:forEach>
                                         </li>
                                     </ul>
