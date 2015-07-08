@@ -44,11 +44,16 @@
         </div>
         <div class="form-group">
           <form:label path="pointsOfInterest" class="col-sm-4">Points of Interest</form:label>
-            <div class="col-sm-5">
-              <select class="poi-multiple form-control" multiple="multiple" style="width: 100%">
+            <div class="col-sm-4">
+              <!--<select class="poi-multiple form-control" multiple="multiple" style="width: 100%">
                 <option value="AL">Alabama</option>
                 <option value="AL">ccccc</option>
-              </select>
+              </select>-->
+            <form:select path="points" class="poi-multiple form-control" multiple="multiple">
+              <c:forEach items="${poisList}" var="poi">
+                <option value="${poi.id}">${poi.name}</option>
+              </c:forEach>
+            </form:select>
             </div>
             <div class="col-sm-1">
               <a href="#">
@@ -58,7 +63,7 @@
           </div>
           <div class="form-group">
           <form:label path="duration" class="col-sm-4">Duration</form:label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
             <form:input path="duration" class="form-control" />
           </div>
         </div>

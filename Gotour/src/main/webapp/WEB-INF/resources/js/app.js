@@ -1,9 +1,7 @@
 $(document).ready(function() {
-  /*$(".poi-multiple").select2({
-    placeholder: "Select the points of interest or create",
-    allowClear: true
-  });*/
-  $(".poi-multiple").select2Sortable({
-    bindOrder: 'sortableStop'
+  $(".poi-multiple").multiSelect({
+    keepOrder: true,
+    selectableHeader: "<div class='custom-header'>Select the points</div>",
+    selectionHeader: "<div class='custom-header'>Tour include</div>",
   });
 });
