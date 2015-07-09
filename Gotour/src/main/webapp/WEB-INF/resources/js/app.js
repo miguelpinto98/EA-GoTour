@@ -38,4 +38,12 @@ $(document).ready(function() {
       }
     });
   });
+  
+  $("#tour_city").change(function(){
+    $('.poi-multiple').empty().multiSelect('refresh');
+    var city_id = $("#tour_city").val();
+ 
+    
+    $('.poi-multiple').multiSelect('addOption', {value: "55", text: "asdasdasddsa", index: 0});
+  });
 });
