@@ -114,6 +114,7 @@ public class TestDatabase {
     City c = cs.getCity("Braga");
     t.setCity(c);
     t.setDescription("Find out about Braga's mysteries by taking a tour through its narrow and medieval streets. Learn about the legends, be amazed by the 'gverreiros' way of living and enjoy the city through the local's perspective.");
+    t.setDuration("2 hours");
     t.setGuide(us.getGuide("guia@guia.com"));
     Set<Language> l = new HashSet<Language>();
     l.add(ts.getLanguage("English"));
@@ -121,7 +122,8 @@ public class TestDatabase {
     t.setLanguages(l);
     t.setName("Enchanted Tour");
     t.setPointsOfInterest(new ArrayList<PointOfInterest>(cs.getPointsOfInterest(c)));
-    t.setNormalPrice("2.5");
+    t.setNormalPrice("5€");
+    t.setStudentPrice("2.5€");
     t.setTheme(ts.getTheme("Free"));
     ts.addTour(t);
   }
