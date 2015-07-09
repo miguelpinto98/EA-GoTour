@@ -60,7 +60,7 @@
 
                     <c:forEach items="${pois}" var="poi">
                         <a href="${context}/resources/img/points_of_interest/${poi.name}.jpg">
-                            <img data-src="${context}/resources/img/points_of_interest/${poi.id}.jpg" class="lazyOwl img-responsive underlay" />
+                            <img data-src="${context}/resources/img/points_of_interest/${poi.id}.jpg" class="lazyOwl img-responsive underlay" style="width:300px;height:175px" />
                             <h6>
                                 ${poi.name}
                             </h6>
