@@ -39,7 +39,7 @@ public class UsersController {
     public String signin(@RequestParam String email, @RequestParam String password, ModelMap map) {
         User u = service.authenticateUser(email, password);
         if (u != null){
-          map.addAttribute("user", this);
+          map.addAttribute("user", u);
           return "redirect:/";
         }
         else return "redirect:/users/login";
