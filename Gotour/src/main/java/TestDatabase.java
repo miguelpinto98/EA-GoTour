@@ -70,7 +70,6 @@ public class TestDatabase {
   void addThemes() {
     Theme t = new Theme();
     t.setName("Free Tours");
-    t = new Theme();
     ts.addTheme(t);
     t = new Theme();
     t.setName("Food Tours");
