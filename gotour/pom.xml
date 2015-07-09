@@ -66,7 +66,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.1.2.Final</version>
         </dependency>
-        
         <!-- Joda-Time -->       
         <dependency>
             <groupId>joda-time</groupId>
@@ -84,7 +83,6 @@
             <artifactId>usertype.core</artifactId>
             <version>3.0.0.CR1</version>
         </dependency>
-    
         <!-- Servlet+JSP+JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -103,6 +101,12 @@
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+
     </dependencies>
 
     <build>
