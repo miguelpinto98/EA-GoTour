@@ -11,6 +11,23 @@
         <li><a href="<c:url value="/tours/"/>">Tours</a></li>
         <li class="active">Create</li>
       </ol>
+
+      <div class="alert alert-success" id="notice-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4>
+          Looking good!
+        </h4>
+        All systems are go!! 
+      </div>
+      
+      <div class="alert alert-danger" id="notice-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4>
+          Error!
+        </h4>
+        Server meltdown pending!!!
+      </div>
+      
       <!-- Add tour form -->
       <form:form action="create" class="form-login form-narrow form-medium form-horizontal" method="POST" role="form" commandName="tourForm">
         <h3 class="title-divider">
@@ -33,7 +50,7 @@
         <div class="form-group">
           <form:label path="theme" class="col-sm-4">Thematic</form:label>
             <div class="col-sm-6">
-            <form:select path="theme.id" class="form-control"  items="${themeList}" itemValue="id" itemLabel="name" />
+            <form:select path="theme.id" id="tour_theme" class="form-control"  items="${themeList}" itemValue="id" itemLabel="name" />
           </div>
         </div>
         <div class="form-group">
@@ -67,20 +84,13 @@
             <form:input path="duration" class="form-control" />
           </div>
         </div>
-        <div class="form-group">
+        <div class="price form-group">
           <form:label path="normalPrice" class="col-sm-4">Price</form:label>
             <div class="col-sm-2">
             <form:input path="normalPrice" class="form-control" placeholder="Normal €" />
           </div>
           <div class="col-sm-2">
             <form:input path="studentPrice" class="form-control" placeholder="Student €" />
-          </div>
-          <div class="col-sm-2">
-            <div class="checkbox">
-              <label>
-                <form:checkbox path="free"/>It's free.
-              </label>
-            </div>
           </div>
         </div>
         <div class="checkbox"></div>
@@ -109,9 +119,9 @@
             <h5>
               Point of Interest Information
             </h5>
-            
+
             <input value="x" id="poi-city" type="hidden" type="text">
-            
+
             <div class="form-group">
               <label class="sr-only" for="poi_name">Name</label>
               <input type="text" class="form-control" id="poi-name" placeholder="Name" required>
@@ -137,5 +147,5 @@
 </t:layout>
 
 <script>
-  
+
 </script>

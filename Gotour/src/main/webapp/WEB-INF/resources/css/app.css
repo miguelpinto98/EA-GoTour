@@ -11,3 +11,15 @@ and open the template in the editor.
 textarea {
   resize: vertical;
 }
+
+.price{
+  display: none;
+}
+
+#notice-success{
+  display: none;
+}
+
+#notice-error{
+  display: none;
+}
