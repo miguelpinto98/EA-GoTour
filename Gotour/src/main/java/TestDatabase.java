@@ -51,6 +51,7 @@ public class TestDatabase {
     City c = new City();
     c.setName("Porto");
     cs.addCity(c);
+    c = new City();
     c.setName("Braga");
     cs.addCity(c);
   }
@@ -69,16 +70,16 @@ public class TestDatabase {
 
   void addThemes() {
     Theme t = new Theme();
-    t.setName("Free Tours");
+    t.setName("Free");
     ts.addTheme(t);
     t = new Theme();
-    t.setName("Food Tours");
+    t.setName("Food");
     ts.addTheme(t);
     t = new Theme();
-    t.setName("Walking Tours");
+    t.setName("Walking");
     ts.addTheme(t);
     t = new Theme();
-    t.setName("Night Tours");
+    t.setName("Night");
     ts.addTheme(t);
   }
 
@@ -120,7 +121,7 @@ public class TestDatabase {
     t.setLanguages(l);
     t.setName("Enchanted Tour");
     t.setPointsOfInterest(new ArrayList<PointOfInterest>(cs.getPointsOfInterest(c)));
-    t.setNormalPrice("2.5€");
+    t.setNormalPrice("2.5");
     t.setTheme(ts.getTheme("Free"));
     ts.addTour(t);
   }

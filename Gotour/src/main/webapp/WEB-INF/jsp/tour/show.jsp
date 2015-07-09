@@ -120,7 +120,7 @@
                             <span>Price</span>
                         </h4>
                         <ul class="list-unstyled list-lg">
-                            <li><i class="fa fa-angle-right fa-fw"></i>${tour.price}€</li>
+                            <li><i class="fa fa-angle-right fa-fw"></i>${tour.normalPrice}€</li>
                         </ul>
                     </div>
 
