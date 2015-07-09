@@ -25,7 +25,8 @@ public class PointsOfInterestController {
   @Autowired private PointOfInterestService poiService;
   @Autowired private CityService cityService;
   
-  @RequestMapping(value = "/create", method = RequestMethod.POST)
+  @ResponseBody
+  @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   public PointOfInterest create(@RequestParam String name, @RequestParam String description, @RequestParam String location, @RequestParam long cityid) {
     PointOfInterest point = new PointOfInterest();
     City city = cityService.getCityByID(cityid);
@@ -48,7 +49,7 @@ public class PointsOfInterestController {
   }
   
   @ResponseBody
-  @RequestMapping(value = "/city/{id}" ,method = RequestMethod.GET)
+  @RequestMapping(value = "/city/{id}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public Set<PointOfInterest> list(@PathVariable long id) {
     return poiService.getPointsOfCity(id);
   }
