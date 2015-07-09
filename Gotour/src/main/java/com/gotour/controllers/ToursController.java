@@ -92,7 +92,7 @@ public class ToursController {
     System.out.println("POIS: " + tour.getPointsOfInterest().toString());
     tourService.addTour(tour);
 
-    return "redirect:/tours/";
+    return "redirect:/tours/"+String.valueOf(tour.getId());
   }
 
   @RequestMapping(value = "/theme/{id}", method = RequestMethod.GET)
