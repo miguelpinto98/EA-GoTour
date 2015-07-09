@@ -1,6 +1,7 @@
 package com.gotour.controllers;
 
 import com.gotour.models.User;
+
 import com.gotour.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,10 @@ import org.springframework.web.context.request.WebRequest;
 public class UsersController {
 
   @Autowired
-  UserService service;
+  UserService userService;
 
   @RequestMapping(value = "/signup", method = RequestMethod.GET)
   public String signup(ModelMap map) {
-    map.put("msg", "Hello World!");
     return "user/signup";
   }
 
@@ -40,7 +40,7 @@ public class UsersController {
 
   @RequestMapping(value = "/signin", method = RequestMethod.POST)
   public String signin(@RequestParam String email, @RequestParam String password, ModelMap map) {
-    User u = service.authenticateUser(email, password);
+    User u = userService.authenticateUser(email, password);
     if (u != null) {
       map.addAttribute("user", u);
       return "redirect:/";
@@ -53,5 +53,11 @@ public class UsersController {
   public String logout(SessionStatus status) {
     status.setComplete();
     return "redirect:/";
+  }
+  
+  @RequestMapping(value = "/profile", method = RequestMethod.GET)
+  public String profile(ModelMap map) {
+
+    return "user/profile";
   }
 }
