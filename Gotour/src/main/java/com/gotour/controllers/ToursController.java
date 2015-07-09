@@ -4,12 +4,10 @@ import com.gotour.models.City;
 import com.gotour.models.PointOfInterest;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
-
 import com.gotour.services.CityService;
 import com.gotour.services.ThemeService;
 import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
-
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +27,28 @@ public class ToursController {
   @Autowired private ThemeService themeService;
   @Autowired private PointOfInterestService poiService;
 
+    @Autowired
+    private TourService ts;
+
+    @RequestMapping(value = "/{tourId}", method = RequestMethod.GET)
+    public String show(@PathVariable Long tourId, ModelMap model) {
+        Tour t = ts.getTour(tourId);
+        model.addAttribute("tour", t);
+        model.addAttribute("guide", t.getGuide());
+        model.addAttribute("city", t.getCity());
+        model.addAttribute("theme", t.getTheme());
+        model.addAttribute("idioms", t.getLanguages());
+        model.addAttribute("pois", t.getPointsOfInterest());
+        model.addAttribute("reviews", t.getReviews());
+        model.addAttribute("enrollments", t.getAvailableEnrollments());
+        return "tour/show";
+    }
+
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(Map<String, Object> model) {
     model.put("cityList", cityService.getCities());
     
     return "tour/list";
-  }
-  
-  @RequestMapping(value = "/show", method = RequestMethod.GET)
-  public String show(ModelMap map) {
-    
-    
-    return "tour/show";
   }
   
   @RequestMapping(value = "/new", method = RequestMethod.GET)

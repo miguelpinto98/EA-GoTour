@@ -22,7 +22,7 @@ import org.joda.time.DateTime;
 public class Enrollments implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @ManyToOne
@@ -36,7 +36,7 @@ public class Enrollments implements Serializable {
     @Column(name = "max_enrollments")
     private int maxEnrollments;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="tourists_enrollments",
             joinColumns=@JoinColumn(name="enrollments_id"),

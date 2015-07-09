@@ -1,9 +1,7 @@
 package com.gotour.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -16,19 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "tours")
 public class Tour implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.TABLE)
   private Long id;
 
   @Column(nullable = false)
@@ -38,42 +35,43 @@ public class Tour implements Serializable {
 
   private String normalPrice;
 
-  private String studentPrice;
-
-  private String duration;
-  
-  @Transient
-  private boolean free;
-
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "theme_fk")
   private Theme theme;
 
-
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tours_languages")
   private Set<Language> languages;
+
+  private String studentPrice;
+
+  private String duration;
+
+  @Transient
+  private boolean free;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
+  @JoinTable(name = "tours_points_of_interest")
+  private List<PointOfInterest> pointsOfInterest;
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @JoinColumn(name = "tour_fk")
+  private Set<Review> reviews;
+
+  @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
+  private List<Enrollments> enrollments;
 
   @ManyToOne
   @JoinColumn(name = "city_fk")
   private City city;
 
-  @ManyToMany
-  @JoinTable(name = "tours_points_of_interest")
-  private List<PointOfInterest> pointsOfInterest;
-
   @Transient
   private String[] points;
-  
+
   @ManyToOne
   private Guide guide;
-
-  @OneToMany
-  @JoinColumn(name = "tour_fk")
-  private Set<Review> reviews;
-
-  @OneToMany(mappedBy = "tour")
-  private List<Enrollments> enrollments;
 
   public Long getId() {
     return id;
@@ -171,15 +169,15 @@ public class Tour implements Serializable {
   public void setDuration(String duration) {
     this.duration = duration;
   }
-  
-    public boolean isFree() {
+
+  public boolean isFree() {
     return free;
   }
 
   public void setFree(boolean free) {
     this.free = free;
   }
-  
+
   public String[] getPoints() {
     return points;
   }
@@ -187,7 +185,7 @@ public class Tour implements Serializable {
   public void setPoints(String[] points) {
     this.points = points;
   }
-  
+
   /**
    * @return the theme
    */
@@ -204,14 +202,14 @@ public class Tour implements Serializable {
 
   /**
    * @return the languages
-  */ 
+   */
   public Set<Language> getLanguages() {
     return languages;
   }
 
   /**
    * @param languages the languages to set
-  */ 
+   */
   public void setLanguages(Set<Language> languages) {
     this.languages = languages;
   }
@@ -272,4 +270,27 @@ public class Tour implements Serializable {
     this.reviews = reviews;
   }
 
+  /**
+   * @return the enrollments
+   */
+  public List<Enrollments> getEnrollments() {
+    return enrollments;
+  }
+
+  /**
+   * @param enrollments the enrollments to set
+   */
+  public void setEnrollments(List<Enrollments> enrollments) {
+    this.enrollments = enrollments;
+  }
+
+  public List<Enrollments> getAvailableEnrollments() {
+    List<Enrollments> res = new ArrayList<Enrollments>();
+    for (Enrollments e : enrollments) {
+      if (e.getDate().isAfterNow() && !e.full()) {
+        res.add(e);
+      }
+    }
+    return res;
+  }
 }

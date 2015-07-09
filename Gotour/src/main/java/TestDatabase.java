@@ -4,13 +4,13 @@ import com.gotour.models.City;
 import com.gotour.models.Guide;
 import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
+import com.gotour.models.Review;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
 import com.gotour.services.CityService;
 import com.gotour.services.TourService;
 import com.gotour.services.UserService;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,7 +86,9 @@ public class TestDatabase {
   void addLanguages() {
     Language l1 = new Language(), l2 = new Language();
     l1.setName("English");
+    l1.setCode("gb");
     l2.setName("Portuguese");
+    l2.setCode("pt");
     ts.addLanguage(l1);
     ts.addLanguage(l2);
   }
@@ -125,13 +127,21 @@ public class TestDatabase {
   }
 
   private void addEnrollments() {
-    Tour t = ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0);
+    Tour t = ts.getTour(1L);
     DateTime date = new DateTime();
-    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 20);
+    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
+    ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
+    date = new DateTime(2015, 7, 25, 15, 15);
+    ts.addTourDate(t, ts.getLanguage("English"), date, 20);
+    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
     ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
   }
 
   private void addReviews() {
-    ts.addReview(ts.getTours(cs.getCity("Braga"), ts.getTheme("Free"), 1, 1).get(0), us.getTourist("teste@teste.com"), "Muito bom!", (byte) 2);
+    Review r = new Review();
+    r.setComment("Muito Bom!");
+    r.setRating((byte) 5);
+    r.setTitle("Top!");
+    ts.addReview(ts.getTour(1L), us.getTourist("teste@teste.com"), r);
   }
 }

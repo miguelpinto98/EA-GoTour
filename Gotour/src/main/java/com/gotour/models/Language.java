@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Language implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -23,6 +23,8 @@ public class Language implements Serializable {
     
     @ManyToMany(mappedBy="languages")
     private Set<Tour> tours;
+    
+    private String code;
     
     public Long getId() {
         return id;
@@ -84,5 +86,19 @@ public class Language implements Serializable {
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
+
+  /**
+   * @return the countryCode
+   */
+  public String getCode() {
+    return code;
+  }
+
+  /**
+   * @param countryCode the countryCode to set
+   */
+  public void setCode(String code) {
+    this.code = code;
+  }
 
 }
