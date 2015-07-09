@@ -1,6 +1,6 @@
 package com.gotour.controllers;
 
-import com.gotour.models.Tourist;
+import com.gotour.models.User;
 import com.gotour.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +8,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/users")
+@SessionAttributes("user")
 public class UsersController {
 
     @Autowired
@@ -23,7 +25,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String register(ModelMap model) {       
+    public String register(ModelMap model) {
         return "";
     }
 
@@ -34,8 +36,12 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public String signin(ModelMap map) {
-
-        return "";
+    public String signin(@RequestParam String email, @RequestParam String password, ModelMap map) {
+        User u = service.authenticateUser(email, password);
+        if (u != null){
+          map.addAttribute("user", this);
+          return "redirect:/";
+        }
+        else return "redirect:/users/login";
     }
 }
