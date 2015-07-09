@@ -74,12 +74,29 @@
           </a>
           <div class="slogan">Go Easy</div>
         </div>
-        
+
         <!--Search trigger -->
         <a href="#search" class="search-form-tigger" data-toggle="search-form" data-target=".header-search">
           </span>
           <i class="fa fa-search fa-flip-horizontal search-icon"></i>
         </a>
+
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">Thematics</a>
+
+              <ul class="dropdown-menu" role="menu" aria-labelledby="pages-drop">
+                <li><a href="<c:url value="/tours/theme/1"/>" class="menu-item">Free Tours</a></li>
+                <li><a href="<c:url value="/tours/theme/2"/>" class="menu-item">Food Tours</a></li>
+                <li><a href="<c:url value="/tours/theme/3"/>" class="menu-item">Walking Tours</a></li>
+                <li><a href="<c:url value="/tours/theme/4"/>" class="menu-item">Night Tours</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"></li>
+            <li class="dropdown"></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

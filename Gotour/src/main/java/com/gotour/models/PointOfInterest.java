@@ -1,5 +1,8 @@
 package com.gotour.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +24,7 @@ public class PointOfInterest implements Serializable {
     private String description;
     private String location;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="city_fk")
     private City city;

@@ -51,14 +51,19 @@
             </select>
           </div>
         </div>
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="term">I agree with the Terms and Conditions.
-          </label>
+        <div class="form-group">
+          <div class="col-xs-3"></div>
+          <div class="col-xs-9">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="term">I agree with the Terms and Conditions.
+              </label>
+            </div>
+            <br/>
+            <button class="btn btn-primary" type="submit">Sign up</button>
+          </div>
         </div>
         <br/>
-        <button class="btn btn-primary" type="submit">Sign up</button>
       </form:form>
     </div>
   </div>

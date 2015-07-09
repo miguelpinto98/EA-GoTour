@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
@@ -26,202 +27,249 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tours")
 public class Tour implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    private String description;
+  private String description;
 
-    @NotNull
-    @Digits(integer=3, fraction=2)
-    private BigDecimal price;
+  private String normalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "theme_fk")
-    private Theme theme;
+  private String studentPrice;
 
-    @ManyToMany
-    @JoinTable(name = "tours_languages")
-    private Set<Language> languages;
+  private String duration;
+  
+  @Transient
+  private boolean free;
 
-    @ManyToOne
-    @JoinColumn(name = "city_fk")
-    private City city;
+  @ManyToOne
+  @JoinColumn(name = "theme_fk")
+  private Theme theme;
 
-    @ManyToMany
-    @JoinTable(name = "tours_points_of_interest")
-    private List<PointOfInterest> pointsOfInterest;
 
-    @ManyToOne
-    private Guide guide;
+  @ManyToMany
+  @JoinTable(name = "tours_languages")
+  private Set<Language> languages;
 
-    @OneToMany
-    @JoinColumn(name = "tour_fk")
-    private Set<Review> reviews;
+  @ManyToOne
+  @JoinColumn(name = "city_fk")
+  private City city;
 
-    @OneToMany(mappedBy="tour")
-    private List<Enrollments> enrollments;
+  @ManyToMany
+  @JoinTable(name = "tours_points_of_interest")
+  private List<PointOfInterest> pointsOfInterest;
 
-    public Long getId() {
-        return id;
+  @Transient
+  private String[] points;
+  
+  @ManyToOne
+  private Guide guide;
+
+  @OneToMany
+  @JoinColumn(name = "tour_fk")
+  private Set<Review> reviews;
+
+  @OneToMany(mappedBy = "tour")
+  private List<Enrollments> enrollments;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    hash += (id != null ? id.hashCode() : 0);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    // TODO: Warning - this method won't work in the case the id fields are not set
+    if (!(object instanceof Tour)) {
+      return false;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    Tour other = (Tour) object;
+    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+      return false;
     }
+    return true;
+  }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+  @Override
+  public String toString() {
+    return "models.Tour[ id=" + id + " ]";
+  }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tour)) {
-            return false;
-        }
-        Tour other = (Tour) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+  /**
+   * @return the title
+   */
+  public String getName() {
+    return name;
+  }
 
-    @Override
-    public String toString() {
-        return "models.Tour[ id=" + id + " ]";
-    }
+  /**
+   * @param name the title to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * @return the title
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
 
-    /**
-     * @param name the title to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
+  /**
+   * @return the price
+   */
+  public String getNormalPrice() {
+    return this.normalPrice;
+  }
 
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  /**
+   * @param price the price to set
+   */
+  public void setNormalPrice(String price) {
+    this.normalPrice = price;
+  }
 
-    /**
-     * @return the price
-     */
-    public BigDecimal getPrice() {
-        return price;
-    }
+  /**
+   * @return the price
+   */
+  public String getStudentPrice() {
+    return this.studentPrice;
+  }
 
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+  /**
+   * @param price the price to set
+   */
+  public void setStudentPrice(String price) {
+    this.studentPrice = price;
+  }
 
-    /**
-     * @return the theme
-     */
-    public Theme getTheme() {
-        return theme;
-    }
+  public String getDuration() {
+    return duration;
+  }
 
-    /**
-     * @param theme the theme to set
-     */
-    public void setTheme(Theme theme) {
-        this.theme = theme;
-    }
+  public void setDuration(String duration) {
+    this.duration = duration;
+  }
+  
+    public boolean isFree() {
+    return free;
+  }
 
-    /**
-     * @return the languages
-     */
-    public Set<Language> getLanguages() {
-        return languages;
-    }
+  public void setFree(boolean free) {
+    this.free = free;
+  }
+  
+  public String[] getPoints() {
+    return points;
+  }
 
-    /**
-     * @param languages the languages to set
-     */
-    public void setLanguages(Set<Language> languages) {
-        this.languages = languages;
-    }
+  public void setPoints(String[] points) {
+    this.points = points;
+  }
+  
+  /**
+   * @return the theme
+   */
+  public Theme getTheme() {
+    return theme;
+  }
 
-    /**
-     * @return the city
-     */
-    public City getCity() {
-        return city;
-    }
+  /**
+   * @param theme the theme to set
+   */
+  public void setTheme(Theme theme) {
+    this.theme = theme;
+  }
 
-    /**
-     * @param city the city to set
-     */
-    public void setCity(City city) {
-        this.city = city;
-    }
+  /**
+   * @return the languages
+  */ 
+  public Set<Language> getLanguages() {
+    return languages;
+  }
 
-    /**
-     * @return the guide
-     */
-    public Guide getGuide() {
-        return guide;
-    }
+  /**
+   * @param languages the languages to set
+  */ 
+  public void setLanguages(Set<Language> languages) {
+    this.languages = languages;
+  }
 
-    /**
-     * @param guide the guide to set
-     */
-    public void setGuide(Guide guide) {
-        this.guide = guide;
-    }
+  /**
+   * @return the city
+   */
+  public City getCity() {
+    return city;
+  }
 
-    /**
-     * @return the pointsOfInterest
-     */
-    public List<PointOfInterest> getPointsOfInterest() {
-        return pointsOfInterest;
-    }
+  /**
+   * @param city the city to set
+   */
+  public void setCity(City city) {
+    this.city = city;
+  }
 
-    /**
-     * @param pointsOfInterest the pointsOfInterest to set
-     */
-    public void setPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
-        this.pointsOfInterest = pointsOfInterest;
-    }
+  /**
+   * @return the guide
+   */
+  public Guide getGuide() {
+    return guide;
+  }
 
-    /**
-     * @return the reviews
-     */
-    public Set<Review> getReviews() {
-        return reviews;
-    }
+  /**
+   * @param guide the guide to set
+   */
+  public void setGuide(Guide guide) {
+    this.guide = guide;
+  }
 
-    /**
-     * @param reviews the reviews to set
-     */
-    public void setReviews(Set<Review> reviews) {
-        this.reviews = reviews;
-    }
+  /**
+   * @return the pointsOfInterest
+   */
+  public List<PointOfInterest> getPointsOfInterest() {
+    return pointsOfInterest;
+  }
+
+  /**
+   * @param pointsOfInterest the pointsOfInterest to set
+   */
+  public void setPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
+    this.pointsOfInterest = pointsOfInterest;
+  }
+
+  /**
+   * @return the reviews
+   */
+  public Set<Review> getReviews() {
+    return reviews;
+  }
+
+  /**
+   * @param reviews the reviews to set
+   */
+  public void setReviews(Set<Review> reviews) {
+    this.reviews = reviews;
+  }
 
 }
