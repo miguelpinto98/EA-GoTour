@@ -19,18 +19,18 @@
                         <c:forEach items="${enrollments}" var="enrollment" varStatus="status">
                             <c:choose>
                                 <c:when test="${status.first}">
-                                    <button id="${enrollment.id}" type="button" class="btn btn-lg btn-info"><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</button>
+                                    <button id="selected_date" value="${enrollment.id}" type="button" class="btn btn-lg btn-info"><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</button>
                                     <button aria-expanded="false" type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
                                 </c:when>
                                 <c:when test="${status.count == 2}">
                                     <ul class="dropdown-menu dropdown-menu-info" role="menu">
                                     </c:when>
                                     <c:when test="${status.last}">
-                                        <li id="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
+                                        <li value="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
                                     </ul>
                                 </c:when>
                                 <c:otherwise>
-                                    <li id="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
+                                    <li value="${enrollment.id}"><a href=""><joda:format value="${enrollment.date}" style="SS" /> ${enrollment.date.dayOfWeek().getAsShortText()} (${enrollment.language.name})</a></li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -155,4 +155,15 @@
             </div>
         </div>
     </div>
+    <script>
+        $('.dropdown-menu li a').on("click", function (e) {
+            e.preventDefault();
+            var date = $(this).text();
+            var id = $( this ).parent("li").attr("value");
+            $(this).html($("#selected_date").text());
+            $( this ).parent("li").attr("value", $("#selected_date").attr("value"));
+            $("#selected_date").html(date);
+            $("#selected_date").attr("value",id);
+        });
+    </script>
 </t:layout>
