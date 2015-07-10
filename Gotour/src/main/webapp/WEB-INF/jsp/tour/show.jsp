@@ -106,11 +106,11 @@
         </div>
       </div>
 
-      <<<<<<< HEAD
+          
       <!--Sidebar-->
       <div class="col-md-3 sidebar sidebar-right">
         <div class="inner">
-
+          <!-- @Element: Archive -->
           <div class="block">
             <h4 class="title-divider">
               <span>Languages</span>
@@ -121,7 +121,7 @@
                 </c:forEach> 
             </ul>
           </div>
-
+          <!-- @Element: Archive -->
           <div class="block">
             <h4 class="title-divider">
               <span>Price</span>
@@ -152,7 +152,7 @@
             </ul>
           </div>
 
-
+            
         </div>
       </div>
     </div>
