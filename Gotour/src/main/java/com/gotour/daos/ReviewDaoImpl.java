@@ -16,6 +16,7 @@ public class ReviewDaoImpl extends GenericDaoImpl<Review> implements ReviewDao {
   public List<Review> getLast(int n) {
     String hql = "from Review r order by r.id desc";
     Query query = getSession().createQuery(hql);
+    query.setMaxResults(n);
     return query.list();
   }
   
