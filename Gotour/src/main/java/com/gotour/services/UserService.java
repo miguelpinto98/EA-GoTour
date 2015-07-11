@@ -15,4 +15,6 @@ public interface UserService {
   Tourist getTourist(String email);
 
   public User authenticateUser(String email, String password);
+
+  public User getUser(long id);
 }

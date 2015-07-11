@@ -53,4 +53,16 @@ public class UserServiceImpl implements UserService {
            
     return u;
   }
+
+  public User getUser(long id) {
+    User user = null;
+    
+    if(user==null) {
+      user = guides.find(id);
+    }
+    if(user==null) {
+      user = tourists.find(id);
+    }
+    return user;
+  }
 }

@@ -57,27 +57,48 @@
         <div class="col-md-9">
           <h2 class="title-divider">
             <span>About <span class="de-em">Me</span></span>
-            <small>Who I Am</small>
+            <c:choose>
+              <c:when test="${type == 0}">
+                <small>I Am a Tourist</small>
+              </c:when>
+              <c:otherwise>
+                <small>I Am a Guide</small>
+              </c:otherwise>
+            </c:choose>
           </h2>
 
           <!-- About me -->
           <div class="row">
             <!-- Image -->
             <div class="col-md-5 col-md-push-7">
-              <img src="img/misc/about-me.jpg" alt="About me" class="img-responsive">
+              <c:choose>
+                <c:when test="${user.avatar}">
+                  <img src="#" alt="About me" class="img-responsive">
+                </c:when>
+                <c:otherwise>
+                  <div class="alert alert-warning" style="text-align: center;">
+                    <a href="<c:url value="/users/${user.id}/edit"></c:url>">add an image to your profile</a>
+                  </div>
+                </c:otherwise>
+              </c:choose>
             </div>
             <div class="col-md-7 col-md-pull-5">
-              <p class="lead">Drupal and Frontend Developer with an eye for detail. I love code!</p>
-              <p>Abbas abluo aliquip damnum nimis refero ullamcorper ut. Jugis jus meus quibus sino. Acsi gemino genitus illum molior quae quidne refero.</p>
-              <p>Capto esca nimis wisi. Defui gilvus occuro. Blandit camur diam gravis importunus letalis nobis saluto volutpat. Blandit defui esca gilvus similis tego verto ymo zelus.</p>
-              <p>Accumsan amet dolor duis refoveo vicis. Conventio euismod fere humo roto rusticus valetudo vulputate. Appellatio dolore gravis ideo illum neque. Brevitas eros et huic macto magna sudo. Jumentum neo nunc oppeto si. Jumentum melior mos suscipit vero. Jugis jus magna odio probo suscipit.</p>
-              <p>Euismod exputo illum. Brevitas genitus laoreet letalis quia valde. Abbas adipiscing distineo facilisis neque premo similis te. Facilisis fere saepius validus vulpes.</p>
+              <c:choose>
+                <c:when test="${user.description}">
+                  <p class="lead">${user.description}</p>
+                </c:when>
+                <c:otherwise>
+                  <p></p>
+                </c:otherwise>
+              </c:choose>
+              
               <div class="social-media-branding">
+                <a href="<c:url value="/users/${user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
                 <!--@todo: replace with real social share links -->
-                <a href="#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
+                <!--<a href="#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
                 <a href="#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
                 <a href="#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
-                <a href="#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>
+                <a href="#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>-->
               </div>
             </div>
           </div>

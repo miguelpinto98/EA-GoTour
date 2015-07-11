@@ -85,11 +85,16 @@ public class UsersController {
   }
   
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public String profile(ModelMap map) {
-    User user = userService.getTourist("guia@guia.com");
-    
-    //map.addAttribute("user", user);
-    
+  public String profile(ModelMap map, @PathVariable long id) {
+    User user = userService.getUser(id);
+     
+    if(user instanceof Guide) {
+      map.addAttribute("user", ((Guide)user));
+      map.addAttribute("type", 1);
+    } else {
+      map.addAttribute("user", ((Tourist)user));
+      map.addAttribute("type", 0);
+    }
     return "user/profile";
   }
   

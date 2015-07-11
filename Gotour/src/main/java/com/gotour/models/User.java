@@ -99,4 +99,11 @@ public abstract class User implements Serializable {
     this.description = description;
   }
 
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
+  }
 }
