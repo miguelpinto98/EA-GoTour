@@ -145,7 +145,8 @@ public class TestDatabase {
     ts.enrollTourist(t, date, us.getTourist("angelina@gotour.com"));
     date = new DateTime(2015, 7, 25, 15, 15);
     ts.addTourDate(t, ts.getLanguage("English"), date, 20);
-    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
+    date = new DateTime(2015, 7, 30, 15, 30);
+    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 2);
     ts.enrollTourist(t, date, us.getTourist("robert@gotour.com"));
   }
 
