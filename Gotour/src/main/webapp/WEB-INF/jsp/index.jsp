@@ -92,7 +92,7 @@
                   <p>${review.comment}</p>
                   <small>
                     <img class="img-circle" src="${context}/resources/img/users/${review.tourist.id}.jpg" alt="${review.tourist.name}">
-                    ${review.tourist.name} <span class="spacer">in</span> <a href="#">${review.tour.name}</a>
+                    ${review.tourist.name} <span class="spacer">in</span> <a href="${context}/tours/${review.tour.id}">${review.tour.name}</a>
                   </small>
                 </blockquote>
               </div>
