@@ -95,11 +95,21 @@ public class TestDatabase {
 
   void addUsers() {
     Tourist t = new Tourist();
-    t.setName("Teste");
-    t.setEmail("teste@teste.com");
-    t.setPassword("teste");
+    t.setName("robert");
+    t.setEmail("robert@gotour.com");
+    t.setPassword("robert");
     us.addTourist(t);
-
+    t = new Tourist();
+    t.setName("angelina");
+    t.setEmail("angelina@gotour.com");
+    t.setPassword("angelina");
+    us.addTourist(t);
+    t = new Tourist();
+    t.setName("barack");
+    t.setEmail("barack@gotour.com");
+    t.setPassword("barack");
+    us.addTourist(t);
+    
     Guide g = new Guide();
     g.setName("Guia");
     g.setEmail("guia@guia.com");
@@ -132,18 +142,28 @@ public class TestDatabase {
     Tour t = ts.getTour(1L);
     DateTime date = new DateTime();
     ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
-    ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
+    ts.enrollTourist(t, date, us.getTourist("angelina@gotour.com"));
     date = new DateTime(2015, 7, 25, 15, 15);
     ts.addTourDate(t, ts.getLanguage("English"), date, 20);
     ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
-    ts.enrollTourist(t, date, us.getTourist("teste@teste.com"));
+    ts.enrollTourist(t, date, us.getTourist("robert@gotour.com"));
   }
 
   private void addReviews() {
     Review r = new Review();
-    r.setComment("Muito Bom!");
+    r.setComment("It's totally awesome, we're could imagine life without it!");
     r.setRating((byte) 5);
+    r.setTitle("Awesome!");
+    ts.addReview(ts.getTour(1L), us.getTourist("barack@gotour.com"), r);
+    r = new Review();
+    r.setComment("10 out of 10, highly recommended!");
+    r.setRating((byte) 4);
     r.setTitle("Top!");
-    ts.addReview(ts.getTour(1L), us.getTourist("teste@teste.com"), r);
+    ts.addReview(ts.getTour(1L), us.getTourist("angelina@gotour.com"), r);
+    r = new Review();
+    r.setComment("Our productivity &amp; sales are up! Couldn't be happier with this product!");
+    r.setRating((byte) 3);
+    r.setTitle("Nice!");
+    ts.addReview(ts.getTour(1L), us.getTourist("robert@gotour.com"), r);
   }
 }

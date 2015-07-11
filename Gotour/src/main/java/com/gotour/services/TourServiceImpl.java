@@ -27,68 +27,73 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TourServiceImpl implements TourService {
 
-    @Autowired
-    private ThemeDao themes;
-    @Autowired
-    private LanguageDao languages;
-    @Autowired
-    private TourDao tours;
-    @Autowired
-    private EnrollmentsDao enrollments;
-    @Autowired
-    private ReviewDao reviews;
+  @Autowired
+  private ThemeDao themes;
+  @Autowired
+  private LanguageDao languages;
+  @Autowired
+  private TourDao tours;
+  @Autowired
+  private EnrollmentsDao enrollments;
+  @Autowired
+  private ReviewDao reviews;
 
-    public void addTheme(Theme t) {
-        themes.save(t);
-    }
+  public void addTheme(Theme t) {
+    themes.save(t);
+  }
 
-    public void addLanguage(Language l) {
-        languages.save(l);
-    }
+  public void addLanguage(Language l) {
+    languages.save(l);
+  }
 
-    public Language getLanguage(String language) {
-        return languages.getLanguage(language);
-    }
+  public Language getLanguage(String language) {
+    return languages.getLanguage(language);
+  }
 
-    public Theme getTheme(String theme) {
-        return themes.getTheme(theme);
-    }
+  public Theme getTheme(String theme) {
+    return themes.getTheme(theme);
+  }
 
-    public void addTour(Tour t) {
-        tours.save(t);
-    }
+  public void addTour(Tour t) {
+    tours.save(t);
+  }
 
-    public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments) {
-        Enrollments e = new Enrollments();
-        e.setLanguage(l);
-        e.setMaxEnrollments(maxEnrollments);
-        e.setTour(t);
-        e.setDate(date);
-        enrollments.save(e);
-    }
+  public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments) {
+    Enrollments e = new Enrollments();
+    e.setLanguage(l);
+    e.setMaxEnrollments(maxEnrollments);
+    e.setTour(t);
+    e.setDate(date);
+    enrollments.save(e);
+  }
 
-    public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist) {
-        Enrollments e = enrollments.get(tour, date);
-        if (e.addEnrollment(tourist)){
-            enrollments.update(e);
-            return true;
-        }
-        else return false;
+  public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist) {
+    Enrollments e = enrollments.get(tour, date);
+    if (e.addEnrollment(tourist)) {
+      enrollments.update(e);
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    public void addReview(Tour tour, Tourist tourist, Review r) {
-        r.setDate(new DateTime());
-        r.setTourist(tourist);
-        r.setTour(tour);
-        reviews.save(r);
-    }
+  public void addReview(Tour tour, Tourist tourist, Review r) {
+    r.setDate(new DateTime());
+    r.setTourist(tourist);
+    r.setTour(tour);
+    reviews.save(r);
+  }
 
-    public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize) {
-        return tours.getTours(c, t, pageNumber, pageSize);
-    }
+  public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize) {
+    return tours.getTours(c, t, pageNumber, pageSize);
+  }
 
-    public Tour getTour(Long tourId) {
-        return tours.find(tourId);
-    }
+  public Tour getTour(Long tourId) {
+    return tours.find(tourId);
+  }
+
+  public List<Review> getLastReviews(int n) {
+    return reviews.getLast(n);
+  }
 
 }
