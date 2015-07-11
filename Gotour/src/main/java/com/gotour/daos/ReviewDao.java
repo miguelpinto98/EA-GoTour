@@ -7,8 +7,9 @@
 package com.gotour.daos;
 
 import com.gotour.models.Review;
+import java.util.List;
 
 
 public interface ReviewDao extends GenericDao<Review>{
-
+  public List<Review> getLast(int n);
 }

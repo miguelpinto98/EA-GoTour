@@ -86,33 +86,17 @@
             <small>See the recommendations of our tourists</small>
           </h2>
           <div class="row">
-            <div class="col-md-4">
-              <blockquote>
-                <p>"It's totally awesome, we're could imagine life without it!"</p>
-                <small>
-                  <img src="#" alt="#" class="img-circle">
-                  Jimi Bloggs <span class="spacer">in</span> <a href="#">tour z</a>
-                </small>
-              </blockquote>
-            </div>
-            <div class="col-md-4">
-              <blockquote>
-                <p>"10 out of 10, highly recommended!"</p>
-                <small>
-                  <img src="#" alt="#" class="img-circle">
-                  Steve Bloggs <span class="spacer">in</span> <a href="#">tour y</a>
-                </small>
-              </blockquote>
-            </div>
-            <div class="col-md-4">
-              <blockquote>
-                <p>"Our productivity &amp; sales are up! Couldn't be happier with this product!"</p>
-                <small>
-                  <img src="#" alt="#" class="img-circle">
-                  Adele Bloggs <span class="spacer">in</span> <a href="#">tour x</a>
-                </small>
-              </blockquote>
-            </div>
+            <c:forEach items="${reviews}" var="review">
+              <div class="col-md-4">
+                <blockquote>
+                  <p>${review.comment}</p>
+                  <small>
+                    <img class="img-circle" src="${context}/resources/img/users/${review.tourist.id}.jpg" alt="${review.tourist.name}">
+                    ${review.tourist.name} <span class="spacer">in</span> <a href="#">${review.tour.name}</a>
+                  </small>
+                </blockquote>
+              </div>
+            </c:forEach>
           </div>
         </div>
       </div>
