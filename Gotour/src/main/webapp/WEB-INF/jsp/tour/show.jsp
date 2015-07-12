@@ -35,7 +35,7 @@
 
               <div class="btn-group" style="width:200px">
                 <select id="tour_date" class="form-control" disabled>
-                  <option value="-1" selected disabled>Select a date</option>
+                  <option id="default_date" value="-1" selected disabled>Select a date</option>
                   <c:forEach items="${enrollments}" var="enrollment">
                     <option value="${enrollment.id}" languageId="${enrollment.language.id}" hidden><joda:format value="${enrollment.date}" style="SS" /> (${enrollment.date.dayOfWeek().getAsShortText()})</option>
                   </c:forEach>
@@ -61,6 +61,22 @@
                 </c:otherwise>
               </c:choose>
 
+              </div>
+
+              <div id="message_success" class="alert alert-success" hidden>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>
+                  Booked!
+                </h4>
+                Booking completed with success!! 
+              </div>
+
+              <div id="message_error" class="alert alert-danger" hidden>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>
+                  Error!
+                </h4>
+                <p>The tour reached it's limit in the specified date!!!</p>
               </div>
 
               <p id="description">${tour.description}</p>
@@ -184,7 +200,6 @@
                     if (!selected && $(this).attr("languageId") === languageId) {
                       $(this).prop('selected', true);
                       selected = true;
-                      console.log($(this).attr("value"));
                     }
                     if ($(this).attr("languageId") == languageId) {
                       $(this).removeAttr("hidden");
@@ -192,6 +207,27 @@
                     else if ($(this).attr("value") != "-1") {
                       $(this).removeAttr('selected');
                       $(this).prop('hidden', true);
+                    }
+                  });
+                  if (!selected) {
+                    $("#default_date").prop('selected', true);
+                  }
+                });
+                $("#book").click(function () {
+                  $.ajax({
+                    method: 'POST',
+                    url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value"),
+                    success: function (confirmed) {
+                      if (confirmed) {
+                        $("#book").prop("disabled", true);
+                        $("#message_success").removeAttr("hidden");
+                      }
+                      else
+                        $("#message_error").removeAttr("hidden");
+                    },
+                    error: function () {
+                      $("#message_error").removeAttr("hidden");
+                      $("#message_error p").text("There is no available tour for the selected language!");
                     }
                   });
                 });
