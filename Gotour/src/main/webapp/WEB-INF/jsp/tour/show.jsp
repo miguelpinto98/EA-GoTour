@@ -61,6 +61,7 @@
                 </c:otherwise>
               </c:choose>
 
+                  <span id="is_enrolled" style="color:red" hidden>You are already bought tickets for this day!</span>
               </div>
 
               <div id="message_success" class="alert alert-success" hidden>
@@ -212,6 +213,7 @@
                   if (!selected) {
                     $("#default_date").prop('selected', true);
                   }
+                  $("#tour_date option").trigger("click");
                 });
                 $("#book").click(function () {
                   $.ajax({
@@ -228,6 +230,23 @@
                     error: function () {
                       $("#message_error").removeAttr("hidden");
                       $("#message_error p").text("There is no available tour for the selected language!");
+                    }
+                  });
+                });
+                $("#tour_date option").on("click", function () {
+                  $("#is_enrolled").prop('hidden', true);
+                  if($("#tour_date option:selected").attr("value") == -1){
+                    return;
+                  }
+                  $.ajax({
+                    method: 'GET',
+                    url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value") + '/users',
+                    success: function (confirmed) {
+                      if (confirmed) {
+                        $("#is_enrolled").removeAttr("hidden");
+                      }
+                    },
+                    error: function () {
                     }
                   });
                 });

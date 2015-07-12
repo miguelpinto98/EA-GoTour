@@ -99,4 +99,8 @@ public class TourServiceImpl implements TourService {
     return reviews.getLast(n);
   }
 
+  public boolean isEnrolled(Long enrollmentsId, Long touristId) {
+    return enrollments.find(enrollmentsId).getTourists().contains(tourists.find(touristId));
+  }
+
 }

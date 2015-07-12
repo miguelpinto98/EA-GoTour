@@ -28,4 +28,5 @@ public interface TourService {
     public Tour getTour(Long tourId);
     public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
     public List<Review> getLastReviews(int n);
+    public boolean isEnrolled(Long enrollmentsId, Long touristId);
 }
