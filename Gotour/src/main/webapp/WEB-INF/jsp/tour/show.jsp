@@ -61,7 +61,7 @@
                 </c:otherwise>
               </c:choose>
 
-                  <span id="is_enrolled" style="color:red" hidden>You are already bought tickets for this day!</span>
+                  <span id="is_enrolled" style="color:green" hidden>You already bought tickets for this day!</span>
               </div>
 
               <div id="message_success" class="alert alert-success" hidden>
