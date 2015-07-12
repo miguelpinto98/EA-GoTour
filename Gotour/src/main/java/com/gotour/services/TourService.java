@@ -23,7 +23,7 @@ public interface TourService {
     public Theme getTheme(String theme);
     public void addTour(Tour t);
     public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
-    public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist);
+    public boolean enrollTourist(Long enrollmentsId, Long touristId);
     public void addReview(Tour tour, Tourist tourist, Review r);
     public Tour getTour(Long tourId);
     public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
