@@ -6,8 +6,10 @@
 package com.gotour.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,7 @@ public class Guide extends User implements Serializable {
 
   private String phone;
 
-  @OneToMany(mappedBy = "guide")
+  @OneToMany(mappedBy = "guide", fetch = FetchType.EAGER)
   private Set<Tour> tours;
 
   public Guide() {
@@ -33,6 +35,7 @@ public class Guide extends User implements Serializable {
   public Guide(String name, String email, String password, String phone) {
     super(name, email, password);
     this.phone = phone;
+    this.tours = null;
   }
 
   /**

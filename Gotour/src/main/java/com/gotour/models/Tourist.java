@@ -8,11 +8,11 @@ import javax.persistence.*;
 @Table(name = "tourists")
 public class Tourist extends User implements Serializable {
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "tourist_fk")
   private Set<Review> reviews;
 
-  @ManyToMany(mappedBy = "tourists")
+  @ManyToMany(mappedBy = "tourists", fetch = FetchType.EAGER)
   private Set<Enrollments> enrollments;
 
   public Tourist() {

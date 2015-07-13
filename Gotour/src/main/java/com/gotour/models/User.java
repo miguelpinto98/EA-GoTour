@@ -16,7 +16,7 @@ public abstract class User implements Serializable {
   private String name;
 
   @NotNull
-  @Column(unique = true)
+  //@Column(unique = true)
   private String email;
 
   @NotNull

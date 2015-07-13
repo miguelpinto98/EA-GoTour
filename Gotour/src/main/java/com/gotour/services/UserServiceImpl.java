@@ -6,10 +6,14 @@
 package com.gotour.services;
 
 import com.gotour.daos.GuideDao;
+import com.gotour.daos.ReviewDao;
+import com.gotour.daos.TourDao;
 import com.gotour.daos.TouristDao;
 import com.gotour.models.Guide;
+import com.gotour.models.Review;
 import com.gotour.models.Tourist;
 import com.gotour.models.User;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +26,8 @@ public class UserServiceImpl implements UserService {
   private TouristDao tourists;
   @Autowired
   private GuideDao guides;
+  @Autowired
+  private ReviewDao reviewDao;
 
   @Override
   public void addTourist(Tourist t) {
@@ -64,5 +70,13 @@ public class UserServiceImpl implements UserService {
       user = tourists.find(id);
     }
     return user;
+  }
+
+  public void updateTourist(Tourist tourist) {
+    tourists.update(tourist);
+  }
+
+  public void updateGuide(Guide guide) {
+    guides.update(guide);
   }
 }

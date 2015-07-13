@@ -3,96 +3,67 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<c:set var="context" value="${pageContext.request.servletContext.contextPath}" scope="request" />
 
 <t:layout pageTitle="GoTour - Login">
   <div id="content">
     <div class="container">
-      <form class="form-login form-narrow form-medium form-horizontal">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li><a href="<c:url value="/users/${user.id}"/>">${user.name}</a></li>
+        <li class="active">Edit</li>
+      </ol>
+      
+      <form:form action="${context}/users/edit" class="form-login form-narrow form-horizontal" commandName="userForm" method="POST" enctype="multipart/form-data">
         <h3 class="title-divider">
           <span>Edit Profile</span> 
         </h3>
+        
+        <form:input type="hidden" path="id"/>
+        <input type="hidden" name="type" value="${type}"/>
+        
         <div class="form-group">
-          <label class="col-xs-3" for="editeProfile-type-page">Type</label>
-          <div class="col-xs-9 selectContainer">
-            <select class="form-control" id="editeProfile-type-page">
-              <option>Tourist</option>
-              <option>Gide</option>
-            </select>
+          <form:label path="name" class="col-sm-3">Name</form:label>
+            <div class="col-sm-9">
+            <form:input path="name" class="form-control"></form:input>
+            </div>
+          </div>
+          <div class="form-group">
+          <form:label path="email" class="col-sm-3">Email</form:label>
+            <div class="col-sm-9">
+            <form:input path="email" class="form-control"></form:input>
+            </div>
+          </div>
+          <div class="form-group">
+          <form:label path="description" class="col-sm-3">Description</form:label>
+            <div class="col-sm-9">
+            <form:textarea path="description" class="form-control"/>
           </div>
         </div>
+        <c:if test="${type==1 && not empty user.tours}">
+          <div class="form-group">
+            <form:label path="phone" class="col-sm-3">Phone Number</form:label>
+              <div class="col-sm-9">
+              <form:textarea path="phone" class="form-control"/>
+            </div>
+          </div>
+        </c:if>
         <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-first-name-page">First Name</label>
+          <form:label path="avatar" class="col-sm-3">Photo</form:label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="editeProfile-first-name-page">
+            <input type="file" name="file" id="avatar" class="form-control"/>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-last-name-page">Last Name</label>
+          <form:label path="password" class="col-sm-3">Password</form:label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="editeProfile-last-name-page">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter password to confirm the data"/>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-username-page">Username</label>
+        <label for="conf_password" class="col-sm-3">New Password</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="editeProfile-username-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-email-page">Email</label>
-          <div class="col-sm-9">
-            <input type="email" class="form-control" id="editeProfile-email-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-password-page">Password</label>
-          <div class="col-sm-9">
-            <input type="password" class="form-control" id="editeProfile-password-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-phone-page">Phone</label>
-          <div class="col-sm-9">
-            <input type="phone" class="form-control" id="editeProfile-phone-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-descripton-page">Descripton</label>
-          <div class="col-sm-9">
-            <input type="phone" class="form-control" id="editeProfile-descripton-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-uploadPhoto-page">Upload Photo </label>
-          <div class="col-sm-9">
-            <input id="uploadImage" type="file" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-hangouts-page">Hangouts</label>
-          <div class="col-sm-9">
-            <input type="hangouts" class="form-control" id="editeProfile-hangouts-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-hangouts-page">Facebook</label>
-          <div class="col-sm-9">
-            <input type="hangouts" class="form-control" id="editeProfile-hangouts-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3" for="editeProfile-hangouts-page">LinkedIn</label>
-          <div class="col-sm-9">
-            <input type="hangouts" class="form-control" id="editeProfile-hangouts-page">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-3" for="editeProfile-type-page">Type</label>
-          <div class="col-xs-9 selectContainer">
-            <select class="form-control" id="editeProfile-type-page">
-              <option>Tourist</option>
-              <option>Gide</option>
-            </select>
+            <input type="conf_ password" name="conf_password" id="conf_password" class="form-control" placeholder="Enter new password on this field if you need"/>
           </div>
         </div>
         <div class="form-group">
@@ -101,7 +72,7 @@
             <button class="btn btn-primary" type="submit">Save</button>
           </div>
         </div>
-      </form>
+      </form:form>
     </div>
   </div>
 </t:layout>

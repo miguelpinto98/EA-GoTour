@@ -12,4 +12,6 @@ import java.util.List;
 
 public interface ReviewDao extends GenericDao<Review>{
   public List<Review> getLast(int n);
+  
+  
 }

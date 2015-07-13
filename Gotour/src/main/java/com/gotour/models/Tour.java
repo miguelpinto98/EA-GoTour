@@ -63,7 +63,7 @@ public class Tour implements Serializable {
   @Fetch(FetchMode.SELECT)
   private List<Enrollments> enrollments;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "city_fk")
   private City city;
 

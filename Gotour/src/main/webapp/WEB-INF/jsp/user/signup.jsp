@@ -6,6 +6,11 @@
 <t:layout pageTitle="GoTour - Sign Up">
   <div id="content">
     <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li class="active">Sign Up</li>
+      </ol>
+      
       <form:form method="POST" action="new" class="form-login form-wrapper form-medium form-horizontal" role="form" commandName="userForm">
         <h3 class="title-divider">
           <span>Sign Up</span> 
