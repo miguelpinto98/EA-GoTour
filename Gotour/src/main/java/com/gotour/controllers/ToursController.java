@@ -100,4 +100,13 @@ public class ToursController {
     map.put("msg", id);
     return "tour/list";
   }
+  
+  @RequestMapping(value = "/{id}/schedule", method = RequestMethod.GET)
+  public String schedule(@PathVariable Long id, ModelMap model) {
+    Tour t = tourService.getTour(id);
+    
+    model.addAttribute("tour", t);
+    
+    return "tour/schedule";
+  }
 }
