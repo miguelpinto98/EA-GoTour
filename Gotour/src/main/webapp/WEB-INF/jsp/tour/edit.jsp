@@ -133,6 +133,7 @@
           <div class="col-sm-4"></div>
           <div class="col-sm-8">
             <button class="btn btn-primary" type="submit"value="submit">Save</button>
+            <a href="<c:url value="/tours/${tour.id}"/>" type="button" class="btn btn-info">Back</a>
           </div>
         </div>
       </form:form>
@@ -166,6 +167,10 @@
             <div class="form-group">
               <label class="sr-only" for="poi-coord">GPS coordinates</label>
               <input type="text" class="form-control" id="poi-coord" placeholder="GPS Coordinates" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="poi-coord">Image</label>
+              <input type="file" class="form-control" id="poi-image" required>
             </div>
           </div>
           <div class="modal-footer">

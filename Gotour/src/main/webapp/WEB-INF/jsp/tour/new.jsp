@@ -19,7 +19,7 @@
         </h4>
         All systems are go!! 
       </div>
-      
+
       <div class="alert alert-danger" id="notice-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <h4>
@@ -27,7 +27,7 @@
         </h4>
         Server meltdown pending!!!
       </div>
-      
+
       <!-- Add tour form -->
       <form:form action="create" class="form-login form-narrow form-medium form-horizontal" method="POST" role="form" commandName="tourForm">
         <h3 class="title-divider">
@@ -133,6 +133,10 @@
             <div class="form-group">
               <label class="sr-only" for="poi-coord">GPS coordinates</label>
               <input type="text" class="form-control" id="poi-coord" placeholder="GPS Coordinates" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="poi-coord">Image</label>
+              <input type="file" class="form-control" id="poi-image" required>
             </div>
           </div>
           <div class="modal-footer">
