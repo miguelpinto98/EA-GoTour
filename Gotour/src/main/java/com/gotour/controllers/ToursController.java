@@ -10,6 +10,7 @@ import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,6 +35,13 @@ public class ToursController {
   @Autowired
   private TourService ts;
 
+  @RequestMapping(method = RequestMethod.GET)
+  public String index(Map<String, Object> model) {
+    model.put("cityList", cityService.getCities());
+
+    return "tour/list";
+  }
+  
   @RequestMapping(value = "/{tourId}", method = RequestMethod.GET)
   public String show(@PathVariable Long tourId, ModelMap model) {
     Tour t = ts.getTour(tourId);
@@ -47,21 +55,48 @@ public class ToursController {
     model.addAttribute("enrollments", t.getAvailableEnrollments());
     return "tour/show";
   }
+  
+  @RequestMapping(value = "/{tourId}/edit", method = RequestMethod.GET)
+  public String edit(@PathVariable Long tourId, ModelMap model) {
+    Tour t = ts.getTour(tourId);
+    List<Theme> themes = themeService.getThemes();
+    List<City> cities = cityService.getCities();
+    
+    model.addAttribute("tour", t);
+    model.addAttribute("themeList", themes);
+    model.put("cityList", cities);
+    
+    model.addAttribute("guide", t.getGuide());
+    model.addAttribute("city", t.getCity());
+    model.addAttribute("idioms", t.getLanguages());
+    model.addAttribute("pois", poiService.getPointsOfCity(t.getCity().getId()));
 
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String index(Map<String, Object> model) {
-    model.put("cityList", cityService.getCities());
-
-    return "tour/list";
+    return "tour/edit";
   }
 
+  @RequestMapping(value="/edit", method = RequestMethod.POST)
+  public String edit(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
+    City c = cityService.getCityByID(tour.getCity().getId());
+    Theme t = themeService.getThemeByID(tour.getTheme().getId());
+    List<PointOfInterest> poi = poiService.getSelectedPoints(tour.getPoints());
+    tour.setPointsOfInterest(poi);
+    tour.setCity(c);
+    tour.setTheme(t);
+    
+    System.out.println("zd"+tour.toString());
+    
+    tourService.update(tour);
+    
+    return "redirect:/tours/"+String.valueOf(tour.getId());
+  }
+  
   @RequestMapping(value = "/new", method = RequestMethod.GET)
   public String newTour(Map<String, Object> model) {
     Tour t = new Tour();
 
     List<City> cities = cityService.getCities();
     List<Theme> themes = themeService.getThemes();
-    List<PointOfInterest> pois = poiService.getPoints();
+    Set<PointOfInterest> pois = poiService.getPointsOfCity(Long.valueOf("1"));
 
     model.put("tourForm", t);
     model.put("cityList", cities);
@@ -70,7 +105,7 @@ public class ToursController {
 
     return "tour/new";
   }
-
+  
   @RequestMapping(value = "/create", method = RequestMethod.POST)
   public String create(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
 
