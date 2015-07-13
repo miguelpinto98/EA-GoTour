@@ -93,6 +93,7 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li><a href="">Tours</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">Thematics</a>
 
@@ -103,7 +104,6 @@
                                 <li><a href="<c:url value="/tours/theme/4"/>" class="menu-item">Night Tours</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown"></li>
                         <li class="dropdown"></li>
                     </ul>
                 </div>

@@ -123,8 +123,8 @@
                   </c:forEach>
                 </div>
               </div>
-              
-              <!-- REVIEWS USER MADE -->
+
+              <!-- REVIEWS USER IN MY TOURS -->
               <div class="title-divider margin-top-large">
                 <h3>
                   <span>Reviews <span class="de-em">Received</span></span>
@@ -132,16 +132,18 @@
                 </h3>
               </div>
               <div class="projects-grid">
-                <c:forEach items="" var="review">
-                  <div class="col-md-4">
-                    <blockquote>
-                      <p>${fn:substring(review.comment,0,200)}</p>
-                      <small>
-                        ${review.rating} <i class="fa fa-star"></i>
-                        <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />
-                      </small>
-                    </blockquote>
-                  </div>
+                <c:forEach items="${user.tours}" var="tour">
+                  <c:forEach items="${tour.reviews}" var="review">
+                    <div class="col-md-4">
+                      <blockquote>
+                        <p>${fn:substring(review.comment,0,200)}</p>
+                        <small>
+                          ${review.rating} <i class="fa fa-star"></i>
+                          <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />
+                          </small>
+                        </blockquote>
+                      </div>
+                  </c:forEach>
                 </c:forEach>
               </div>
 
@@ -169,9 +171,9 @@
                       <small>
                         ${review.rating} <i class="fa fa-star"></i>
                         <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />
-                      </small>
-                    </blockquote>
-                  </div>
+                        </small>
+                      </blockquote>
+                    </div>
                 </c:forEach>
               </div>
             </div>
