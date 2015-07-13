@@ -61,7 +61,7 @@ $(document).ready(function () {
         for (var i in result) {
           $('.poi-multiple').multiSelect('addOption', {value: result[i]['id'], text: result[i]['name'], index: 0});
         }
-        $('#notice-success').show();
+        //$('#notice-success').show();
       },
       error: function () {
         $('#notice-error').show();

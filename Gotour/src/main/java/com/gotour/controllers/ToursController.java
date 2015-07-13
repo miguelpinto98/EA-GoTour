@@ -10,6 +10,7 @@ import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -95,7 +96,7 @@ public class ToursController {
 
     List<City> cities = cityService.getCities();
     List<Theme> themes = themeService.getThemes();
-    List<PointOfInterest> pois = poiService.getPoints();
+    Set<PointOfInterest> pois = poiService.getPointsOfCity(Long.valueOf("1"));
 
     model.put("tourForm", t);
     model.put("cityList", cities);
