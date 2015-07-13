@@ -103,4 +103,8 @@ public class TourServiceImpl implements TourService {
     return enrollments.find(enrollmentsId).getTourists().contains(tourists.find(touristId));
   }
 
+  public void update(Tour tour) {
+    tours.update(tour);
+  }
+
 }
