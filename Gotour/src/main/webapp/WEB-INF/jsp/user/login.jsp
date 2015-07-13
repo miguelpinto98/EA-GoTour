@@ -7,6 +7,10 @@
 <t:layout pageTitle="GoTour - Login">
   <div id="content">
     <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li class="active">Login</li>
+      </ol>
       <form:form method="POST" action="signin" class="form-login form-wrapper form-medium form-horizontal" role="form">
         <h3 class="title-divider">
           <span>Login</span> 

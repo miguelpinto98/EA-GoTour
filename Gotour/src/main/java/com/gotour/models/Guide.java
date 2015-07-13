@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.gotour.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,55 +21,49 @@ import javax.persistence.Table;
  * @author José Morgado
  */
 @Entity
-@Table(name="guides")
+@Table(name = "guides")
 public class Guide extends User implements Serializable {
 
-    private String phone;
-    private String description;
+  private String phone;
 
-    @OneToMany(mappedBy="guide")
-    private Set<Tour> tours;
-    
-    /**
-     * @return the phone
-     */
-    public String getPhone() {
-        return phone;
-    }
+  @OneToMany(mappedBy = "guide", fetch = FetchType.EAGER)
+  private Set<Tour> tours;
 
-    /**
-     * @param phone the phone to set
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  public Guide() {
+  }
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
+  public Guide(String name, String email, String password, String phone) {
+    super(name, email, password);
+    this.phone = phone;
+    this.tours = null;
+  }
 
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  /**
+   * @return the phone
+   */
+  public String getPhone() {
+    return phone;
+  }
 
-    /**
-     * @return the tours
-     */
-    public Set<Tour> getTours() {
-        return tours;
-    }
+  /**
+   * @param phone the phone to set
+   */
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-    /**
-     * @param tours the tours to set
-     */
-    public void setTours(Set<Tour> tours) {
-        this.tours = tours;
-    }
+  /**
+   * @return the tours
+   */
+  public Set<Tour> getTours() {
+    return tours;
+  }
+
+  /**
+   * @param tours the tours to set
+   */
+  public void setTours(Set<Tour> tours) {
+    this.tours = tours;
+  }
 
 }

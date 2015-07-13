@@ -2,11 +2,20 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
+
+<c:set var="context" value="${pageContext.request.servletContext.contextPath}" scope="request" />
 
 <t:layout pageTitle="GoTour - Profile">
   <div id="content">
     <div class="container" id="about">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li class="active">${user.name}</li>
+      </ol>
+
       <div class="row">
         <!-- sidebar -->
         <div class="col-md-3 sidebar">
@@ -16,9 +25,9 @@
             <ul class="nav nav-list">
               <li class="nav-header">In This Section</li>
               <li class="active">
-                <a href="team-member.htm">
-                  Team Member 
-                  <small>Individual Display</small>
+                <a href="about-me.htm" class="first">
+                  About Me 
+                  <small>Recent information</small>
                   <i class="fa fa-angle-right"></i>
                 </a>
               </li>
@@ -28,177 +37,151 @@
         <!--main content-->
         <div class="col-md-9">
           <h2 class="title-divider">
-            <span>The <span class="de-em">Team</span></span>
+            <span>About <span class="de-em">${user.name}</span></span>
+              <c:choose>
+                <c:when test="${type == 0}">
+                <small>I Am a Tourist</small>
+              </c:when>
+              <c:otherwise>
+                <small>I Am a Guide</small>
+              </c:otherwise>
+            </c:choose>
           </h2>
-          <!-- The team list -->
-          <div class="team team-list margin-top-large">
-            <!--Team Member jimi-->
-            <div class="team-member team-member-full">
-              <div class="row">
-                <div class="col-sm-2">
-                  <img src="img/team/jimi.jpg" class="img-thumbnail" alt="Jimi" />
-                  <a href="editarPerfil.htm#">Edit Profile</a>
-                </div>
-                <div class="col-sm-7">
-                  <h3 class="name">
-                    Jimi
-                  </h3>
-                  <p class="role">Guide</p>
-                  <p class="member-since">Team member since: Oct 2013</p><br/>
 
-                  <p>Phone: 935 860 200</p>
-                  <p>Hello</p>
-                  <p>Loquor quis vero. Commodo ea genitus ille iusto mauris nulla pecus praemitto si. Dolus gravis macto tincidunt. Damnum luctus molior obruo probo quibus uxor.</p>
-                  <div class="social-media-branding">
-                    <!--@todo: replace with real social share links -->
-                    <a href="team-member.htm#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>
-                  </div>
+          <!-- About me -->
+          <div class="row">
+            <!-- Image -->
+            <div class="col-md-5 col-md-push-7">
+              <c:choose>
+                <c:when test="${user.avatar != null}">
+                  <img src="${context}/resources/img/users/${user.avatar}" alt="About me" class="img-responsive">
+                </c:when>
+                <c:otherwise>
+                  <div class="alert alert-warning" style="text-align: center;">
+                    <a href="<c:url value="/users/${user.id}/edit"></c:url>">add an image to your profile</a>
+                    </div>
+                </c:otherwise>
+              </c:choose>
+            </div>
+            <div class="col-md-7 col-md-pull-5">
+              <dl>
+                <dt>Email</dt>
+                <dd><pre class="language-markup">${user.email}</pre></dd>
+                  <c:if test="${type == 1}">
+                  <dt>Phone</dt>
+                  <dd><pre class="language-markup">${user.phone}</pre></dd>
+                  </c:if>
+                <dt>My description</dt>
+                <dd><pre class="language-markup">${user.description}</pre></dd>
+              </dl>
+
+              <div class="social-media-branding">
+                <a href="<c:url value="/users/${user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
+                  <!--@todo: replace with real social share links -->
+                  <!--<a href="#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
+                  <a href="#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
+                  <a href="#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
+                  <a href="#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>-->
                 </div>
-                <div class="col-sm-3">
-                  <h5 class="margin-top-large">
-                    Posts By Jimi
-                  </h5>
-                  <div class="blog-roll-mini">
-                    <!-- Member blog posts 1 -->
-                    <div class="row blog-post">
-                      <div class="col-xs-3">
+              </div>
+            </div>
+
+          <c:choose>
+            <c:when test="${type == 1}">
+              <!-- Latest Tours created -->
+              <div class="title-divider margin-top-large">
+                <h3>
+                  <span>Created <span class="de-em">Tours</span></span>
+                  <small>See what I've been working on</small>
+                </h3>
+              </div>
+              <div class="projects-grid">
+                <div class="blog-roll blog-grid" data-toggle="isotope-grid" data-isotope-options="{&quot;itemSelector&quot;: &quot;.grid-item&quot;}" style="position: relative; height: 1779.828125px;">
+
+                  <c:forEach items="${user.tours}" var="tour">
+                    <div class="col-sm-6 col-md-4 grid-item">
+                      <div class="blog-post">
                         <div class="blog-media">
-                          <a href="blog-post.htm">
-                            <img src="img/blog/fly.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
+                          <a href="<c:url value="/tours/${tour.id}"></c:url>">
+                            <img src="${context}/resources/img/points_of_interest/${tour.pointsOfInterest[0].id}" alt="${tour.name}" class="img-responsive">
                           </a>
                         </div>
-                      </div>
-                      <div class="col-xs-9">
-                        <h5>
-                          <a href="team-member.htm#">CAVES OF PORT WINE</a>
-                        </h5>
-                      </div>
-                    </div>
-                    <!-- Member blog posts 2 -->
-                    <div class="row blog-post">
-                      <div class="col-xs-3">
-                        <div class="blog-media">
-                          <a href="blog-post.htm">
-                            <img src="img/blog/butterfly.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </a>
+                        <div class="margin-top-md">
+                          <div class="date-wrapper date-wrapper-horizontal">
+                            <a href="#" class="tag"><span class="date-m">${tour.theme.name} Tour</span></a>
+                            <a href="#" class="tag"><span class="date-d">${tour.city.name}</span></a>
+                          </div>
+
+                          <h4 class="timeline-item-title">
+                            <a href="<c:url value="/tours/${tour.id}"></c:url>">${tour.name}</a>
+                            </h4>
+                            <p class="timeline-item-description">${fn:substring(tour.description,0,114)}...</p>
+                          <a href="<c:url value="/tours/${tour.id}"></c:url>" class="btn btn-link"><i class="fa fa-arrow-circle-right"></i> See more</a>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-xs-9">
-                        <h5>
-                          <a href="team-member.htm#">FOOD TOUR</a>
-                        </h5>
+                  </c:forEach>
+                </div>
+              </div>
+
+              <!-- REVIEWS USER IN MY TOURS -->
+              <div class="title-divider margin-top-large">
+                <h3>
+                  <span>Reviews <span class="de-em">Received</span></span>
+                  <small>Received this reviews on my tours</small>
+                </h3>
+              </div>
+              <div class="projects-grid">
+                <c:forEach items="${user.tours}" var="tour">
+                  <c:forEach items="${tour.reviews}" var="review">
+                    <div class="col-md-4">
+                      <blockquote>
+                        <p>${fn:substring(review.comment,0,200)}</p>
+                        <small>
+                          ${review.rating} <i class="fa fa-star"></i>
+                          <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />
+                          </small>
+                        </blockquote>
                       </div>
+                  </c:forEach>
+                </c:forEach>
+              </div>
+
+            </c:when>
+            <c:when test="${type == 0}">
+              <div class="title-divider margin-top-large">
+                <h3>
+                  <span>Latest <span class="de-em">Enrollments</span></span>
+                  <small>The latest tours</small>
+                </h3>
+              </div>
+
+              <!-- REVIEWS USER MADE -->
+              <div class="title-divider margin-top-large">
+                <h3>
+                  <span>Latest <span class="de-em">Reviews</span></span>
+                  <small>Tours I'm commented</small>
+                </h3>
+              </div>
+              <div class="projects-grid">
+                <c:forEach items="${user.reviews}" var="review">
+                  <div class="col-md-4">
+                    <blockquote>
+                      <p>${fn:substring(review.comment,0,200)}</p>
+                      <small>
+                        ${review.rating} <i class="fa fa-star"></i>
+                        <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />
+                        </small>
+                      </blockquote>
                     </div>
-                    <!-- Member blog posts 3 -->
-                    <div class="row blog-post">
-                      <div class="col-xs-3">
-                        <div class="blog-media">
-                          <a href="blog-post.htm">
-                            <img src="img/blog/fly.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-xs-9">
-                        <h5>
-                          <a href="team-member.htm#">GRANADA GOURMET TOUR</a>
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </c:forEach>
               </div>
             </div>
-          </div>
-          <!-- The team list -->
-          <div class="team team-list margin-top-large">
-            <h4>
-              Other Team Members
-            </h4>          
-            <!--Team Member adele-->
-            <div class="team-member">
-              <div class="row">
-                <div class="col-sm-2">
-                  <a href="team-member.htm" title="View Adele's profile">
-                    <img src="img/team/adele.jpg" class="img-thumbnail" alt="Adele" />
-                  </a>
-                </div>
-                <div class="col-sm-10">
-                  <h4 class="name">
-                    <a href="team-member.htm" title="View Adele's profile">Adele</a>
-                  </h4>
-                  <p class="role">Guide</p>
-                  <p>Hello</p>
-                  <p>Phone: 930 870 200</p>
-                  <div class="social-media-branding social-media-branding-sm">
-                    <!--@todo: replace with real social share links -->
-                    <a href="team-member.htm#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!--Team Member bono-->
-            <div class="team-member">
-              <div class="row">
-                <div class="col-sm-2">
-                  <a href="team-member.htm" title="View Bono's profile">
-                    <img src="img/team/bono.jpg" class="img-thumbnail" alt="Bono" />
-                  </a>
-                </div>
-                <div class="col-sm-10">
-                  <h4 class="name">
-                    <a href="team-member.htm" title="View Bono's profile">Bono</a>
-                  </h4>
-                  <p class="role">Guide</p>
-                  <p>Hello</p>
-                  <p>Phone: 930 870 200</p>
-
-                  <div class="social-media-branding social-media-branding-sm">
-                    <!--@todo: replace with real social share links -->
-                    <a href="team-member.htm#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!--Team Member robert-->
-            <div class="team-member">
-              <div class="row">
-                <div class="col-sm-2">
-                  <a href="team-member.htm" title="View Robert's profile">
-                    <img src="img/team/robert.jpg" class="img-thumbnail" alt="Robert" />
-                  </a>
-                </div>
-                <div class="col-sm-10">
-                  <h4 class="name">
-                    <a href="team-member.htm" title="View Robert's profile">Robert</a>
-                  </h4>
-                  <p class="role">Guide</p>
-                  <p>Hello</p>
-                  <p>Phone: 930 870 200</p>
-
-                  <div class="social-media-branding social-media-branding-sm">
-                    <!--@todo: replace with real social share links -->
-                    <a href="team-member.htm#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="team-member.htm#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </c:when>
+        </c:choose>
       </div>
     </div>
-  </t:layout>
+  </div>
+</div>
+</t:layout>
 

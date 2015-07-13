@@ -47,6 +47,15 @@ $(document).ready(function () {
       $(".price").show();
     }
   });
+  
+  $("#user-type").change(function () {
+    var type = $("#user-type option:selected").text();
+    if (type.indexOf("Guide") >= 0) {
+      $(".phone").show();
+    } else {
+      $(".phone").hide();
+    }
+  });
 
   $("#tour_city").change(function () {
     $('.poi-multiple').empty().multiSelect('refresh');

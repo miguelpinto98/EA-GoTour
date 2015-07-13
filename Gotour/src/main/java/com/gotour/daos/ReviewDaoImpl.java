@@ -18,6 +18,5 @@ public class ReviewDaoImpl extends GenericDaoImpl<Review> implements ReviewDao {
     Query query = getSession().createQuery(hql);
     query.setMaxResults(n);
     return query.list();
-  }
-  
+  }  
 }
