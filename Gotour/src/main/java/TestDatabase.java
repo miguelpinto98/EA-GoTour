@@ -142,11 +142,12 @@ public class TestDatabase {
     Tour t = ts.getTour(1L);
     DateTime date = new DateTime();
     ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
-    ts.enrollTourist(t, date, us.getTourist("angelina@gotour.com"));
+    ts.enrollTourist(1L, 1L);
     date = new DateTime(2015, 7, 25, 15, 15);
     ts.addTourDate(t, ts.getLanguage("English"), date, 20);
-    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
-    ts.enrollTourist(t, date, us.getTourist("robert@gotour.com"));
+    date = new DateTime(2015, 7, 30, 15, 30);
+    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 2);
+    ts.enrollTourist(3L, 1L);
   }
 
   private void addReviews() {

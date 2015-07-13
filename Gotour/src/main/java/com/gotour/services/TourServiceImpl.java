@@ -10,6 +10,7 @@ import com.gotour.daos.LanguageDao;
 import com.gotour.daos.ReviewDao;
 import com.gotour.daos.ThemeDao;
 import com.gotour.daos.TourDao;
+import com.gotour.daos.TouristDao;
 import com.gotour.models.City;
 import com.gotour.models.Enrollments;
 import com.gotour.models.Language;
@@ -37,6 +38,8 @@ public class TourServiceImpl implements TourService {
   private EnrollmentsDao enrollments;
   @Autowired
   private ReviewDao reviews;
+  @Autowired
+  private TouristDao tourists;
 
   public void addTheme(Theme t) {
     themes.save(t);
@@ -67,9 +70,9 @@ public class TourServiceImpl implements TourService {
     enrollments.save(e);
   }
 
-  public boolean enrollTourist(Tour tour, DateTime date, Tourist tourist) {
-    Enrollments e = enrollments.get(tour, date);
-    if (e.addEnrollment(tourist)) {
+  public boolean enrollTourist(Long enrollmentsId, Long touristId) {
+    Enrollments e = enrollments.find(enrollmentsId);
+    if (e.addEnrollment(tourists.find(touristId))) {
       enrollments.update(e);
       return true;
     } else {
@@ -94,6 +97,10 @@ public class TourServiceImpl implements TourService {
 
   public List<Review> getLastReviews(int n) {
     return reviews.getLast(n);
+  }
+
+  public boolean isEnrolled(Long enrollmentsId, Long touristId) {
+    return enrollments.find(enrollmentsId).getTourists().contains(tourists.find(touristId));
   }
 
 }
