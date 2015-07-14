@@ -6,8 +6,8 @@
 package com.gotour.controllers;
 
 import com.gotour.models.City;
-import com.gotour.models.Review;
 import com.gotour.services.CityService;
+import com.gotour.services.PointOfInterestService;
 import com.gotour.services.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +21,7 @@ public class HomeController {
 
   @Autowired private TourService ts;
   @Autowired private CityService cityService;
+  @Autowired private PointOfInterestService pointsService;
   
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(ModelMap model) {
@@ -34,10 +35,8 @@ public class HomeController {
   
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public String search(@ModelAttribute("citySearch") City city, ModelMap map) {
-    City c = cityService.getCity(city.getName());
+    City c = cityService.getCity(city.getName()); 
     
-    map.addAttribute("city", c);
-    
-    return "city/show";
+    return "redirect:/city/"+c.getId();
   }
 }

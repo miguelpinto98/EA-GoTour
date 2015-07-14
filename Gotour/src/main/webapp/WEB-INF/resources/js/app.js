@@ -1,4 +1,9 @@
 $(document).ready(function () {  
+  $("#search-city-box").select2({
+    placeholder: "Select a city",
+    allowClear: true
+  });
+  
   $(".poi-multiple").multiSelect({
     keepOrder: true,
     selectableHeader: "<div class='custom-header'>Select the points</div>",
