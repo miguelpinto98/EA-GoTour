@@ -21,145 +21,145 @@ import org.joda.time.DateTime;
 @Table(name = "enrollments")
 public class Enrollments implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "tour_fk")
-    private Tour tour;
+  @ManyToOne
+  @JoinColumn(name = "tour_fk")
+  private Tour tour;
 
-    @Column(name = "date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime date;
+  @Column(name = "date")
+  @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+  private DateTime date;
 
-    @Column(name = "max_enrollments")
-    private int maxEnrollments;
+  @Column(name = "max_enrollments")
+  private int maxEnrollments;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
-            name="tourists_enrollments",
-            joinColumns=@JoinColumn(name="enrollments_id"),
-            inverseJoinColumns=@JoinColumn(name="tourist_id")
-    )
-    private Set<Tourist> tourists;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+          name = "tourists_enrollments",
+          joinColumns = @JoinColumn(name = "enrollments_id"),
+          inverseJoinColumns = @JoinColumn(name = "tourist_id")
+  )
+  private Set<Tourist> tourists;
 
-    @ManyToOne
-    @JoinColumn(name = "language_fk")
-    private Language language;
+  @ManyToOne
+  @JoinColumn(name = "language_fk")
+  private Language language;
 
-    public Long getId() {
-        return id;
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    hash += (id != null ? id.hashCode() : 0);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    // TODO: Warning - this method won't work in the case the id fields are not set
+    if (!(object instanceof Enrollments)) {
+      return false;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    Enrollments other = (Enrollments) object;
+    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+      return false;
     }
+    return true;
+  }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+  @Override
+  public String toString() {
+    return "models.Enrollments[ id=" + id + " ]";
+  }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Enrollments)) {
-            return false;
-        }
-        Enrollments other = (Enrollments) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+  /**
+   * @return the tour
+   */
+  public Tour getTour() {
+    return tour;
+  }
 
-    @Override
-    public String toString() {
-        return "models.Enrollments[ id=" + id + " ]";
-    }
+  /**
+   * @param tour the tour to set
+   */
+  public void setTour(Tour tour) {
+    this.tour = tour;
+  }
 
-    /**
-     * @return the tour
-     */
-    public Tour getTour() {
-        return tour;
-    }
+  /**
+   * @return the limit
+   */
+  public int getMaxEnrollments() {
+    return maxEnrollments;
+  }
 
-    /**
-     * @param tour the tour to set
-     */
-    public void setTour(Tour tour) {
-        this.tour = tour;
-    }
+  /**
+   * @param maxEnrollments the limit to set
+   */
+  public void setMaxEnrollments(int maxEnrollments) {
+    this.maxEnrollments = maxEnrollments;
+  }
 
-    /**
-     * @return the limit
-     */
-    public int getMaxEnrollments() {
-        return maxEnrollments;
-    }
+  /**
+   * @return the tourists
+   */
+  public Set<Tourist> getTourists() {
+    return tourists;
+  }
 
-    /**
-     * @param maxEnrollments the limit to set
-     */
-    public void setMaxEnrollments(int maxEnrollments) {
-        this.maxEnrollments = maxEnrollments;
-    }
+  /**
+   * @param tourists the tourists to set
+   */
+  public void setTourists(Set<Tourist> tourists) {
+    this.tourists = tourists;
+  }
 
-    /**
-     * @return the tourists
-     */
-    public Set<Tourist> getTourists() {
-        return tourists;
-    }
+  /**
+   * @return the language
+   */
+  public Language getLanguage() {
+    return language;
+  }
 
-    /**
-     * @param tourists the tourists to set
-     */
-    public void setTourists(Set<Tourist> tourists) {
-        this.tourists = tourists;
-    }
+  /**
+   * @param language the language to set
+   */
+  public void setLanguage(Language language) {
+    this.language = language;
+  }
 
-    /**
-     * @return the language
-     */
-    public Language getLanguage() {
-        return language;
-    }
+  /**
+   * @return the date
+   */
+  public DateTime getDate() {
+    return date;
+  }
 
-    /**
-     * @param language the language to set
-     */
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
+  /**
+   * @param date the date to set
+   */
+  public void setDate(DateTime date) {
+    this.date = date;
+  }
 
-    /**
-     * @return the date
-     */
-    public DateTime getDate() {
-        return date;
-    }
+  public boolean full() {
+    return tourists.size() == maxEnrollments;
+  }
 
-    /**
-     * @param date the date to set
-     */
-    public void setDate(DateTime date) {
-        this.date = date;
+  public boolean addEnrollment(Tourist t) {
+    if (full()) {
+      return false;
     }
-
-    public boolean full() {
-        return tourists.size() == maxEnrollments;
-    }
-
-    public boolean addEnrollment(Tourist t) {
-        if (full()) {
-            return false;
-        }
-        tourists.add(t);
-        return true;
-    }
+    tourists.add(t);
+    return true;
+  }
 }
