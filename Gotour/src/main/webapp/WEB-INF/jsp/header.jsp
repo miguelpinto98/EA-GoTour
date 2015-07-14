@@ -93,7 +93,8 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="">Tours</a></li>
+                        <li><a href="<c:url value="/tours"/>">Tours</a></li>
+                        <li><a href="<c:url value="/cities"/>">Cities</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">Thematics</a>
 
