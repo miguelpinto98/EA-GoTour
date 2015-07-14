@@ -107,4 +107,7 @@ public class TourServiceImpl implements TourService {
     tours.update(tour);
   }
 
+  public List<Tour> getToursByCity(City city) {
+    return tours.getTours(city);
+  }
 }

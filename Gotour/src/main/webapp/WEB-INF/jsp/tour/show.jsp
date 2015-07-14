@@ -4,6 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<c:set var="context" value="${pageContext.request.servletContext.contextPath}" scope="request" />
 
 <!-- ======== @Region: #content ======== -->
 <t:layout pageTitle="${tour.name}">
@@ -119,53 +120,7 @@
                 </c:forEach>
               </div>
 
-              <div class="comments" id="comments">
-                <h3>
-                  Reviews (<span id="review-number">${reviews.size()}</span>)
-                </h3>
-                <ul class="media-list">
-                  <c:forEach items="${reviews}" var="review">
-                    <li class="media">
-                      <a class="pull-left" href="/tourists/${review.tourist.id}">
-                        <img src="${context}/resources/img/users/${review.tourist.id}.jpg" alt="Picture of ${review.tourist.name}" class="media-object img-thumbnail img-responsive" />
-                      </a>
-                      <div class="media-body">
-                        <ul class="list-inline meta text-muted">
-                          <li><i class="fa fa-calendar"></i> <joda:format value="${review.date}" style="SS" /></li>
-                          <li><i class="fa fa-user"></i> <a href="/tourists/${review.tourist.id}">${review.tourist.name}</a></li>
-                          <li>
-                            <c:forEach begin="1" end="${review.rating}">
-                              <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
-                            </c:forEach>
-                          </li>
-                        </ul>
-                        <h5 class="media-heading">
-                          ${review.title}
-                        </h5>
-                        <p>${review.comment}</p>
-                      </div>
-                    </li>
-                  </c:forEach>
-                </ul>
-                  <form:form method="POST" commandName="reviewForm" class="comment-form" role="form">
-                  <h4>
-                    Add Comment
-                  </h4>
-                  <div class="form-group">
-                    <form:label path="title" class="sr-only">Title (Abstract)</form:label>
-                    <form:input path="title" class="form-control" placeholder="Title (Abstract)"/>
-                  </div>
-                  <div class="form-group">
-                    <form:label path="rating" class="sr-only">Rating</form:label>
-                    <form:input path="rating" type="number"  class="form-control" placeholder="Rating"/>
-                  </div>
-                  <div class="form-group">
-                    <form:label path="comment" class="sr-only">Comment</form:label>
-                    <form:textarea path="comment" class="form-control" placeholder="Comment" rows="8"/>
-                  </div>
-                  <a type="submit" class="btn btn-primary">Submit</a>
-                </form:form>
-              </div>
+
               </div>
 
 
@@ -217,6 +172,70 @@
 
                 </div>
               </div>
+
+
+              <div class="col-md-12">
+                <div class="comments" id="comments">
+                  <h3>
+                    Reviews (<span id="review-number">${reviews.size()}</span>)
+                  </h3>
+                  <div class="col-md-6">
+                    <ul class="media-list">
+                      <c:forEach items="${reviews}" var="review">
+
+                        <li class="media">
+                          <a class="pull-left" href="/tourists/${review.tourist.id}">
+                            <img src="${context}/resources/img/users/${review.tourist.id}.jpg" alt="Picture of ${review.tourist.name}" class="media-object img-thumbnail img-responsive" />
+                          </a>
+                          <div class="media-body">
+                            <ul class="list-inline meta text-muted">
+                              <li><i class="fa fa-calendar"></i> <joda:format value="${review.date}" style="SS" /></li>
+                              <li><i class="fa fa-user"></i> <a href="/tourists/${review.tourist.id}">${review.tourist.name}</a></li>
+                              <li>
+                                <c:forEach begin="1" end="${review.rating}">
+                                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
+                                </c:forEach>
+                              </li>
+                            </ul>
+                            <h5 class="media-heading">
+                              ${review.title}
+                            </h5>
+                            <p>${review.comment}</p>
+                          </div>
+                        </li>
+
+                      </c:forEach>
+                    </ul>
+                  </div>
+
+                  <div class="col-md-6"
+                       <form:form action="${context}/reviews/new" method="POST" id="review-form" commandName="reviewForm" class="comment-form" role="form">
+                         <h4>
+                           Add Comment ${tourist.name}
+                         </h4>
+                         <form:input path="tourist.id" id="reviw_tourist" type="hidden" value="1"/>
+                         <form:input path="tour.id" id="review_tour" type="hidden" value="${tour.id}" />
+
+                         <div class="form-group">
+                           <form:label path="title" class="sr-only">Title (Abstract)</form:label>
+                           <form:input path="title" id="review_title" class="form-control" placeholder="Title (Abstract)"/>
+                         </div>
+                         <div class="form-group">
+                           <form:label path="rating" class="sr-only">Rating</form:label>
+                           <form:input path="rating" id="review_rating" type="number" min="1" max="5" class="form-control" placeholder="Rating"/>
+                         </div>
+                         <div class="form-group">
+                           <form:label path="comment" class="sr-only">Comment</form:label>
+                           <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8"/>
+                         </div>
+                         <button id="review-submit" type="submit" class="btn btn-primary">Submit</button>
+                       </form:form>
+                  </div>
+                </div>
+
+
+              </div>
+
               </div>
               </div>
               <script>

@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "cities")
@@ -30,6 +32,7 @@ public class City implements Serializable {
     private Set<PointOfInterest> pointsOfInterest;
 
     @OneToMany(mappedBy = "city")
+    @Fetch(FetchMode.SELECT)
     private Set<Tour> tours;
 
     public Long getId() {
