@@ -7,133 +7,60 @@
 <t:layout pageTitle="GoTour - searchTours">
   <div id="content">
     <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li class="active">Cities</li>
+      </ol>
       <h2 class="title-divider">
-        <span>Pesquisar <span class="de-em">Tours</span></span>
+        <span>Search <span class="de-em">Tours</span></span>
       </h2>
       <div class="row">
-        <!--Blog Roll Content-->
+        <!-- Tour Roll Content-->
         <div class="col-md-9 col-md-push-3 blog-roll blog-list">
-          <!-- Blog post -->
-          <div class="row blog-post">
-            <div class="col-md-1 date-md">
-              <!-- Date desktop -->
-              <div class="date-wrapper"> <span class="date-m">Feb</span> <span class="date-d">08</span> </div>
-              <!-- Meta details desktop -->
-              <p class="text-muted"> <i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Jimi</a> </p>
-            </div>
-            <div class="col-md-11">
-              <div class="tags"><a href="blog-leftbar.htm#" class="tag">Fotos</a> / <a href="blog-leftbar.htm#" class="type">Video</a></div>
-              <h4 class="title media-heading">
-                <a href="blog-post.htm">Cultural Tour Braga</a>
-              </h4>
-              <!-- Meta details mobile -->
-              <ul class="list-inline meta text-muted">
-                <li><i class="fa fa-calendar"></i> Sun 8th Feb 2015</li>
-                <li><i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Tom</a></li>
-              </ul>
-              <div class="row">
-                <div class="col-md-4 col-md-push-8">
-                  <div class="blog-media">
-                    <a href="blog-post.htm">
-                      <img src="img/blog/frog.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-8 col-md-pull-4">
-                  <p>Ad antehabeo bene exputo lucidus magna natu nulla sit utinam. Ille laoreet luctus premo quae te tincidunt verto volutpat vulpes.</p>
-                  <ul class="list-inline links">
-                    <li>
-                      <a href="blog-post.htm" class="btn btn-default btn-xs"><i class="fa fa-arrow-circle-right"></i> Read more</a>
-                    </li>
-                    <li>
-                      <a href="blog-post.htm#comments" class="btn btn-default btn-xs"><i class="fa fa-comment"></i> 40 Comments</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Blog post -->
-          <div class="row blog-post">
-            <div class="col-md-1 date-md">
-              <!-- Date desktop -->
-              <div class="date-wrapper"> <span class="date-m">Jan</span> <span class="date-d">20</span> </div>
-              <!-- Meta details desktop -->
-              <p class="text-muted"> <i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Joe</a> </p>
-            </div>
-            <div class="col-md-11">
-              <div class="tags"><a href="blog-leftbar.htm#" class="tag">Fotos</a> / <a href="blog-leftbar.htm#" class="type">Video</a></div>
-              <h4 class="title media-heading">
-                <a href="blog-post.htm">Wine Tour Porto</a>
-              </h4>
-              <!-- Meta details mobile -->
-              <ul class="list-inline meta text-muted">
-                <li><i class="fa fa-calendar"></i> Tue 20th Jan 2015</li>
-                <li><i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Joe</a></li>
-              </ul>
-              <div class="row">
-                <div class="col-md-4 col-md-push-8">
-                  <div class="blog-media">
-                    <div class="slider-wrapper">
-                      <div class="flexslider slider-mini-nav" data-slidernav="auto" data-transition="fade">
-                        <div class="slides">
-                          <div class="slide">
-                            <img src="img/blog/ape.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </div>
-                          <div class="slide">
-                            <img src="img/blog/water-pump.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </div>
-                          <div class="slide">
-                            <img src="img/blog/fly.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </div>
-                          <div class="slide">
-                            <img src="img/blog/bee.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </div>
-                        </div>
-                      </div>
+          <c:forEach items="${cityTours}" var="tour">
+            <!-- Tour Content -->
+            <div class="row blog-post">
+              <!-- <div class="col-md-1 date-md">
+              <!-- Date desktop 
+              <!--<div class="date-wrapper"> <span class="date-m">Feb</span> <span class="date-d">08</span> </div>
+              <!-- Meta details desktop
+              <!--<p class="text-muted"> <i class="fa fa-user"></i> <a href="#">Tom</a> </p>
+              </div> -->
+              <div class="col-md-11">
+                <div class="tags"><a href="#" class="tag">${tour.theme.name}</a> / <a class="type">${tour.city.name}</a></div>
+                <h4 class="title media-heading">
+                  <a href="<c:url value="/tours/${tour.id}"/>">${tour.name}</a>
+                </h4>
+
+                <div class="row">
+                  <div class="col-md-4 col-md-push-8">
+                    <div class="blog-media">
+                      <a href="<c:url value="/tours/${tour.id}"/>">
+                        <img src="#" alt="${tour.name}" class="img-responsive">
+                      </a>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-8 col-md-pull-4">
-                  <p>Abico appellatio commoveo gravis molior nisl praemitto quae ullamcorper. Jus mos nostrud vulpes wisi. Aptent erat euismod vel vulputate. Dignissim enim esse ex ludus natu patria quia saepius.</p>
-                  <ul class="list-inline links">
-                    <li>
-                      <a href="blog-post.htm" class="btn btn-default btn-xs"><i class="fa fa-arrow-circle-right"></i> Read more</a>
-                    </li>
-                    <li>
-                      <a href="blog-post.htm#comments" class="btn btn-default btn-xs"><i class="fa fa-comment"></i> 49 Comments</a>
-                    </li>
-                  </ul>
+                  <div class="col-md-8 col-md-pull-4">
+                    <p>${tour.description}</p>
+                    <ul class="list-inline links">
+                      <li>
+                        <a href="<c:url value="/tours/${tour.id}"/>" class="btn btn-default btn-xs"><i class="fa fa-arrow-circle-right"></i> See more</a>
+                      </li>
+                      <li>
+                        <a class="btn btn-default btn-xs"><i class="fa fa-comment"></i> ${tour.reviews.size()} Comments</a>
+                      </li>
+                      <li>
+                        <p class="text-muted"> <i class="fa fa-user"></i> <a href="/users/${tour.guide.id}">${tour.guide.name}</a> </p>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <!-- Blog post -->
-            <div class="row blog-post">
-              <div class="col-md-1 date-md">
-                <!-- Date desktop -->
-                <div class="date-wrapper"> <span class="date-m">Jan</span> <span class="date-d">12</span> </div>
-                <!-- Meta details desktop -->
-                <p class="text-muted"> <i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Alex</a> </p>
-              </div>
-              <div class="col-md-11">
-                <div class="tags"><a href="blog-leftbar.htm#" class="tag">Fotos</a> / <a href="blog-leftbar.htm#" class="type">Video</a></div>
-                <h4 class="title media-heading">
-                  <a href="blog-post.htm">Tour Ria de Aveiro</a>
-                </h4>
-                <!-- Meta details mobile -->
-                <ul class="list-inline meta text-muted">
-                  <li><i class="fa fa-calendar"></i> Mon 12th Jan 2015</li>
-                  <li><i class="fa fa-user"></i> <a href="blog-leftbar.htm#">Alex</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="pagination">
-            <button type="button" class="btn btn-default btn-lg btn-block">Load More</button>
-          </div>
+            </c:forEach>
         </div>
+
 
         <!--Sidebar -------------------------------------------->
         <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
@@ -141,28 +68,30 @@
 
             <!-- @Element: Search form -->
             <div class="block">
-              <form role="form">
+              <h4 class="title-divider">
+                <span>City</span>
+              </h4>
                 <div class="input-group">
-                  <label class="sr-only" for="search-field">Search</label>
-                  <select name="city" class="form-control">
+                  <label class="sr-only" for="city-search">Search</label>
+                  <select name="city" id="city-search" class="form-control" style="width: 100%;">
                     <c:forEach items="${cityList}" var="city">
                       <option value="${city.id}">${city.name}</option>
                     </c:forEach>
                   </select>
-                  <span class="input-group-btn">
-                    
-                  </span>
                 </div>
-              </form>
             </div>
 
             <!-- @Element: Tag cloud -->
             <div class="block">
               <h4 class="title-divider">
-                <span>Tematics</span>
+                <span>Thematic</span>
               </h4>
               <div class="tag-cloud">
-                <span><a href="blog-leftbar.htm#">Cultural</a> (74)</span>
+                <span><a id="">Cultural</a> (74)</span>
+                <c:forEach items="thematics" var="theme">
+                  <span><a href="blog-leftbar.htm#">Cultural</a> (74)</span>
+                </c:forEach>
+                
                 <span><a href="blog-leftbar.htm#">Wine</a> (5)</span>
                 <span><a href="blog-leftbar.htm#">Gastronomic</a> (24)</span>
                 <span><a href="blog-leftbar.htm#">Night</a> (96)</span>
@@ -198,116 +127,19 @@
               </ul>
             </div>
 
-            <!-- @Element: Popular/recent tabs -->
+
+
+            <!-- @Element: Subscrive button -->
             <div class="block">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="blog-leftbar.htm#popular" data-toggle="tab">Popular</a></li>
-                <li><a href="blog-leftbar.htm#latest" data-toggle="tab">Latest</a></li>
-              </ul>
-              <div class="tab-content tab-content-bordered">
-                <!-- Popular tab content -->
-                <div class="tab-pane fade in active blog-roll-mini" id="popular">
-                  <!-- Popular blog post 1 -->
-                  <div class="row blog-post">
-                    <div class="col-xs-4">
-                      <div class="blog-media">
-                        <a href="blog-post.htm">
-                          <img src="img/blog/water-pump.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-xs-8">
-                      <h5>
-                        <a href="blog-leftbar.htm#">Archaeological spaces</a>
-                      </h5>
-                    </div>
-                  </div>
-                  <!-- Popular blog post 2 -->
-                  <div class="row blog-post">
-                    <div class="col-xs-4">
-                      <div class="blog-media">
-                        <a href="blog-post.htm">
-                          <img src="img/blog/ape.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-xs-8">
-                      <h5>
-                        <a href="blog-leftbar.htm#">Port wine cellars</a>
-                      </h5>
-                    </div>
-                  </div>
-
-
-                  <!-- Latest tab content -->
-                  <div class="tab-pane fade blog-roll-mini" id="latest">
-                    <!-- Latest blog post 1 -->
-                    <div class="row blog-post">
-                      <div class="col-xs-4">
-                        <div class="blog-media">
-                          <a href="blog-post.htm">
-                            <img src="img/blog/fly.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-xs-8">
-                        <h5>
-                          <a href="blog-leftbar.htm#">Holy Luzia</a>
-                        </h5>
-                      </div>
-                    </div>
-                    <!-- Latest blog post 2 -->
-                    <div class="row blog-post">
-                      <div class="col-xs-4">
-                        <div class="blog-media">
-                          <a href="blog-post.htm">
-                            <img src="img/blog/water-pump.jpg" alt="Picture of frog by Ben Fredericson" class="img-responsive" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-xs-8">
-                        <h5>
-                          <a href="blog-leftbar.htm#">Belém Tower</a>
-                        </h5>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <!-- @Element: Subscrive button -->
-              <div class="block">
-                <a href="blog-leftbar.htm#" class="btn btn-warning"><i class="fa fa-rss"></i> Subscribe via RSS feed</a>
-              </div>
-
-              <!-- Follow Widget -->
-              <div class="block">
-                <h4 class="title-divider">
-                  <span>Follow Us On</span>
-                </h4>
-                <!--@todo: replace with real social media links -->
-                <ul class="list-unstyled social-media-branding">
-                  <li>
-                    <a href="blog-leftbar.htm#" class="soci al-link branding-twitter"><i class="fa fa-twitter-square fa-fw"></i> Twitter</a>
-                  </li>
-                  <li>
-                    <a href="blog-leftbar.htm#" class="social-link branding-facebook"><i class="fa fa-facebook-square fa-fw"></i> Facebook</a>
-                  </li>
-                  <li>
-                    <a href="blog-leftbar.htm#" class="social-link branding-linkedin"><i class="fa fa-linkedin-square fa-fw"></i> LinkedIn</a>
-                  </li>
-                  <li>
-                    <a href="blog-leftbar.htm#" class="social-link branding-google-plus"><i class="fa fa-google-plus-square fa-fw"></i> Google+</a>
-                  </li>
-                </ul>
-              </div>
+              <a href="<c:url value="/tours/new"/>" class="btn btn-success"><i class="fa fa-plus"></i> Create new tour</a>
             </div>
+
           </div>
         </div>
       </div>
-      <!--.container-->
     </div>
+    <!--.container-->
+  </div>
 
 
-  </t:layout>
+</t:layout>

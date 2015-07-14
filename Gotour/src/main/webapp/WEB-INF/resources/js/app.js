@@ -77,4 +77,21 @@ $(document).ready(function () {
       }
     });
   });
+  
+  $("#city-search").change(function () {
+    var city_id = $("#city-search").val();
+    
+    $.ajax({
+      method: 'GET',
+      contentType: 'application/json',
+      url: '/Gotour/cities/' + city_id,
+      dataType: 'json',
+      success: function (result) {
+        console.log(result);
+      },
+      error: function () {
+        $('#notice-error').show();
+      }
+    });
+  });
 });
