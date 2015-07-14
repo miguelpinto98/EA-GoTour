@@ -8,7 +8,7 @@
     <div class="container">
       <ol class="breadcrumb">
         <li><a href="<c:url value="/"/>">Home</a></li>
-        <li><a href="<c:url value="/tours/"/>">Tours</a></li>
+        <li><a href="<c:url value="/tours"/>">Tours</a></li>
         <li class="active">Create</li>
       </ol>
 

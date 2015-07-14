@@ -2,11 +2,18 @@
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 
 <!-- ======== @Region: #content ======== -->
 <t:layout pageTitle="${tour.name}">
   <div id="content">
     <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="<c:url value="/"/>">Home</a></li>
+        <li><a href="<c:url value="/tours/"/>">Tours</a></li>
+        <li class="active">${tour.name}</li>
+      </ol>
       <h2 class="title-divider">
         <span>${tour.name} <span class="de-em">${city.name}</span></span>
         <small>${theme.name} Tour</small>
@@ -60,8 +67,12 @@
                   <div><a href="${context}/users/login">Login</a> To Book</div>
                 </c:otherwise>
               </c:choose>
+              <div >
+                <a href="<c:url value="/tours/${tour.id}/schedule"/>" class="btn btn-warning">Schedule</a>
+                <a href="<c:url value="/tours/${tour.id}/delete"/>" class="btn btn-danger">Delete</a>
+              </div>
 
-                  <span id="is_enrolled" style="color:green" hidden>You already bought tickets for this day!</span>
+              <span id="is_enrolled" style="color:green" hidden>You already bought tickets for this day!</span>
               </div>
 
               <div id="message_success" class="alert alert-success" hidden>
@@ -110,7 +121,7 @@
 
               <div class="comments" id="comments">
                 <h3>
-                  Reviews (${reviews.size()})
+                  Reviews (<span id="review-number">${reviews.size()}</span>)
                 </h3>
                 <ul class="media-list">
                   <c:forEach items="${reviews}" var="review">
@@ -136,6 +147,24 @@
                     </li>
                   </c:forEach>
                 </ul>
+                  <form:form method="POST" commandName="reviewForm" class="comment-form" role="form">
+                  <h4>
+                    Add Comment
+                  </h4>
+                  <div class="form-group">
+                    <form:label path="title" class="sr-only">Title (Abstract)</form:label>
+                    <form:input path="title" class="form-control" placeholder="Title (Abstract)"/>
+                  </div>
+                  <div class="form-group">
+                    <form:label path="rating" class="sr-only">Rating</form:label>
+                    <form:input path="rating" type="number"  class="form-control" placeholder="Rating"/>
+                  </div>
+                  <div class="form-group">
+                    <form:label path="comment" class="sr-only">Comment</form:label>
+                    <form:textarea path="comment" class="form-control" placeholder="Comment" rows="8"/>
+                  </div>
+                  <a type="submit" class="btn btn-primary">Submit</a>
+                </form:form>
               </div>
               </div>
 
@@ -235,7 +264,7 @@
                 });
                 $("#tour_date option").on("click", function () {
                   $("#is_enrolled").prop('hidden', true);
-                  if($("#tour_date option:selected").attr("value") == -1){
+                  if ($("#tour_date option:selected").attr("value") == -1) {
                     return;
                   }
                   $.ajax({

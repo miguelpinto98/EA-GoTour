@@ -1,13 +1,20 @@
 package com.gotour.controllers;
 
 import com.gotour.models.City;
+import com.gotour.models.Enrollments;
+import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
+import com.gotour.models.Review;
 import com.gotour.models.Theme;
 import com.gotour.models.Tour;
+import com.gotour.models.Tourist;
 import com.gotour.services.CityService;
+import com.gotour.services.EnrollmentsService;
+import com.gotour.services.LanguageService;
 import com.gotour.services.ThemeService;
 import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
+import com.gotour.services.UserService;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +38,10 @@ public class ToursController {
   private ThemeService themeService;
   @Autowired
   private PointOfInterestService poiService;
-
+  
+  @Autowired private LanguageService langService;
+  @Autowired private EnrollmentsService enrollmentsService;
+  
   @Autowired
   private TourService ts;
 
@@ -53,6 +63,10 @@ public class ToursController {
     model.addAttribute("pois", t.getPointsOfInterest());
     model.addAttribute("reviews", t.getReviews());
     model.addAttribute("enrollments", t.getAvailableEnrollments());
+    
+    Review r = new Review();
+    model.addAttribute("reviewForm", r);
+    
     return "tour/show";
   }
   
@@ -134,5 +148,27 @@ public class ToursController {
   public String ByTheme(@PathVariable String id, ModelMap map) {
     map.put("msg", id);
     return "tour/list";
+  }
+  
+  @RequestMapping(value = "/{id}/schedule", method = RequestMethod.GET)
+  public String schedule(@PathVariable Long id, ModelMap model) {
+    Tour t = tourService.getTour(id);
+    Enrollments enroll = new Enrollments();
+    List<Language> langList = langService.getLanguages();
+    
+    model.addAttribute("tour", t);
+    model.addAttribute("enrollment", enroll);
+    model.addAttribute("langList", langList);
+    
+    return "tour/schedule";
+  }
+  
+  @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+  public  String schedule(@ModelAttribute("enrollment") Enrollments enroll, Map<String, Object> model) {
+    Tour tour = tourService.getTour(enroll.getTour().getId());
+    enroll.setTour(tour);
+    enrollmentsService.add(enroll);
+    
+    return "redirect:/tours/"+tour.getId();
   }
 }

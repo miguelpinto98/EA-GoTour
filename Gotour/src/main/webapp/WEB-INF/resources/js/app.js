@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () {  
   $(".poi-multiple").multiSelect({
     keepOrder: true,
     selectableHeader: "<div class='custom-header'>Select the points</div>",

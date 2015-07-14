@@ -24,10 +24,13 @@
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/colour-blue.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/select2.css" />
     <link rel="stylesheet" type="text/css" href="${context}/resources/css/multi-select.css" />
+    <link rel="stylesheet" type="text/css" href="${context}/resources/css/bootstrap-datetimepicker.css" />
     
     <!-- JS -->
     <script src="${context}/resources/js/jquery.min.js"></script>
+    <script src="${context}/resources/js/moment.js"></script>
     <script src="${context}/resources/js/bootstrap.min.js"></script>
+    <script src="${context}/resources/js/bootstrap-datetimepicker.js"></script>
     <script src="${context}/resources/js/script.min.js"></script>
     <script src="${context}/resources/js/select2.full.js"></script>
     <script src="${context}/resources/js/jquery.multi-select.js"></script>
