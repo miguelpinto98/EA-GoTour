@@ -37,6 +37,6 @@ public class HomeController {
   public String search(@ModelAttribute("citySearch") City city, ModelMap map) {
     City c = cityService.getCity(city.getName()); 
     
-    return "redirect:/city/"+c.getId();
+    return "redirect:/cities/"+c.getId();
   }
 }
