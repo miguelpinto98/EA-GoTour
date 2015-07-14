@@ -41,7 +41,6 @@ public class ToursController {
   
   @Autowired private LanguageService langService;
   @Autowired private EnrollmentsService enrollmentsService;
-  @Autowired private UserService userService;
   
   @Autowired
   private TourService ts;
@@ -169,19 +168,6 @@ public class ToursController {
     Tour tour = tourService.getTour(enroll.getTour().getId());
     enroll.setTour(tour);
     enrollmentsService.add(enroll);
-    
-    
-    return "redirect:/tours/"+tour.getId();
-  }
-  
-  @RequestMapping(value = "/review", method = RequestMethod.POST)
-  public String review(@ModelAttribute("reviewForm") Review review, Map<String, Object> model) {
-    Tour tour = tourService.getTour(review.getTour().getId());
-    Tourist tourist = userService.getTourist(review.getTourist().getEmail());
-    
-    review.setTour(tour);
-    review.setTourist(tourist);
-    //reviewService.add(review);
     
     return "redirect:/tours/"+tour.getId();
   }
