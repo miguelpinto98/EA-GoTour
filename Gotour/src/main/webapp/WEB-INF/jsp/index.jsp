@@ -19,15 +19,14 @@
               Search for a city or a tour
             </h2>
             <p>Perfect platform to know new city tours!</p>
-            <form:form method="POST" action="/searchByCityTour" role="form">
+            <form:form method="POST" action="${context}/search" role="form" commandName="citySearch">
               <div class="row">
                 <div class="col-md-9">
                   <div class="input-group input-group-lg">
-                    <%--<form:label path="" class="sr-only" for="city-field">City</form:label>--%>
-                    <input class="form-control"/>
-                    <%--<form:input path="" type="text" class="form-control" id="city-field" placeholder="City"/>--%>
+                    <form:label path="name" class="sr-only">City</form:label>
+                    <form:input path="name" type="text" class="form-control" placeholder="City, eg: Braga"/>
                     <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">Go!</button>
+                      <button id="submit_search" class="btn btn-primary" type="button">Go!</button>
                     </span>
                   </div>
                 </div>

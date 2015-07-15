@@ -28,9 +28,10 @@ public class CityController {
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(ModelMap model) {
-    model.addAttribute("cityList",cityService.getCities());
-    
     City c = cityService.getCityByID(2L);
+    
+    model.addAttribute("cityList",cityService.getCities());
+   
     List<Tour> tours = tourService.getToursByCity(c);    
     model.addAttribute("cityTours", tours);
     model.addAttribute("thematics", themeService.getThemes());
@@ -38,11 +39,18 @@ public class CityController {
     return "city/list";
   }
   
-  @ResponseBody
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Tour> toursByCityID(@PathVariable long id) {
-    System.out.println("asdasdasdasdas");
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public String index(@PathVariable long id, ModelMap model) {
     City c = cityService.getCityByID(id);
-    return tourService.getToursByCity(c);
+    if(c==null)
+      c = cityService.getCityByID(2L);
+    
+    model.addAttribute("cityList",cityService.getCities());
+   
+    List<Tour> tours = tourService.getToursByCity(c);    
+    model.addAttribute("cityTours", tours);
+    model.addAttribute("thematics", themeService.getThemes());
+    
+    return "city/list";
   }
 }
