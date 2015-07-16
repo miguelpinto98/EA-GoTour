@@ -1,4 +1,7 @@
 
+import com.github.javafaker.Address;
+import com.github.javafaker.Faker;
+import com.github.javafaker.Lorem;
 import com.gotour.config.HibernateConfiguration;
 import com.gotour.models.City;
 import com.gotour.models.Guide;
@@ -12,13 +15,13 @@ import com.gotour.services.CityService;
 import com.gotour.services.TourService;
 import com.gotour.services.UserService;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,7 @@ public class TestDatabase {
   TourService ts;
   @Autowired
   UserService us;
+  Random r = new Random();
 
   public static void main(String[] args) throws FileNotFoundException, IOException {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
@@ -53,10 +57,10 @@ public class TestDatabase {
     x.addReviews();
   }
 
-  void addCities() throws FileNotFoundException, IOException {
+  void addCities() throws IOException {
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     InputStream is = classloader.getResourceAsStream("database/cities.txt");
-    BufferedReader br = new BufferedReader(new InputStreamReader(is));    
+    BufferedReader br = new BufferedReader(new InputStreamReader(is));
     City c;
     for (String line = br.readLine(); line != null; line = br.readLine()) {
       c = new City();
@@ -65,8 +69,8 @@ public class TestDatabase {
     }
   }
 
-  void addPOIs() {
-    PointOfInterest p1 = new PointOfInterest(), p2 = new PointOfInterest();
+  void addPOIs() throws IOException {
+    PointOfInterest p1 = new PointOfInterest(), p2 = new PointOfInterest(), p3;
     p1.setName("Sameiro");
     p1.setDescription("The Sanctuary of Our Lady of Sameiro (or Sanctuary of Sameiro) is a sanctuary and Marian shrine located in Braga, in the surroundings of the city of Braga, Portugal.");
     p1.setLocation("WTF?");
@@ -75,6 +79,22 @@ public class TestDatabase {
     p2.setLocation("Gers");
     cs.addPointOfInterest(cs.getCity("Braga"), p1);
     cs.addPointOfInterest(cs.getCity("Braga"), p2);
+    
+    Faker faker = new Faker();
+    Lorem l = faker.lorem();
+    Address a = faker.address();
+    try{
+    for(int i=0;i<100;i++){
+      p3 = new PointOfInterest();
+      p3.setName(l.fixedString(6));
+      p3.setDescription(l.sentence());
+      p3.setLocation(a.latitude()+";"+a.longitude());
+      cs.addPointOfInterest(cs.getCityByID((long) r.nextInt(17)+1), p3);
+    }
+    }
+    catch(Exception e){
+ 
+    }
   }
 
   void addThemes() {
@@ -176,4 +196,5 @@ public class TestDatabase {
     r.setTitle("Nice!");
     ts.addReview(ts.getTour(1L), us.getTourist("robert@gotour.com"), r);
   }
+  
 }
