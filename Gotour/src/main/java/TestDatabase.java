@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import org.joda.time.DateTime;
@@ -89,7 +91,7 @@ public class TestDatabase {
         p3.setName(l.fixedString(6));
         p3.setDescription(l.sentence());
         p3.setLocation(a.latitude() + ";" + a.longitude());
-        cs.addPointOfInterest(cs.getCityByID((long) r.nextInt(17) + 1), p3);
+        cs.addPointOfInterest(cs.getCityByID((long) r.nextInt(18) + 1), p3);
       }
     } catch (Exception e) {
     }
@@ -131,13 +133,14 @@ public class TestDatabase {
   void addUsers() {
     String[] users = new String[]{"adele", "bono", "jimi", "jolie"};
     Tourist t;
-    int i=1;
+    int i = 1;
     for (String user : users) {
       t = new Tourist();
       t.setName(user);
       t.setEmail(user + "@gotour.com");
       t.setPassword("gotour");
-      t.setAvatar(i+"_"+user);
+      t.setAvatar(i + "_" + user);
+      t.setDescription(faker.lorem().sentence());
       us.addTourist(t);
       i++;
     }
@@ -151,7 +154,7 @@ public class TestDatabase {
       g.setPassword("gotour");
       g.setPhone(faker.phoneNumber().phoneNumber());
       g.setDescription(faker.lorem().paragraph());
-      g.setAvatar(i+"_"+user);
+      g.setAvatar(i + "_" + user);
       us.addGuide(g);
       i++;
     }
@@ -159,22 +162,58 @@ public class TestDatabase {
   }
 
   private void addTours() {
-    Tour t = new Tour();
-    City c = cs.getCity("Braga");
-    t.setCity(c);
-    t.setDescription("Find out about Braga's mysteries by taking a tour through its narrow and medieval streets. Learn about the legends, be amazed by the 'gverreiros' way of living and enjoy the city through the local's perspective.");
-    t.setDuration("2 hours");
-    t.setGuide(us.getGuide("guia@guia.com"));
-    Set<Language> l = new HashSet<Language>();
-    l.add(ts.getLanguage("English"));
-    l.add(ts.getLanguage("Portuguese"));
-    t.setLanguages(l);
-    t.setName("Enchanted Tour");
-    t.setPointsOfInterest(new ArrayList<PointOfInterest>(cs.getPointsOfInterest(c)));
-    t.setNormalPrice("5€");
-    t.setStudentPrice("2.5€");
-    t.setTheme(ts.getTheme("Free"));
-    ts.addTour(t);
+    Language[] ls = new Language[]{
+      ts.getLanguage("Portuguese"),
+      ts.getLanguage("English"),
+      ts.getLanguage("Spanish"),
+      ts.getLanguage("Chinese")
+    };
+
+    Theme[] th = new Theme[]{
+      ts.getTheme("Free"),
+      ts.getTheme("Food"),
+      ts.getTheme("Walking"),
+      ts.getTheme("Night")
+    };
+
+    List<Guide> gs = new ArrayList<Guide>();
+
+    for (String guide : new String[]{"kate", "obama", "robert", "steve"}) {
+      gs.add(us.getGuide(guide + "@gotour.com"));
+    }
+
+    Tour t;
+    City c;
+    List<PointOfInterest> p;
+    Iterator<PointOfInterest> it;
+    for (Guide g : gs) {
+      for (int i = 0; i < 10; i++) {
+        t = new Tour();
+        c = cs.getCityByID((long) r.nextInt(18) + 1);
+        t.setCity(c);
+        t.setDescription(faker.lorem().paragraph(3));
+        t.setDuration((r.nextInt(4) + 1) + " hours");
+        t.setGuide(g);
+        Set<Language> l = new HashSet<Language>();
+        int n = r.nextInt(4) + 1;
+        for(int k = 0; k<n; k++){
+          l.add(ls[r.nextInt(4)]);
+        }
+        t.setLanguages(l);
+        t.setName(faker.lorem().sentence(r.nextInt(3) + 1));
+        p = new ArrayList<PointOfInterest>();
+        it = c.getPointsOfInterest().iterator();
+        for(int j=0;it.hasNext() && i<4;j++){
+          p.add(it.next());
+        }
+        t.setPointsOfInterest(p);
+        int price = r.nextInt(21) + 5;
+        t.setNormalPrice(price+"€");
+        t.setStudentPrice((price-(price*2/3))+"€");
+        t.setTheme(th[r.nextInt(4)]);
+        ts.addTour(t);
+      }
+    }
   }
 
   private void addEnrollments() {
