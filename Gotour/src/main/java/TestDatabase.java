@@ -11,6 +11,12 @@ import com.gotour.models.Tourist;
 import com.gotour.services.CityService;
 import com.gotour.services.TourService;
 import com.gotour.services.UserService;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +35,7 @@ public class TestDatabase {
   @Autowired
   UserService us;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException, IOException {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
     ctx.register(HibernateConfiguration.class);
     ctx.register(TestDatabase.class);
@@ -47,13 +53,16 @@ public class TestDatabase {
     x.addReviews();
   }
 
-  void addCities() {
-    City c = new City();
-    c.setName("Porto");
-    cs.addCity(c);
-    c = new City();
-    c.setName("Braga");
-    cs.addCity(c);
+  void addCities() throws FileNotFoundException, IOException {
+    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    InputStream is = classloader.getResourceAsStream("database/cities.txt");
+    BufferedReader br = new BufferedReader(new InputStreamReader(is));    
+    City c;
+    for (String line = br.readLine(); line != null; line = br.readLine()) {
+      c = new City();
+      c.setName(line.split(";")[1]);
+      cs.addCity(c);
+    }
   }
 
   void addPOIs() {
@@ -109,7 +118,7 @@ public class TestDatabase {
     t.setEmail("barack@gotour.com");
     t.setPassword("barack");
     us.addTourist(t);
-    
+
     Guide g = new Guide();
     g.setName("Guia");
     g.setEmail("guia@guia.com");
