@@ -38,6 +38,7 @@ public class TestDatabase {
   @Autowired
   UserService us;
   Random r = new Random();
+  Faker faker = new Faker();
 
   public static void main(String[] args) throws FileNotFoundException, IOException {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
@@ -73,27 +74,24 @@ public class TestDatabase {
     PointOfInterest p1 = new PointOfInterest(), p2 = new PointOfInterest(), p3;
     p1.setName("Sameiro");
     p1.setDescription("The Sanctuary of Our Lady of Sameiro (or Sanctuary of Sameiro) is a sanctuary and Marian shrine located in Braga, in the surroundings of the city of Braga, Portugal.");
-    p1.setLocation("WTF?");
+    p1.setLocation("60,425883;90,987497");
     p2.setName("Bom Jesus");
     p2.setDescription("Bom Jesus (or Sanctuary of Sameiro) is a sanctuary and Marian shrine located in Braga, in the surroundings of the city of Braga, Portugal.");
-    p2.setLocation("Gers");
+    p2.setLocation("-43,115498;-34,285392");
     cs.addPointOfInterest(cs.getCity("Braga"), p1);
     cs.addPointOfInterest(cs.getCity("Braga"), p2);
-    
-    Faker faker = new Faker();
+
     Lorem l = faker.lorem();
     Address a = faker.address();
-    try{
-    for(int i=0;i<100;i++){
-      p3 = new PointOfInterest();
-      p3.setName(l.fixedString(6));
-      p3.setDescription(l.sentence());
-      p3.setLocation(a.latitude()+";"+a.longitude());
-      cs.addPointOfInterest(cs.getCityByID((long) r.nextInt(17)+1), p3);
-    }
-    }
-    catch(Exception e){
- 
+    try {
+      for (int i = 0; i < 100; i++) {
+        p3 = new PointOfInterest();
+        p3.setName(l.fixedString(6));
+        p3.setDescription(l.sentence());
+        p3.setLocation(a.latitude() + ";" + a.longitude());
+        cs.addPointOfInterest(cs.getCityByID((long) r.nextInt(17) + 1), p3);
+      }
+    } catch (Exception e) {
     }
   }
 
@@ -120,32 +118,44 @@ public class TestDatabase {
     l2.setCode("pt");
     ts.addLanguage(l1);
     ts.addLanguage(l2);
+    l2 = new Language();
+    l2.setName("Spanish");
+    l2.setCode("es");
+    ts.addLanguage(l2);
+    l2 = new Language();
+    l2.setName("Chinese");
+    l2.setCode("cn");
+    ts.addLanguage(l2);
   }
 
   void addUsers() {
-    Tourist t = new Tourist();
-    t.setName("robert");
-    t.setEmail("robert@gotour.com");
-    t.setPassword("robert");
-    us.addTourist(t);
-    t = new Tourist();
-    t.setName("angelina");
-    t.setEmail("angelina@gotour.com");
-    t.setPassword("angelina");
-    us.addTourist(t);
-    t = new Tourist();
-    t.setName("barack");
-    t.setEmail("barack@gotour.com");
-    t.setPassword("barack");
-    us.addTourist(t);
+    String[] users = new String[]{"adele", "bono", "jimi", "jolie"};
+    Tourist t;
+    int i=1;
+    for (String user : users) {
+      t = new Tourist();
+      t.setName(user);
+      t.setEmail(user + "@gotour.com");
+      t.setPassword("gotour");
+      t.setAvatar(i+"_"+user);
+      us.addTourist(t);
+      i++;
+    }
 
-    Guide g = new Guide();
-    g.setName("Guia");
-    g.setEmail("guia@guia.com");
-    g.setPassword("guia");
-    g.setPhone("912312123");
-    g.setDescription("guide description");
-    us.addGuide(g);
+    users = new String[]{"kate", "obama", "robert", "steve"};
+    Guide g;
+    for (String user : users) {
+      g = new Guide();
+      g.setName(user);
+      g.setEmail(user + "@gotour.com");
+      g.setPassword("gotour");
+      g.setPhone(faker.phoneNumber().phoneNumber());
+      g.setDescription(faker.lorem().paragraph());
+      g.setAvatar(i+"_"+user);
+      us.addGuide(g);
+      i++;
+    }
+
   }
 
   private void addTours() {
@@ -196,5 +206,5 @@ public class TestDatabase {
     r.setTitle("Nice!");
     ts.addReview(ts.getTour(1L), us.getTourist("robert@gotour.com"), r);
   }
-  
+
 }
