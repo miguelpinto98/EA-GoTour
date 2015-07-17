@@ -224,7 +224,7 @@ public class CreateDatabase {
         t = new Tour();
         t.setCity(c);
         t.setDescription(faker.lorem().paragraph(2));
-        t.setDuration((r.nextInt(4) + 1) + " hours");
+        t.setDuration((r.nextInt(3) + 2) + " hours");
         t.setGuide(gs.get(aux % gs.size()));
         Set<Language> l = new HashSet<Language>();
         int n = r.nextInt(4) + 1;
@@ -262,10 +262,14 @@ public class CreateDatabase {
         date = new DateTime(2015, 7, day, 8 + r.nextInt(15), 0);
         int max = 10 + r.nextInt(11);
         e = ts.addTourDate(t, ls.get(r.nextInt(ls.size())), date, max);
-        for (m = 1, n = r.nextInt(max); m <= n; m++) {
-          ts.enrollTourist(e.getId(), (long) m);
-        }
       }
+    }
+    Tourist tt;
+    long z=1;
+    for (String a : tourists) {
+      tt=us.getTourist(a + "@gotour.com");
+      for(int zz=0;zz<3;zz++,z++)
+        ts.enrollTourist(z % TOURS, tt.getId());
     }
   }
 
@@ -293,7 +297,7 @@ public class CreateDatabase {
       for (int j = 0; j < REVIEWS / TOURS; j++) {
         rv = new Review();
         rv.setComment(o.option(comments));
-        rv.setRating((new Integer(r.nextInt(5) + 1)).byteValue());
+        rv.setRating((byte) 5);
         rv.setTitle(o.option(titles));
         ts.addReview(t, tou.get(j % tourists.length), rv);
       }
