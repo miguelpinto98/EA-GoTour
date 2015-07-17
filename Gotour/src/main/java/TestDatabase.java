@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.Lorem;
 import com.gotour.config.HibernateConfiguration;
 import com.gotour.models.City;
+import com.gotour.models.Enrollments;
 import com.gotour.models.Guide;
 import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
@@ -39,8 +40,16 @@ public class TestDatabase {
   TourService ts;
   @Autowired
   UserService us;
+
   Random r = new Random();
   Faker faker = new Faker();
+
+  int POIS = 100;
+  int TOURISTS = 4;
+  int GUIDES = 4;
+  int TOURS = 40;
+  int ENROLLMENTS = 100;
+  int REVIEWS = 3;
 
   public static void main(String[] args) throws FileNotFoundException, IOException {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
@@ -153,7 +162,7 @@ public class TestDatabase {
       g.setEmail(user + "@gotour.com");
       g.setPassword("gotour");
       g.setPhone(faker.phoneNumber().phoneNumber());
-      g.setDescription(faker.lorem().paragraph());
+      g.setDescription(faker.lorem().paragraph(1));
       g.setAvatar(i + "_" + user);
       us.addGuide(g);
       i++;
@@ -191,25 +200,25 @@ public class TestDatabase {
         t = new Tour();
         c = cs.getCityByID((long) r.nextInt(18) + 1);
         t.setCity(c);
-        t.setDescription(faker.lorem().paragraph(3));
+        t.setDescription(faker.lorem().paragraph(1));
         t.setDuration((r.nextInt(4) + 1) + " hours");
         t.setGuide(g);
         Set<Language> l = new HashSet<Language>();
         int n = r.nextInt(4) + 1;
-        for(int k = 0; k<n; k++){
+        for (int k = 0; k < n; k++) {
           l.add(ls[r.nextInt(4)]);
         }
         t.setLanguages(l);
         t.setName(faker.lorem().sentence(r.nextInt(3) + 1));
         p = new ArrayList<PointOfInterest>();
         it = c.getPointsOfInterest().iterator();
-        for(int j=0;it.hasNext() && i<4;j++){
+        for (int j = 0; it.hasNext() && i < 4; j++) {
           p.add(it.next());
         }
         t.setPointsOfInterest(p);
         int price = r.nextInt(21) + 5;
-        t.setNormalPrice(price+"€");
-        t.setStudentPrice((price-(price*2/3))+"€");
+        t.setNormalPrice(price + "€");
+        t.setStudentPrice((price - (price * 2 / 3)) + "€");
         t.setTheme(th[r.nextInt(4)]);
         ts.addTour(t);
       }
@@ -217,33 +226,49 @@ public class TestDatabase {
   }
 
   private void addEnrollments() {
-    Tour t = ts.getTour(1L);
-    DateTime date = new DateTime();
-    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 1);
-    ts.enrollTourist(1L, 1L);
-    date = new DateTime(2015, 7, 25, 15, 15);
-    ts.addTourDate(t, ts.getLanguage("English"), date, 20);
-    date = new DateTime(2015, 7, 30, 15, 30);
-    ts.addTourDate(t, ts.getLanguage("Portuguese"), date, 2);
-    ts.enrollTourist(3L, 1L);
+    Tour t;
+    DateTime date;
+    Language[] ls = new Language[4];
+    Enrollments e;
+    int j, m, n;
+    for (long i = 1; i <= 40; i++) {
+      for (j = 0; j < 1; j++) {
+        t = ts.getTour(i);
+        date = new DateTime(2015, 7, 16 + r.nextInt(11), r.nextInt(24), r.nextInt(60));
+        ls = t.getLanguages().toArray(ls);
+        int max = r.nextInt(TOURISTS) + 1;
+        e = ts.addTourDate(t, ls[r.nextInt(ls.length)], date, max);
+        for (m = 1, n = r.nextInt(max); m <= n; m++) {
+          ts.enrollTourist(e.getId(), (long) m);
+        }
+      }
+    }
   }
 
   private void addReviews() {
-    Review r = new Review();
-    r.setComment("It's totally awesome, we're could imagine life without it!");
-    r.setRating((byte) 5);
-    r.setTitle("Awesome!");
-    ts.addReview(ts.getTour(1L), us.getTourist("barack@gotour.com"), r);
-    r = new Review();
-    r.setComment("10 out of 10, highly recommended!");
-    r.setRating((byte) 4);
-    r.setTitle("Top!");
-    ts.addReview(ts.getTour(1L), us.getTourist("angelina@gotour.com"), r);
-    r = new Review();
-    r.setComment("Our productivity &amp; sales are up! Couldn't be happier with this product!");
-    r.setRating((byte) 3);
-    r.setTitle("Nice!");
-    ts.addReview(ts.getTour(1L), us.getTourist("robert@gotour.com"), r);
+    Review rv;
+
+    String[] users = new String[]{"adele", "bono", "jimi", "jolie"};
+    int j=1;
+    for (long i = 1; i < TOURS; i++, j++) {
+      rv = new Review();
+      rv.setComment("It's totally awesome, we couldn't imagine life without it!");
+      rv.setRating((new Integer(r.nextInt(5) + 1)).byteValue());
+      rv.setTitle("Awesome!");
+      ts.addReview(ts.getTour(i), us.getTourist((users[j%4]+1)+"@gotour.com"), rv);
+      
+      rv = new Review();
+      rv.setComment("10 out of 10, highly recommended!");
+      rv.setTitle("Top!");
+      rv.setRating((new Integer(r.nextInt(5) + 1)).byteValue());
+      ts.addReview(ts.getTour(i), us.getTourist((users[j%4]+1)+"@gotour.com"), rv);
+      
+      rv = new Review();
+      rv.setComment("Couldn't be happier with this tour!");
+      rv.setTitle("Amazing!");
+      rv.setRating((new Integer(r.nextInt(5) + 1)).byteValue());
+      ts.addReview(ts.getTour(i), us.getTourist((users[j%4]+1)+"@gotour.com"), rv);
+    }
   }
 
 }
