@@ -47,13 +47,13 @@ public class CreateDatabase {
   Random r = new Random();
   Faker faker = new Faker();
 
-  int CITIES = 18;
-  int POIS = 54;
-  int TOURISTS = 10;
-  int GUIDES = 10;
-  int TOURS = 36;
-  int ENROLLMENTS = 72;
-  int REVIEWS = 108;
+  int CITIES = 5;
+  int POIS = 50;
+  int TOURISTS = 20;
+  int GUIDES = 4;
+  int TOURS = 25;
+  int ENROLLMENTS = 75;
+  int REVIEWS = 75;
 
   String[] tourists = new String[]{"obama", "bono", "robert", "steve"};
   String[] guides = new String[]{"jolie", "kate", "adele", "jimi"};
@@ -73,8 +73,7 @@ public class CreateDatabase {
     x.addUsers();
     x.addTours();
     x.addEnrollments();
-     x.addReviews();
-
+    x.addReviews();
   }
 
   void addCities() throws IOException {
@@ -84,7 +83,7 @@ public class CreateDatabase {
     City c;
     for (String line = br.readLine(); line != null; line = br.readLine()) {
       c = new City();
-      c.setName(line.split(";")[1]);
+      c.setName(line);
       cs.addCity(c);
     }
   }
@@ -260,11 +259,11 @@ public class CreateDatabase {
       ls = new ArrayList<Language>(t.getLanguages());
       for (j = 0; j < ENROLLMENTS / TOURS; j++) {
         int day = 21 + (j % 2 == 0 ? r.nextInt(5) : -r.nextInt(5));
-        date = new DateTime(2015, 7, day, r.nextInt(24), 0);
-        int max = r.nextInt(TOURISTS) + 1;
+        date = new DateTime(2015, 7, day, 8 + r.nextInt(15), 0);
+        int max = 10 + r.nextInt(11);
         e = ts.addTourDate(t, ls.get(r.nextInt(ls.size())), date, max);
         for (m = 1, n = r.nextInt(max); m <= n; m++) {
-          ts.enrollTourist(e.getId(), (long) r.nextInt(TOURISTS) + 1);
+          ts.enrollTourist(e.getId(), (long) m);
         }
       }
     }
