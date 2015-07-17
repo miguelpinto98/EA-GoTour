@@ -61,13 +61,14 @@ public class TourServiceImpl implements TourService {
     tours.save(t);
   }
 
-  public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments) {
+  public Enrollments addTourDate(Tour t, Language l, DateTime date, int maxEnrollments) {
     Enrollments e = new Enrollments();
     e.setLanguage(l);
     e.setMaxEnrollments(maxEnrollments);
     e.setTour(t);
     e.setDate(date);
     enrollments.save(e);
+    return e;
   }
 
   public boolean enrollTourist(Long enrollmentsId, Long touristId) {

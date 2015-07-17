@@ -6,6 +6,7 @@
 package com.gotour.services;
 
 import com.gotour.models.City;
+import com.gotour.models.Enrollments;
 import com.gotour.models.Language;
 import com.gotour.models.Review;
 import com.gotour.models.Theme;
@@ -26,7 +27,7 @@ public interface TourService {
 
   public void addTour(Tour t);
 
-  public void addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
+  public Enrollments addTourDate(Tour t, Language l, DateTime date, int maxEnrollments);
 
   public boolean enrollTourist(Long enrollmentsId, Long touristId);
 
