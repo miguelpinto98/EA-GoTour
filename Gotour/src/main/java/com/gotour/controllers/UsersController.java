@@ -97,11 +97,11 @@ public class UsersController {
     User user = userService.getUser(id);
 
     if (user instanceof Guide) {
-      map.addAttribute("user", ((Guide) user));
+      map.addAttribute("_user", ((Guide) user));
       map.addAttribute("type", 1);
       map.addAttribute("lastReviews", null);
     } else {
-      map.addAttribute("user", ((Tourist) user));
+      map.addAttribute("_user", ((Tourist) user));
       map.addAttribute("type", 0);
     }
     return "user/profile";
