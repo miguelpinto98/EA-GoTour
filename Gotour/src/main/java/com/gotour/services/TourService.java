@@ -44,4 +44,10 @@ public interface TourService {
   public void update(Tour tour);
 
   public List<Tour> getToursByCity(City city);
+
+  public List<Tour> getToursByCityAndTheme(City c, Theme t);
+
+  public List<Tour> getToursByTheme(Theme t);
+
+  public Object getTours();
 }

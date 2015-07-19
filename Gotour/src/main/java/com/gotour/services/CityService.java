@@ -16,6 +16,8 @@ public interface CityService {
   Set<PointOfInterest> getPointsOfInterest(City c);
 
   List<City> getCities();
+  
+  Set<City> getUniqueCities();
 
   City getCityByID(Long id);
 }

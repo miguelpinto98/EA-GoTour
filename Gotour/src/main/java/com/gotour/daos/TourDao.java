@@ -15,4 +15,8 @@ public interface TourDao extends GenericDao<Tour> {
   public List<Tour> getTours(City c, Theme t, int pageNumber, int pageSize);
 
   public List<Tour> getTours(City city);
+  
+  public List<Tour> getTours(City city, Theme theme);
+
+  public List<Tour> getTours(Theme t);
 }

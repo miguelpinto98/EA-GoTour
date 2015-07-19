@@ -5,8 +5,10 @@ import com.gotour.daos.PointOfInterestDao;
 import com.gotour.models.City;
 import com.gotour.models.PointOfInterest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +46,14 @@ public class CityServiceImpl implements CityService {
 
   public City getCityByID(Long id) {
     return cityDao.find(id);
+  }
+
+  public Set<City> getUniqueCities() {
+    Set<City> cities = new HashSet<City>();
+    
+    for(City c : cityDao.getAll())
+      cities.add(c);
+    
+    return cities;
   }
 }

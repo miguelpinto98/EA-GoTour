@@ -240,8 +240,8 @@ public class CreateDatabase {
         }
         t.setPointsOfInterest(p);
         int price = r.nextInt(21) + 5;
-        t.setNormalPrice(price + "€");
-        t.setStudentPrice((price - (price / 3)) + "€");
+        t.setNormalPrice(price + "â‚¬");
+        t.setStudentPrice((price - (price / 3)) + "â‚¬");
         t.setTheme(th[r.nextInt(4)]);
         ts.addTour(t);
       }
