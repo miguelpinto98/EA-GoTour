@@ -106,6 +106,21 @@ public class UsersController {
     }
     return "user/profile";
   }
+  
+  @RequestMapping(value = "/{id}/enrollments", method = RequestMethod.GET)
+  public String enrollments(ModelMap map, @PathVariable long id) {
+    User user = userService.getUser(id);
+
+    if (user instanceof Guide) {
+      map.addAttribute("userForm", ((Guide) user));
+      map.addAttribute("type", 1);
+      
+      return "user/enrollments";
+    } else {
+      return "redirect:/users/"+id;
+    }
+  }
+  
 
   @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
   public String edit(ModelMap map, @PathVariable long id) {

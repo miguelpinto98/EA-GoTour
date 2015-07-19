@@ -165,7 +165,7 @@
                       <span>Guide</span>
                     </h4>
                     <ul class="list-unstyled list-lg">
-                      <li><i class="fa fa-angle-right fa-fw"></i><a href="${context}/guides/${guide.id}">${guide.name}</a></li>
+                      <li><i class="fa fa-angle-right fa-fw"></i><a href="${context}/users/${guide.id}">${guide.name}</a></li>
                       <li><i class="fa fa-angle-right fa-fw"></i>Phone: ${guide.phone}</li>
                       <li><i class="fa fa-angle-right fa-fw"></i>Email: <a href="mailto:${guide.email}">${guide.email}</a></li>
                     </ul>
@@ -186,13 +186,13 @@
                       <c:forEach items="${reviews}" var="review">
 
                         <li class="media">
-                          <a class="pull-left" href="/tourists/${review.tourist.id}">
+                          <a class="pull-left" href="${context}/users/${review.tourist.id}">
                             <img src="${context}/resources/img/users/${review.tourist.avatar}.jpg" alt="Picture of ${review.tourist.name}" class="media-object img-thumbnail img-responsive" />
                           </a>
                           <div class="media-body">
                             <ul class="list-inline meta text-muted">
                               <li><i class="fa fa-calendar"></i> <joda:format value="${review.date}" style="SS" /></li>
-                              <li><i class="fa fa-user"></i> <a href="/tourists/${review.tourist.id}">${review.tourist.name}</a></li>
+                              <li><i class="fa fa-user"></i> <a href="${context}/users/${review.tourist.id}">${review.tourist.name}</a></li>
                               <li>
                                 <c:forEach begin="1" end="${review.rating}">
                                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
@@ -230,7 +230,7 @@
                            <form:label path="comment" class="sr-only">Comment</form:label>
                            <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8"/>
                          </div>
-                         <button id="review-submit" type="submit" class="btn btn-primary">Submit</button>
+                         <button type="submit" class="btn btn-primary">Submit</button>
                        </form:form>
                   </div>
                 </div>
@@ -240,12 +240,6 @@
 
               </div>
               </div>
-                  
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-  
-  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
-</div><script type="text/javascript"> function init_map(){var myOptions = {zoom:7,center:new google.maps.LatLng(41.5893077,-8.380051600000002),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(41.5893077, -8.380051600000002)});infowindow = new google.maps.InfoWindow({content:"<b></b><br/><br/>4710 Braga" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});}google.maps.event.addDomListener(window, 'load', init_map);</script>
 
               <!-- Modal -->
               <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -261,13 +255,9 @@
                         <dd id="point-desc">...</dd>
                         <dt>Location</dt>
                         <dd id="point-loc">
-                          <div id="gmap_canvas" style="height:500px;width:500px;"></div>
+                          <div id="map-canvas" style="width: 300px; height: 200px"></div>
                         </dd>
-                        
-                        
                       </dl>
-                      
-                      
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -278,7 +268,6 @@
               </div>              
 
             </t:layout>
-              
-              
-                           
-                
+
+
+

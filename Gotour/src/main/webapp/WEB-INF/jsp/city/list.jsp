@@ -125,10 +125,10 @@
                 <span>Thematic</span>
               </h4>
               <div class="tag-cloud">
-                <span><a href="<c:url value="/cities/0/1"/>">Free Tours</a> (5)</span>
-                <span><a href="<c:url value="/cities/0/2"/>">Food Tours</a> (24)</span>
-                <span><a href="<c:url value="/cities/0/3"/>">Walking Tours</a> (96)</span>
-                <span><a href="<c:url value="/cities/0/4"/>">Night Tours</a> (49)</span>
+                <span><a href="<c:url value="/cities/0/1"/>">Free Tours</a> </span>
+                <span><a href="<c:url value="/cities/0/2"/>">Food Tours</a> </span>
+                <span><a href="<c:url value="/cities/0/3"/>">Walking Tours</a> </span>
+                <span><a href="<c:url value="/cities/0/4"/>">Night Tours</a> </span>
               </div>
             </div>
 
