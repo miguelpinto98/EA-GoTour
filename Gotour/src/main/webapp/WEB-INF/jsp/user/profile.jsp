@@ -25,12 +25,22 @@
             <ul class="nav nav-list">
               <li class="nav-header">In This Section</li>
               <li class="active">
-                <a href="about-me.htm" class="first">
+                <a href="${context}/users/${user.id}" class="first">
                   About Me 
                   <small>Recent information</small>
                   <i class="fa fa-angle-right"></i>
                 </a>
               </li>
+              <c:if test="${type eq 1}">
+                <li>
+                  <a href="${context}/users/${user.id}/enrollments" class="first">
+                    Tourists subscribers
+                    <small>Tourists inscribed on my tours</small>
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </li>
+              </c:if>
+
             </ul>
           </div>
         </div>
@@ -108,8 +118,8 @@
                         </div>
                         <div class="margin-top-md">
                           <div class="date-wrapper date-wrapper-horizontal">
-                            <a href="#" class="tag"><span class="date-m">${tour.theme.name} Tour</span></a>
-                            <a href="#" class="tag"><span class="date-d">${tour.city.name}</span></a>
+                            <a href="${context}/cities/0/${tour.theme.id}" class="tag"><span class="date-m">${tour.theme.name} Tour</span></a>
+                            <a href="${context}/cities/${tour.city.id}" class="tag"><span class="date-d">${tour.city.name}</span></a>
                           </div>
 
                           <h4 class="timeline-item-title">
@@ -149,11 +159,27 @@
 
             </c:when>
             <c:when test="${type == 0}">
-              <div class="title-divider margin-top-large">
+              <div class="margin-top-large">
                 <h3>
                   <span>Latest <span class="de-em">Enrollments</span></span>
                   <small>The latest tours</small>
                 </h3>
+
+
+                <c:forEach items="${user.enrollments}" var="enroll">
+                  <div class="col-md-4">
+                    <div class="timeline-item2">
+                      <!--                        <i class="fa fa-coffee fa-4x pull-left"></i> -->
+                      <div class="timeline-item-date"><joda:format value="${enroll.date}" pattern="M-yyyy"  /></div>
+                      <h4 class="timeline-item-title">
+                        <a href="<c:url value="/tours/${enroll.tour.id}"/>">${enroll.tour.name}</a>
+                      </h4>
+                      <p class="timeline-item-description">${fn:substring(enroll.tour.description,0,150)}</p>
+                    </div>
+                  </div>
+
+                </c:forEach>
+
               </div>
 
               <!-- REVIEWS USER MADE -->
@@ -167,7 +193,7 @@
                 <c:forEach items="${user.reviews}" var="review">
                   <div class="col-md-4">
                     <blockquote>
-                      <p>${fn:substring(review.comment,0,200)}</p>
+                      <p>${fn:substring(review.comment,0,100)}</p>
                       <small>
                         ${review.rating} <i class="fa fa-star"></i>
                         <span class="spacer">/</span> <a href="<c:url value="/tours/${review.tour.id}"></c:url>">@${review.tour.name}</a><span class="spacer"> /</span> <joda:format value="${review.date}" pattern="yyyy-M-dd"  />

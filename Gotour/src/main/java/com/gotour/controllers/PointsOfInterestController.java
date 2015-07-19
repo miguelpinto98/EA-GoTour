@@ -53,4 +53,10 @@ public class PointsOfInterestController {
   public Set<PointOfInterest> list(@PathVariable long id) {
     return poiService.getPointsOfCity(id);
   }
+  
+  @ResponseBody
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public PointOfInterest show(@PathVariable long id) {
+    return poiService.getPointOfInterestById(id);
+  }
 }

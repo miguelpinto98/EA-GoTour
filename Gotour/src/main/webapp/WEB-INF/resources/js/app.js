@@ -1,9 +1,9 @@
-$(document).ready(function () {  
+$(document).ready(function () {
   $("#search-city-box").select2({
     placeholder: "Select a city",
     allowClear: true
   });
-  
+
   $(".poi-multiple").multiSelect({
     keepOrder: true,
     selectableHeader: "<div class='custom-header'>Select the points</div>",
@@ -52,7 +52,7 @@ $(document).ready(function () {
       $(".price").show();
     }
   });
-  
+
   $("#user-type").change(function () {
     var type = $("#user-type option:selected").text();
     if (type.indexOf("Guide") >= 0) {
@@ -82,10 +82,10 @@ $(document).ready(function () {
       }
     });
   });
-  
+
   $("#city-search").change(function () {
     var city_id = $("#city-search").val();
-    
+
     $.ajax({
       method: 'GET',
       contentType: 'application/json',
@@ -103,7 +103,88 @@ $(document).ready(function () {
   $("#href-filter").click(function () {
     var city = $("#city-filter").val();
     var theme = $("#theme-filter").val();
-    
-    $("#href-filter").attr("href", "/Gotour/cities/"+city+"/"+theme);
+
+    $("#href-filter").attr("href", "/Gotour/cities/" + city + "/" + theme);
+  });
+
+  $('#language-book').change(function () {
+    var languageId = $(this).val();
+    $("#tour_date").removeAttr("disabled");
+    $("#tickets").removeAttr("disabled");
+    $("#book").removeAttr("disabled");
+    var selected = false;
+    $("#tour_date option").each(function () {
+      if (!selected && $(this).attr("languageId") === languageId) {
+        $(this).prop('selected', true);
+        selected = true;
+      }
+      if ($(this).attr("languageId") === languageId) {
+        $(this).removeAttr("hidden");
+      }
+      else if ($(this).attr("value") !== "-1") {
+        $(this).removeAttr('selected');
+        $(this).prop('hidden', true);
+      }
+    });
+    if (!selected) {
+      $("#default_date").prop('selected', true);
+    }
+    $("#tour_date option").trigger("click");
+  });
+
+  $("#book").click(function () {
+    $.ajax({
+      method: 'POST',
+      url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value"),
+      success: function (confirmed) {
+        if (confirmed) {
+          $("#book").prop("disabled", true);
+          $("#message_success").removeAttr("hidden");
+        }
+        else
+          $("#message_error").removeAttr("hidden");
+      },
+      error: function () {
+        $("#message_error").removeAttr("hidden");
+        $("#message_error p").text("There is no available tour for the selected language!");
+      }
+    });
+  });
+  $("#tour_date option").on("click", function () {
+    $("#is_enrolled").prop('hidden', true);
+    if ($("#tour_date option:selected").attr("value") == -1) {
+      return;
+    }
+    $.ajax({
+      method: 'GET',
+      url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value") + '/users',
+      success: function (confirmed) {
+        if (confirmed) {
+          $("#is_enrolled").removeAttr("hidden");
+        }
+      },
+      error: function () {
+      }
+    });
+  });
+
+  $(".point-href").click(function () {
+    var point_id = $(this).attr('data-target');
+
+    $.ajax({
+      method: 'GET',
+      contentType: 'application/json',
+      url: '/Gotour/points/' + point_id,
+      dataType: 'json',
+      success: function (result) {
+        $("#point-title").text(result.name);
+        $("#point-desc").text(result.description);
+        
+        $("#poiModal").modal('show');
+      },
+      error: function () {
+        $('#notice-error').show();
+      }
+    });
   });
 });
