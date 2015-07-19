@@ -93,18 +93,15 @@ public class CreateDatabase {
     Lorem l = faker.lorem();
     Address a = faker.address();
     City c;
-    try {
-      for (int j = 1; j <= CITIES; j++) {
-        c = cs.getCityByID((long) j);
-        for (int i = 0; i < POIS / CITIES; i++) {
-          p3 = new PointOfInterest();
-          p3.setName(l.fixedString(6));
-          p3.setDescription(l.sentence());
-          p3.setLocation(a.latitude() + ";" + a.longitude());
-          cs.addPointOfInterest(c, p3);
-        }
+    for (int j = 1; j <= CITIES; j++) {
+      c = cs.getCityByID((long) j);
+      for (int i = 0; i < POIS / CITIES; i++) {
+        p3 = new PointOfInterest();
+        p3.setName(l.fixedString(6));
+        p3.setDescription(l.sentence() + " (" + i + ")");
+        p3.setLocation(a.latitude() + ";" + a.longitude());
+        cs.addPointOfInterest(c, p3);
       }
-    } catch (Exception e) {
     }
   }
 
@@ -157,9 +154,9 @@ public class CreateDatabase {
 
     Name p = faker.name();
     String name;
-    for (int j = 0; j < TOURISTS - tourists.length; j++) {
+    for (int j = 1; j <= TOURISTS; j++) {
       t = new Tourist();
-      name = p.firstName();
+      name = "test" + j;
       t.setName(name);
       t.setEmail(name.toLowerCase() + "@gotour.com");
       t.setPassword("gotour");
@@ -264,42 +261,47 @@ public class CreateDatabase {
         e = ts.addTourDate(t, ls.get(r.nextInt(ls.size())), date, max);
       }
     }
+    /*
     Tourist tt;
-    long z=1;
+    long z = 1;
     for (String a : tourists) {
-      tt=us.getTourist(a + "@gotour.com");
-      for(int zz=0;zz<3;zz++,z++)
+      tt = us.getTourist(a + "@gotour.com");
+      for (int zz = 0; zz < 3; zz++, z++) {
         ts.enrollTourist(z % TOURS, tt.getId());
+      }
     }
+    */
   }
 
   private void addReviews() {
     Review rv;
-    Options o = faker.options();
     String[] comments = new String[]{
-      "It's totally awesome, we couldn't imagine life without it!",
-      "10 out of 10, highly recommended!",
+      "This tour sucks! Not recomended.",
+      "It's was nice, we couldn't imagine life without it!",
+      "8 out of 10, highly recommended!",
       "Couldn't be happier with this tour!"
     };
     String[] titles = new String[]{
-      "Awesome!",
-      "Top!",
-      "Amazing!"
+      "Boring",
+      "Nice!",
+      "Great!",
+      "Top!"
     };
     Tour t;
     List<Tourist> tou = new ArrayList<Tourist>();
     for (String a : tourists) {
       tou.add(us.getTourist(a + "@gotour.com"));
     }
-    for (int i = 1; i <= TOURS; i++) {
+    for (int i = 1, aux=0, aux2; i <= TOURS; i++) {
       t = ts.getTour((long) i);
 
-      for (int j = 0; j < REVIEWS / TOURS; j++) {
+      for (int j = 0; j < REVIEWS / TOURS; j++, aux++) {
         rv = new Review();
-        rv.setComment(o.option(comments));
-        rv.setRating((byte) 5);
-        rv.setTitle(o.option(titles));
-        ts.addReview(t, tou.get(j % tourists.length), rv);
+        aux2 = aux % 4;
+        rv.setComment(comments[aux2]);
+        rv.setRating((byte) (aux2 + 2));
+        rv.setTitle(titles[aux2]);
+        ts.addReview(t, tou.get(aux % tourists.length), rv);
       }
     }
   }
