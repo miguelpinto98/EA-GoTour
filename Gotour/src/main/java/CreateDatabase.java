@@ -93,18 +93,15 @@ public class CreateDatabase {
     Lorem l = faker.lorem();
     Address a = faker.address();
     City c;
-    try {
-      for (int j = 1; j <= CITIES; j++) {
-        c = cs.getCityByID((long) j);
-        for (int i = 0; i < POIS / CITIES; i++) {
-          p3 = new PointOfInterest();
-          p3.setName(l.fixedString(6));
-          p3.setDescription(l.sentence());
-          p3.setLocation(a.latitude() + ";" + a.longitude());
-          cs.addPointOfInterest(c, p3);
-        }
+    for (int j = 1; j <= CITIES; j++) {
+      c = cs.getCityByID((long) j);
+      for (int i = 0; i < POIS / CITIES; i++) {
+        p3 = new PointOfInterest();
+        p3.setName(l.fixedString(6));
+        p3.setDescription(l.sentence());
+        p3.setLocation(a.latitude() + ";" + a.longitude());
+        cs.addPointOfInterest(c, p3);
       }
-    } catch (Exception e) {
     }
   }
 
@@ -157,9 +154,9 @@ public class CreateDatabase {
 
     Name p = faker.name();
     String name;
-    for (int j = 0; j < TOURISTS - tourists.length; j++) {
+    for (int j = 1; j <= TOURISTS; j++) {
       t = new Tourist();
-      name = p.firstName();
+      name = "test" + j;
       t.setName(name);
       t.setEmail(name.toLowerCase() + "@gotour.com");
       t.setPassword("gotour");
@@ -265,11 +262,12 @@ public class CreateDatabase {
       }
     }
     Tourist tt;
-    long z=1;
+    long z = 1;
     for (String a : tourists) {
-      tt=us.getTourist(a + "@gotour.com");
-      for(int zz=0;zz<3;zz++,z++)
+      tt = us.getTourist(a + "@gotour.com");
+      for (int zz = 0; zz < 3; zz++, z++) {
         ts.enrollTourist(z % TOURS, tt.getId());
+      }
     }
   }
 
