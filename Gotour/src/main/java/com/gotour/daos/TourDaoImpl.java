@@ -30,4 +30,18 @@ public class TourDaoImpl extends GenericDaoImpl<Tour> implements TourDao {
     query.setLong("city", city.getId());
     return query.list();
   }
+
+  public List<Tour> getTours(City city, Theme theme) {
+    Criteria crit = getSession().createCriteria(getType());
+    crit.add(Restrictions.eq("city", city));
+    crit.add(Restrictions.eq("theme", theme));
+    return crit.list();
+  }
+
+  public List<Tour> getTours(Theme t) {
+    String hql = "from Tour t where theme_fk = :theme";
+    Query query = getSession().createQuery(hql);
+    query.setLong("theme", t.getId());
+    return query.list();
+  }
 }

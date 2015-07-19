@@ -111,4 +111,16 @@ public class TourServiceImpl implements TourService {
   public List<Tour> getToursByCity(City city) {
     return tours.getTours(city);
   }
+
+  public List<Tour> getToursByCityAndTheme(City city, Theme theme) {
+    return tours.getTours(city,theme);
+  }
+
+  public List<Tour> getToursByTheme(Theme t) {
+    return tours.getTours(t);
+  }
+
+  public Object getTours() {
+    return tours.getAll();
+  }
 }

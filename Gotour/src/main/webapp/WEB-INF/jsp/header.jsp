@@ -98,10 +98,10 @@
                             <a href="#" class="dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">Thematics</a>
 
                             <ul class="dropdown-menu" role="menu" aria-labelledby="pages-drop">
-                                <li><a href="<c:url value="/tours/theme/1"/>" class="menu-item">Free Tours</a></li>
-                                <li><a href="<c:url value="/tours/theme/2"/>" class="menu-item">Food Tours</a></li>
-                                <li><a href="<c:url value="/tours/theme/3"/>" class="menu-item">Walking Tours</a></li>
-                                <li><a href="<c:url value="/tours/theme/4"/>" class="menu-item">Night Tours</a></li>
+                                <li><a href="<c:url value="/cities/0/1"/>" class="menu-item">Free Tours</a></li>
+                                <li><a href="<c:url value="/cities/0/2"/>" class="menu-item">Food Tours</a></li>
+                                <li><a href="<c:url value="/cities/0/3"/>" class="menu-item">Walking Tours</a></li>
+                                <li><a href="<c:url value="/cities/0/4"/>" class="menu-item">Night Tours</a></li>
                             </ul>
                         </li>
                         <li class="dropdown"></li>

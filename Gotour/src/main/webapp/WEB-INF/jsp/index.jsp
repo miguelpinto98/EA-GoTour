@@ -47,35 +47,35 @@
         </h2>
         <div class="row">
           <div class="feature col-sm-6 col-md-3">
-            <a href="<c:url value="/tours/theme/1"/>">
+            <a href="<c:url value="/cities/0/1"/>">
               <img src="${context}/resources/img/features/feature-1.png" alt="free tours" class="img-responsive">
             </a>
             <h3 class="title">
-              <a href="<c:url value="/tours/theme/1"/>">Free <span class="de-em">Tours</span></a>
+              <a href="<c:url value="/cities/0/1"/>">Free <span class="de-em">Tours</span></a>
             </h3>
           </div>
           <div class="feature col-sm-6 col-md-3">
-            <a href="<c:url value="/tours/theme/2"/>">
+            <a href="<c:url value="/cities/0/2"/>">
               <img src="${context}/resources/img/features/feature-2.png" alt="food tours" class="img-responsive">
             </a>
             <h3 class="title">
-              <a href="<c:url value="/tours/theme/2"/>">Food <span class="de-em">Tours</span></a>
+              <a href="<c:url value="/cities/0/2"/>">Food <span class="de-em">Tours</span></a>
             </h3>
           </div>
           <div class="feature col-sm-6 col-md-3">
-            <a href="<c:url value="/tours/theme/3"/>">
+            <a href="<c:url value="/cities/0/3"/>">
               <img src="${context}/resources/img/features/feature-3.png" alt="walking tours" class="img-responsive">
             </a>
             <h3 class="title">
-              <a href="<c:url value="/tours/theme/3"/>">Walking <span class="de-em">Tours</span></a>
+              <a href="<c:url value="/cities/0/3"/>">Walking <span class="de-em">Tours</span></a>
             </h3>
           </div>
           <div class="feature col-sm-6 col-md-3">
-            <a href="<c:url value="/tours/theme/4"/>">
+            <a href="<c:url value="/cities/0/4"/>">
               <img src="${context}/resources/img/features/feature-4.png" alt="night tours" class="img-responsive">
             </a>
             <h3 class="title">
-              <a href="<c:url value="/tours/theme/4"/>">Night <span class="de-em">Tours</span></a>
+              <a href="<c:url value="/cities/0/4"/>">Night <span class="de-em">Tours</span></a>
             </h3>
           </div>
         </div>
@@ -90,7 +90,7 @@
                 <blockquote>
                   <p>${review.comment}</p>
                   <small>
-                    <img class="img-circle" src="${context}/resources/img/users/${review.tourist.id}.jpg" alt="${review.tourist.name}">
+                    <img class="img-circle" src="${context}/resources/img/users/${review.tourist.avatar}.jpg" alt="${review.tourist.name}">
                     ${review.tourist.name} <span class="spacer">in</span> <a href="${context}/tours/${review.tour.id}">${review.tour.name}</a>
                   </small>
                 </blockquote>

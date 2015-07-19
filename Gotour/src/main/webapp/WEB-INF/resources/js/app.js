@@ -99,4 +99,11 @@ $(document).ready(function () {
       }
     });
   });
+
+  $("#href-filter").click(function () {
+    var city = $("#city-filter").val();
+    var theme = $("#theme-filter").val();
+    
+    $("#href-filter").attr("href", "/Gotour/cities/"+city+"/"+theme);
+  });
 });
