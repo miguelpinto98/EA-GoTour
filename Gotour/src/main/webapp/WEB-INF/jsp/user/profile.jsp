@@ -13,7 +13,7 @@
     <div class="container" id="about">
       <ol class="breadcrumb">
         <li><a href="<c:url value="/"/>">Home</a></li>
-        <li class="active">${user.name}</li>
+        <li class="active">${_user.name}</li>
       </ol>
 
       <div class="row">
@@ -25,7 +25,7 @@
             <ul class="nav nav-list">
               <li class="nav-header">In This Section</li>
               <li class="active">
-                <a href="${context}/users/${user.id}" class="first">
+                <a href="${context}/users/${_user.id}" class="first">
                   About Me 
                   <small>Recent information</small>
                   <i class="fa fa-angle-right"></i>
@@ -33,7 +33,7 @@
               </li>
               <c:if test="${type eq 1}">
                 <li>
-                  <a href="${context}/users/${user.id}/enrollments" class="first">
+                  <a href="${context}/users/${_user.id}/enrollments" class="first">
                     Tourists subscribers
                     <small>Tourists inscribed on my tours</small>
                     <i class="fa fa-angle-right"></i>
@@ -47,7 +47,7 @@
         <!--main content-->
         <div class="col-md-9">
           <h2 class="title-divider">
-            <span>About <span class="de-em">${user.name}</span></span>
+            <span>About <span class="de-em">${_user.name}</span></span>
               <c:choose>
                 <c:when test="${type == 0}">
                 <small>I Am a Tourist</small>
@@ -63,12 +63,12 @@
             <!-- Image -->
             <div class="col-md-5 col-md-push-7">
               <c:choose>
-                <c:when test="${user.avatar != null}">
-                  <img src="${context}/resources/img/users/${user.avatar}" alt="About me" class="img-responsive">
+                <c:when test="${_user.avatar != null}">
+                  <img src="${context}/resources/img/users/${_user.avatar}" alt="About me" class="img-responsive">
                 </c:when>
                 <c:otherwise>
                   <div class="alert alert-warning" style="text-align: center;">
-                    <a href="<c:url value="/users/${user.id}/edit"></c:url>">add an image to your profile</a>
+                    <a href="<c:url value="/users/${_user.id}/edit"></c:url>">add an image to your profile</a>
                     </div>
                 </c:otherwise>
               </c:choose>
@@ -76,17 +76,17 @@
             <div class="col-md-7 col-md-pull-5">
               <dl>
                 <dt>Email</dt>
-                <dd><pre class="language-markup">${user.email}</pre></dd>
+                <dd><pre class="language-markup">${_user.email}</pre></dd>
                   <c:if test="${type == 1}">
                   <dt>Phone</dt>
-                  <dd><pre class="language-markup">${user.phone}</pre></dd>
+                  <dd><pre class="language-markup">${_user.phone}</pre></dd>
                   </c:if>
                 <dt>My description</dt>
-                <dd><pre class="language-markup">${user.description}</pre></dd>
+                <dd><pre class="language-markup">${_user.description}</pre></dd>
               </dl>
 
               <div class="social-media-branding">
-                <a href="<c:url value="/users/${user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
+                <a href="<c:url value="/users/${_user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
                   <!--@todo: replace with real social share links -->
                   <!--<a href="#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
                   <a href="#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
@@ -108,7 +108,7 @@
               <div class="projects-grid">
                 <div class="blog-roll blog-grid" data-toggle="isotope-grid" data-isotope-options="{&quot;itemSelector&quot;: &quot;.grid-item&quot;}" style="position: relative; height: 1779.828125px;">
 
-                  <c:forEach items="${user.tours}" var="tour">
+                  <c:forEach items="${_user.tours}" var="tour">
                     <div class="col-sm-6 col-md-4 grid-item">
                       <div class="blog-post">
                         <div class="blog-media">
@@ -142,7 +142,7 @@
                 </h3>
               </div>
               <div class="projects-grid">
-                <c:forEach items="${user.tours}" var="tour">
+                <c:forEach items="${_user.tours}" var="tour">
                   <c:forEach items="${tour.reviews}" var="review">
                     <div class="col-md-4">
                       <blockquote>
@@ -166,7 +166,7 @@
                 </h3>
 
 
-                <c:forEach items="${user.enrollments}" var="enroll">
+                <c:forEach items="${_user.enrollments}" var="enroll">
                   <div class="col-md-4">
                     <div class="timeline-item2">
                       <!--                        <i class="fa fa-coffee fa-4x pull-left"></i> -->
@@ -190,7 +190,7 @@
                 </h3>
               </div>
               <div class="projects-grid">
-                <c:forEach items="${user.reviews}" var="review">
+                <c:forEach items="${_user.reviews}" var="review">
                   <div class="col-md-4">
                     <blockquote>
                       <p>${fn:substring(review.comment,0,100)}</p>
