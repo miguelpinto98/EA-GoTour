@@ -33,7 +33,7 @@
                 </c:otherwise>
               </c:choose>
               <div class="btn-group">
-                <select id="language" class="form-control" style="width:175px">
+                <select id="language-book" class="form-control" style="width:175px">
                   <option value="" selected disabled>Select a language</option>
                   <c:forEach items="${idioms}" var="idiom">
                     <option value="${idiom.id}">${idiom.name}</option>
@@ -111,12 +111,14 @@
               <div class="customers-carousel" data-toggle="owl-carousel" data-owl-carousel-settings='{"items": 3, "lazyLoad":true, "navigation":true, "scrollPerPage":true}'>
 
                 <c:forEach items="${pois}" var="poi">
-                  <a href="${context}/resources/img/points_of_interest/${poi.name}.jpg">
+
+                  <a class="point-href" data-target="${poi.id}">
                     <img data-src="${context}/resources/img/points_of_interest/${poi.id}.jpg" class="lazyOwl img-responsive underlay" style="width:300px;height:175px" />
                     <h6>
                       ${poi.name}
                     </h6>
                   </a>
+
                 </c:forEach>
               </div>
 
@@ -238,65 +240,45 @@
 
               </div>
               </div>
-              <script>
-                $('#language option').on("click", function () {
-                  var languageId = $(this).attr("value");
-                  $("#tour_date").removeAttr("disabled");
-                  $("#tickets").removeAttr("disabled");
-                  $("#book").removeAttr("disabled");
-                  var selected = false;
-                  $("#tour_date option").each(function () {
-                    if (!selected && $(this).attr("languageId") === languageId) {
-                      $(this).prop('selected', true);
-                      selected = true;
-                    }
-                    if ($(this).attr("languageId") == languageId) {
-                      $(this).removeAttr("hidden");
-                    }
-                    else if ($(this).attr("value") != "-1") {
-                      $(this).removeAttr('selected');
-                      $(this).prop('hidden', true);
-                    }
-                  });
-                  if (!selected) {
-                    $("#default_date").prop('selected', true);
-                  }
-                  $("#tour_date option").trigger("click");
-                });
-                $("#book").click(function () {
-                  $.ajax({
-                    method: 'POST',
-                    url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value"),
-                    success: function (confirmed) {
-                      if (confirmed) {
-                        $("#book").prop("disabled", true);
-                        $("#message_success").removeAttr("hidden");
-                      }
-                      else
-                        $("#message_error").removeAttr("hidden");
-                    },
-                    error: function () {
-                      $("#message_error").removeAttr("hidden");
-                      $("#message_error p").text("There is no available tour for the selected language!");
-                    }
-                  });
-                });
-                $("#tour_date option").on("click", function () {
-                  $("#is_enrolled").prop('hidden', true);
-                  if ($("#tour_date option:selected").attr("value") == -1) {
-                    return;
-                  }
-                  $.ajax({
-                    method: 'GET',
-                    url: '/Gotour/enrollments/' + $("#tour_date option:selected").attr("value") + '/users',
-                    success: function (confirmed) {
-                      if (confirmed) {
-                        $("#is_enrolled").removeAttr("hidden");
-                      }
-                    },
-                    error: function () {
-                    }
-                  });
-                });
-              </script>
+                  
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+  
+  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+</div><script type="text/javascript"> function init_map(){var myOptions = {zoom:7,center:new google.maps.LatLng(41.5893077,-8.380051600000002),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(41.5893077, -8.380051600000002)});infowindow = new google.maps.InfoWindow({content:"<b></b><br/><br/>4710 Braga" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});}google.maps.event.addDomListener(window, 'load', init_map);</script>
+
+              <!-- Modal -->
+              <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="point-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                      <dl>
+                        <dt>Description</dt>
+                        <dd id="point-desc">...</dd>
+                        <dt>Location</dt>
+                        <dd id="point-loc">
+                          <div id="gmap_canvas" style="height:500px;width:500px;"></div>
+                        </dd>
+                        
+                        
+                      </dl>
+                      
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-warning">Edit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+
             </t:layout>
+              
+              
+                           
+                
