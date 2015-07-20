@@ -21,4 +21,8 @@ public class EnrollmentsServiceImpl implements EnrollmentsService {
   public List<Enrollments> getEnrollmentsByTour(Tour t) {
     return enrollmentsDao.find("tour_fk", t.getId());
   }
+
+  public void delete(Enrollments e) {
+    enrollmentsDao.delete(e);
+  }
 }

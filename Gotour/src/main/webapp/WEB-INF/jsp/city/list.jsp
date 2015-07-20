@@ -32,7 +32,7 @@
             <c:otherwise>
               <c:forEach items="${cityTours}" var="tour">
                 <!-- Tour Content -->
-                <div class="row blog-post">
+                <div class="row blog-post" id="tour-post-${tour.id}">
                   <!-- <div class="col-md-1 date-md">
                   <!-- Date desktop 
                   <!--<div class="date-wrapper"> <span class="date-m">Feb</span> <span class="date-d">08</span> </div>
@@ -71,7 +71,7 @@
                               <a href="<c:url value="/tours/${tour.id}/edit"/>" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                             </li>
                             <li>
-                              <a href="<c:url value="/tours/delete/${tour.id}"/>" data-method="delete" rel="nofollow" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                              <a id="remove-tour" data-target="${tour.id}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
                             </li>
                           </c:if>
                         </ul>

@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/tours")
@@ -171,10 +173,18 @@ public class ToursController {
     return "redirect:/tours/"+tour.getId();
   }
   
-  @RequestMapping(value="/delete/${id}", method = RequestMethod.DELETE)
-  public String delete(@PathVariable long id, Map<String, Object> model, HttpServletRequest request) {
-    tourService.delete(tourService.getTour(id));
+  @RequestMapping(value="/remove", method = RequestMethod.POST)
+  public @ResponseBody String remove(@RequestParam long id, Map<String, Object> model) {
+    Tour tour = tourService.getTour(id);
     
-    return "redirect:"+request.getHeader("Referer");
+    if(!tour.getEnrollments().isEmpty()) {
+      for (Enrollments e : tour.getEnrollments()) {
+        enrollmentsService.delete(e);
+      }
+    }
+    
+    tourService.delete(tour);
+    
+    return "sucess";
   }
 }

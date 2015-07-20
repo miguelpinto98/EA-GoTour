@@ -187,4 +187,20 @@ $(document).ready(function () {
       }
     });
   });
+  
+  $("#remove-tour").click(function () {
+    var tour_id = $(this).attr('data-target');
+
+    $.ajax({
+      method: 'POST',
+      url: '/Gotour/tours/remove',
+      data: {id: tour_id },
+      success: function (result) {
+        alert("success");
+      },
+      error: function () {
+        alert("error");
+      }
+    });
+  });
 });

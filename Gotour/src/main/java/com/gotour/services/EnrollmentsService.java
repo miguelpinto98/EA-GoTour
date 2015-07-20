@@ -8,5 +8,7 @@ public interface EnrollmentsService {
   public void add(Enrollments enroll);
 
   public Object getEnrollmentsByTour(Tour t);
+
+  public void delete(Enrollments e);
   
 }
