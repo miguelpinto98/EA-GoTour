@@ -27,11 +27,26 @@ $(document).ready(function () {
     var poi_name = $("#poi-name").val();
     var poi_desc = $("#poi-desc").val();
     var poi_coord = $("#poi-coord").val();
+    var poi_image = $("#poi-image").get(0).files[0];
+
+    if (city_id === null && poi_name === null && poi_desc === null && poi_coord === null) {
+      return;
+    }
+
+    var formData = new FormData();
+    formData.append('name', poi_name);
+    formData.append('description', poi_desc);
+    formData.append('location', poi_coord);
+    formData.append('cityid', city_id);
+    formData.append('file', poi_image);
 
     $.ajax({
-      method: 'POST',
       url: '/Gotour/points/create',
-      data: {name: poi_name, description: poi_desc, location: poi_coord, cityid: city_id},
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST',
       success: function (point) {
         $('.poi-multiple').multiSelect('addOption', {value: point['id'], text: point['name'], index: 0});
 
@@ -179,7 +194,9 @@ $(document).ready(function () {
       success: function (result) {
         $("#point-title").text(result.name);
         $("#point-desc").text(result.description);
-        
+        $("#point-loc").text(result.location)
+        $("#point-img").attr("src","/Gotour/resources/img/points_of_interest/"+result.image);
+
         $("#poiModal").modal('show');
       },
       error: function () {
@@ -187,16 +204,16 @@ $(document).ready(function () {
       }
     });
   });
-  
+
   $(".remove-tour").click(function () {
     var tour_id = $(this).attr('data-target');
-    
+
     $.ajax({
       method: 'POST',
       url: '/Gotour/tours/remove',
-      data: {id: tour_id },
+      data: {id: tour_id},
       success: function (result) {
-        $('#tour-post-'+tour_id).remove();
+        $('#tour-post-' + tour_id).remove();
       },
       error: function () {
         alert("ERROR Removing tour!");

@@ -113,7 +113,7 @@
                 <c:forEach items="${pois}" var="poi">
 
                   <a class="point-href" data-target="${poi.id}">
-                    <img data-src="${context}/resources/img/points_of_interest/${poi.id}.jpg" class="lazyOwl img-responsive underlay" style="width:300px;height:175px" />
+                    <img data-src="${context}/resources/img/points_of_interest/${poi.image}" class="lazyOwl img-responsive underlay" style="width:300px;height:175px" />
                     <h6>
                       ${poi.name}
                     </h6>
@@ -264,8 +264,11 @@
                       <dt>Description</dt>
                       <dd id="point-desc">...</dd>
                       <dt>Location</dt>
-                      <dd id="point-loc">
-                        <div id="map-canvas" style="width: 300px; height: 200px"></div>
+                      <dd id="point-loc">...</dd>
+                      <dt></dt>
+                      <dd>
+                        <br/>
+                        <img src="" id="point-img" alt="Picture" width="100%"></img>
                       </dd>
                     </dl>
                   </div>
