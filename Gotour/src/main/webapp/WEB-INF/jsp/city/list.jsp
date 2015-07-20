@@ -65,6 +65,15 @@
                           <li>
                             <p class="text-muted"> <i class="fa fa-user"></i> <a href="/users/${tour.guide.id}">${tour.guide.name}</a> </p>
                           </li>
+
+                          <c:if test="${user.class.name eq 'com.gotour.models.Guide' && tour.guide.id == user.id}">
+                            <li>
+                              <a href="<c:url value="/tours/${tour.id}/edit"/>" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                            </li>
+                            <li>
+                              <a href="<c:url value="/tours/delete/${tour.id}"/>" data-method="delete" rel="nofollow" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                            </li>
+                          </c:if>
                         </ul>
                       </div>
                     </div>
@@ -80,6 +89,14 @@
         <!--Sidebar -------------------------------------------->
         <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
           <div class="inner">
+            <c:if test="${user.class.name eq 'com.gotour.models.Guide'}">
+              <div class="block">
+                <h4 class="title-divider">
+                  <span>Guide Menu</span>
+                </h4>
+                <a href="<c:url value="/tours/new"/>" class="btn btn-success"><i class="fa fa-plus"></i> Create new tour</a>
+              </div>
+            </c:if>
             <div class="block">
               <h4 class="title-divider">
                 <span>Filters</span>
@@ -110,7 +127,7 @@
                   </select>
                 </div> 
                 <div class="form-group">
-                  <label class="control-label" for="range-filter">Range price (máx.)</label>
+                  <label class="control-label" for="range-filter">Price (máx.)</label>
                   <input id="range-filter" type="range" min="0" max="500" />
                 </div>
                 <div class="form-group">  
@@ -159,17 +176,6 @@
                 <li><i class="fa fa-angle-right fa-fw"></i> <a href="blog-leftbar.htm#">August 2015</a> (91)</li>
               </ul>
             </div>-->
-
-
-
-            <!-- @Element: Subscrive button -->
-            <div class="block">
-              <h4 class="title-divider">
-                <span>Guide Menu</span>
-              </h4>
-              <a href="<c:url value="/tours/new"/>" class="btn btn-success"><i class="fa fa-plus"></i> Create new tour</a>
-            </div>
-
           </div>
         </div>
       </div>

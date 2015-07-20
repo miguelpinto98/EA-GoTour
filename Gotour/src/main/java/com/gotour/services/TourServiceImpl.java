@@ -123,4 +123,8 @@ public class TourServiceImpl implements TourService {
   public Object getTours() {
     return tours.getAll();
   }
+
+  public void delete(Tour tour) {
+    tours.delete(tour);
+  }
 }

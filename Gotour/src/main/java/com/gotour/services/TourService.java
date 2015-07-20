@@ -50,4 +50,6 @@ public interface TourService {
   public List<Tour> getToursByTheme(Theme t);
 
   public Object getTours();
+
+  public void delete(Tour t);
 }
