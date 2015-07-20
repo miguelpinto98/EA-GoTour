@@ -352,6 +352,7 @@ public class CreateDatabase {
     rv = new Review();
     rv.setComment(comments[1]);
     rv.setRating((byte) 5);
+    rv.setTitle(titles[1]);
     ts.addReview(t, (Tourist) us.getUser(1), rv);
     rv = new Review();
     rv.setComment(comments[2]);
