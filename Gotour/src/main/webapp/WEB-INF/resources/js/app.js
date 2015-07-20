@@ -190,16 +190,16 @@ $(document).ready(function () {
   
   $(".remove-tour").click(function () {
     var tour_id = $(this).attr('data-target');
-    alert(tour_id);
+    
     $.ajax({
       method: 'POST',
       url: '/Gotour/tours/remove',
       data: {id: tour_id },
       success: function (result) {
-        alert("success");
+        $('#tour-post-'+tour_id).remove();
       },
       error: function () {
-        alert("error");
+        alert("ERROR Removing tour!");
       }
     });
   });
