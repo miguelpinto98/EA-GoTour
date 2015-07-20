@@ -71,7 +71,7 @@
                               <a href="<c:url value="/tours/${tour.id}/edit"/>" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                             </li>
                             <li>
-                              <a id="remove-tour" data-target="${tour.id}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                              <a data-target="${tour.id}" class="remove-tour btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
                             </li>
                           </c:if>
                         </ul>

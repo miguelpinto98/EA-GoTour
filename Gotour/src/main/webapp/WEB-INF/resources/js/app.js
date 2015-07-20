@@ -188,9 +188,9 @@ $(document).ready(function () {
     });
   });
   
-  $("#remove-tour").click(function () {
+  $(".remove-tour").click(function () {
     var tour_id = $(this).attr('data-target');
-
+    alert(tour_id);
     $.ajax({
       method: 'POST',
       url: '/Gotour/tours/remove',
