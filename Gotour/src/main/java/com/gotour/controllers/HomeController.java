@@ -35,8 +35,14 @@ public class HomeController {
   
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public String search(@ModelAttribute("citySearch") City city, ModelMap map) {
-    City c = cityService.getCity(city.getName()); 
+    City c = cityService.getCity(city.getName());
     
-    return "redirect:/cities/"+c.getId();
+    if(c!=null) {
+      return "redirect:/cities/"+c.getId();
+    } else {
+      map.addAttribute("reviews", ts.getLastReviews(3));
+      map.addAttribute("error", "Sorry, city "+city.getName()+" doesn't exist on system!");
+      return "index";
+    }
   }
 }

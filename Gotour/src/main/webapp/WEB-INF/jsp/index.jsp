@@ -24,14 +24,17 @@
                 <div class="col-md-9">
                   <div class="input-group input-group-lg">
                     <form:label path="name" class="sr-only">City</form:label>
-                    <form:input path="name" type="text" class="form-control" placeholder="City, eg: Braga"/>
+                    <form:input path="name" type="text" class="form-control" placeholder="City, eg: Braga" required="true"/>
                     <span class="input-group-btn">
-                      <button id="submit_search" class="btn btn-primary" type="button">Go!</button>
+                      <button id="submit_search" class="btn btn-primary"  type="submit"value="submit">Go!</button>
                     </span>
                   </div>
                 </div>
               </div>
             </form:form>
+            <c:if test="${not empty error}">
+              <b>${error}</b>
+            </c:if>
           </div>
         </div>
       </section>
