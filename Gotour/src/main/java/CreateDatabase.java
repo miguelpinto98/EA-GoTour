@@ -109,21 +109,25 @@ public class CreateDatabase {
     p3.setName("San Iker");
     p3.setDescription("El Santo Patron de Futbol");
     p3.setLocation("En un altar de una iglesia (lejos de Mourinho)");
+    p3.setImage("51.jpg");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
     p3.setName("Jorge Jesus arrodillado");
     p3.setDescription("Este es un lugar que desea visitar al Papa Francisco.");
     p3.setLocation("Estadio del Dragon");
+    p3.setImage("52.jpg");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
     p3.setName("Espacio K");
     p3.setDescription("Aqui se puede revisar el gol de Kelvin de 92 minutos que dio el titulo al FC Porto");
     p3.setLocation("Museo");
+    p3.setImage("53.jpg");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
     p3.setName("El Presidente");
     p3.setDescription("Jorge Nuno Pinto da Costa");
     p3.setLocation("Pregunta a Fernanda");
+    p3.setImage("54.jpg");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
   }
 

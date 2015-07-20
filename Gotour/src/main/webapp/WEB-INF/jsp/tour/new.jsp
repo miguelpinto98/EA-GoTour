@@ -124,19 +124,19 @@
 
             <div class="form-group">
               <label class="sr-only" for="poi_name">Name</label>
-              <input type="text" class="form-control" id="poi-name" placeholder="Name" required>
+              <input type="text" class="form-control" id="poi-name" placeholder="Name" required="true">
             </div>
             <div class="form-group">
               <label class="sr-only" for="poi_desc">Description</label>
-              <input type="text" class="form-control" id="poi-desc" placeholder="Description" required>
+              <input type="text" class="form-control" id="poi-desc" placeholder="Description" required="true">
             </div>
             <div class="form-group">
               <label class="sr-only" for="poi-coord">GPS coordinates</label>
-              <input type="text" class="form-control" id="poi-coord" placeholder="GPS Coordinates" required>
+              <input type="text" class="form-control" id="poi-coord" placeholder="GPS Coordinates" required="true">
             </div>
             <div class="form-group">
               <label class="sr-only" for="poi-coord">Image</label>
-              <input type="file" class="form-control" id="poi-image" required>
+              <input type="file" class="form-control" id="poi-image" required="true">
             </div>
           </div>
           <div class="modal-footer">
