@@ -107,17 +107,17 @@ public class CreateDatabase {
     }
     p3 = new PointOfInterest();
     p3.setName("San Iker");
-    p3.setDescription("El Santo PatrÛn de F˙tbol");
+    p3.setDescription("El Santo Patr√≥n de F√∫tbol");
     p3.setLocation("En un altar de una iglesia (lejos de Mourinho)");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
     p3.setName("Jorge Jesus arrodillado");
     p3.setDescription("Este es un lugar que desea visitar al Papa Francisco.");
-    p3.setLocation("Estadio del DragÛn");
+    p3.setLocation("Estadio del Drag√≥n");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
     p3.setName("Espacio K");
-    p3.setDescription("AquÌ usted puede revisar el gol de Kelvin de 92 minutos que dio el tÌtulo al FC Porto");
+    p3.setDescription("Aqu√≠ se puede revisar el gol de Kelvin de 92 minutos que dio el t√≠tulo al FC Porto");
     p3.setLocation("Museo");
     cs.addPointOfInterest(cs.getCityByID(2L), p3);
     p3 = new PointOfInterest();
@@ -280,22 +280,22 @@ public class CreateDatabase {
 
     t = new Tour();
     t.setCity(cs.getCityByID(2L));
-    t.setDescription("Descubre todo sobre el mejor equipo del mundo en este increÌble viaje, donde usted tendr· la oportunidad de aprender todos acerca de las leyendas del club como Lic·. La gira concluir· con una visita de noche a una de las casas de chicas de Reinaldo Teles.");
+    t.setDescription("Descubre todo sobre el mejor equipo del mundo en este incre√≠ble viaje, donde usted tendr√° la oportunidad de aprender todos acerca de las leyendas del club como Lic√°. La gira concluir√° con una visita de noche √† una de las casas de chicas de Reinaldo Teles.");
     t.setDuration("92 minutes");
     t.setGuide(us.getGuide("pintinho@gotour.com"));
     l = new HashSet<Language>();
     l.add(ls[2]);
     l.add(ls[1]);
     t.setLanguages(l);
-    t.setName("DragÛn Tour");
+    t.setName("Drag√≥n Tour");
     p = new ArrayList<PointOfInterest>();
     p.add(ps.getPointOfInterestById(POIS + 1));
     p.add(ps.getPointOfInterestById(POIS + 2));
     p.add(ps.getPointOfInterestById(POIS + 3));
     p.add(ps.getPointOfInterestById(POIS + 4));
     t.setPointsOfInterest(p);
-    t.setNormalPrice("92Ä");
-    t.setStudentPrice("0.92Ä");
+    t.setNormalPrice("92‚Ç¨");
+    t.setStudentPrice("0.92‚Ç¨");
     t.setTheme(th[3]);
     ts.addTour(t);
     //enrollments
