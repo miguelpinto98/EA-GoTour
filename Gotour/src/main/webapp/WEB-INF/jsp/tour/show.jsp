@@ -210,64 +210,74 @@
                     </ul>
                   </div>
 
-                  <div class="col-md-6"
-                       <form:form action="${context}/reviews/new" method="POST" id="review-form" commandName="reviewForm" class="comment-form" role="form">
+                <div class="col-md-6">
+                  <c:choose>
+                    <c:when test="${user != null}">
+                      <form:form action="${context}/reviews/new" method="POST" commandName="reviewForm" class="comment-form" role="form">
                          <h4>
-                           Add Comment ${tourist.name}
+                           Add Comment ${user.name}
                          </h4>
-                         <form:input path="tourist.id" id="reviw_tourist" type="hidden" value="1"/>
                          <form:input path="tour.id" id="review_tour" type="hidden" value="${tour.id}" />
 
                          <div class="form-group">
                            <form:label path="title" class="sr-only">Title (Abstract)</form:label>
-                           <form:input path="title" id="review_title" class="form-control" placeholder="Title (Abstract)"/>
+                           <form:input path="title" id="review_title" class="form-control" placeholder="Title (Abstract)" required="true"/>
                          </div>
                          <div class="form-group">
                            <form:label path="rating" class="sr-only">Rating</form:label>
-                           <form:input path="rating" id="review_rating" type="number" min="1" max="5" class="form-control" placeholder="Rating"/>
+                           <form:input path="rating" id="review_rating" type="number" min="1" max="5" class="form-control" placeholder="Rating" required="true"/>
                          </div>
                          <div class="form-group">
                            <form:label path="comment" class="sr-only">Comment</form:label>
-                           <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8"/>
+                           <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8" required="true"/>
                          </div>
-                         <button type="submit" class="btn btn-primary">Submit</button>
+                         <button class="btn btn-primary" type="submit"value="submit">Submit</button>
                        </form:form>
+                    </c:when>
+                    <c:otherwise>
+                      <h4>
+                        Please, <a href="${context}/users/login">log in</a> to add a review
+                      </h4>
+                    </c:otherwise>
+                  </c:choose>
+
+
+              </div>
+              </div>
+
+
+            </div>
+
+            </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="point-title">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    <dl>
+                      <dt>Description</dt>
+                      <dd id="point-desc">...</dd>
+                      <dt>Location</dt>
+                      <dd id="point-loc">
+                        <div id="map-canvas" style="width: 300px; height: 200px"></div>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning">Edit</button>
                   </div>
                 </div>
-
-
               </div>
+            </div>              
 
-              </div>
-              </div>
-
-              <!-- Modal -->
-              <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="point-title">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                      <dl>
-                        <dt>Description</dt>
-                        <dd id="point-desc">...</dd>
-                        <dt>Location</dt>
-                        <dd id="point-loc">
-                          <div id="map-canvas" style="width: 300px; height: 200px"></div>
-                        </dd>
-                      </dl>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-warning">Edit</button>
-                    </div>
-                  </div>
-                </div>
-              </div>              
-
-            </t:layout>
+          </t:layout>
 
 
 

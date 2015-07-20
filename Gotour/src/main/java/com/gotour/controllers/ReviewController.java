@@ -3,10 +3,12 @@ package com.gotour.controllers;
 import com.gotour.models.Review;
 import com.gotour.models.Tour;
 import com.gotour.models.Tourist;
+import com.gotour.models.User;
 import com.gotour.services.ReviewService;
 import com.gotour.services.TourService;
 import com.gotour.services.UserService;
 import java.util.Map;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,14 +30,14 @@ public class ReviewController {
   
 
   @RequestMapping(value = "/new", method = RequestMethod.POST)
-  public String review(@ModelAttribute("reviewForm") Review review, Map<String, Object> model) {    
+  public String review(@ModelAttribute("reviewForm") Review review, Map<String, Object> model, @ModelAttribute("user") User u) {    
     Tour tour = tourService.getTour(review.getTour().getId());
-    Tourist tourist = (Tourist) userService.getUser(review.getTour().getId());
-    
+    review.setDate(new DateTime());
     review.setTour(tour);
-    review.setTourist(tourist);
-
+    review.setTourist((Tourist) u);
+    
     reviewService.add(review);
+    
     
     return "redirect:/tours/"+tour.getId();
   }
