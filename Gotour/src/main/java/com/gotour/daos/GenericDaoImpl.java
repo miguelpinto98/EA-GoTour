@@ -64,6 +64,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
   public List<T> getAll() {
     Session session = sessionFactory.getCurrentSession();
     Criteria crit = session.createCriteria(type);
+    crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     return crit.list();
   }
 

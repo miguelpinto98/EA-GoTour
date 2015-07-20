@@ -35,6 +35,7 @@ public class TourDaoImpl extends GenericDaoImpl<Tour> implements TourDao {
     Criteria crit = getSession().createCriteria(getType());
     crit.add(Restrictions.eq("city", city));
     crit.add(Restrictions.eq("theme", theme));
+    crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     return crit.list();
   }
 
