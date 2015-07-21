@@ -49,7 +49,7 @@
                       <div class="col-md-4 col-md-push-8">
                         <div class="blog-media">
                           <a href="<c:url value="/tours/${tour.id}"/>">
-                            <img src="#" alt="${tour.name}" class="img-responsive">
+                            <!--<img src="#" alt="${tour.name}" class="img-responsive">-->
                           </a>
                         </div>
                       </div>
