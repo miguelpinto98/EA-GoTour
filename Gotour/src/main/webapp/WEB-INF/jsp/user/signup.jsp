@@ -10,7 +10,7 @@
         <li><a href="<c:url value="/"/>">Home</a></li>
         <li class="active">Sign Up</li>
       </ol>
-      
+
       <form:form method="POST" action="new" class="form-login form-wrapper form-medium form-horizontal" role="form" commandName="userForm">
         <h3 class="title-divider">
           <span>Sign Up</span> 
@@ -29,19 +29,19 @@
         <div class="form-group">
           <form:label path="name" class="col-sm-3">Name</form:label>
             <div class="col-sm-9">
-            <form:input path="name" class="form-control" />
+            <form:input path="name" class="form-control" required="true"/>
           </div>
         </div>
         <div class="form-group">
           <form:label path="email" class="col-sm-3">Email</form:label>
             <div class="col-sm-9">
-            <form:input path="email" type="email" class="form-control" />
+            <form:input path="email" type="email" class="form-control" required="true"/>
           </div>
         </div>
         <div class="form-group">
           <form:label path="password" class="col-sm-3">Password</form:label>
             <div class="col-sm-9">
-            <form:input path="password" type="password" class="form-control" />
+            <form:input path="password" type="password" class="form-control" required="true"/>
           </div>
         </div>
         <div class="phone form-group" style="display: none;">
@@ -53,11 +53,11 @@
         <div class="form-group">
           <div class="col-xs-3"></div>
           <div class="col-xs-9">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="term">I agree with the Terms and Conditions.
-              </label>
-            </div>
+            <!--<div class="checkbox">
+            <!--<label>
+            <!-- <input type="checkbox" value="term">I agree with the Terms and Conditions.
+           </label>--
+         </div>-->
             <br/>
             <button class="btn btn-primary" type="submit">Sign up</button>
           </div>
