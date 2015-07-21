@@ -2,6 +2,7 @@ package com.gotour.controllers;
 
 import com.gotour.models.City;
 import com.gotour.models.Enrollments;
+import com.gotour.models.Guide;
 import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
 import com.gotour.models.Review;
@@ -13,6 +14,8 @@ import com.gotour.services.LanguageService;
 import com.gotour.services.ThemeService;
 import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
+import com.gotour.services.UserService;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,9 +45,11 @@ public class ToursController {
   
   @Autowired private LanguageService langService;
   @Autowired private EnrollmentsService enrollmentsService;
+  @Autowired private UserService userService;
   
   @Autowired
   private TourService ts;
+  
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(Map<String, Object> model) {
@@ -130,6 +135,13 @@ public class ToursController {
     tour.setPointsOfInterest(poi);
     tour.setCity(c);
     tour.setTheme(t);
+    tour.setGuide((Guide) userService.getUser(tour.getGuide().getId()));
+    
+    Set<Language> langs = new HashSet<Language>();
+    for (Language l : langService.getLanguages()) {
+      langs.add(l);
+    }
+    tour.setLanguages(langs);
 
     System.out.println("name: " + tour.getName());
     System.out.println("desc: " + tour.getDescription());

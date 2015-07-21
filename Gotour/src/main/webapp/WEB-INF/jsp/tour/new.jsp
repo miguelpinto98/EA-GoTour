@@ -34,6 +34,8 @@
           <span>Create <span class="de-em">Tour</span></span>
           <small>Add a new tour for a city!</small>
         </h3>
+        
+        <form:input type="hidden" path="guide.id" value="${user.id}"/>
 
         <div class="form-group">
           <form:label path="name" class="col-sm-4">Name</form:label>
