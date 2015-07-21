@@ -22,8 +22,8 @@
 
       <div class="col-md-9">
 
-        <div class="jumbotron">
 
+        <div class="jumbotron">
           <c:choose>
             <c:when test="${empty enrollments}">
               <h2>There is no available date right now.</h1>
@@ -61,20 +61,27 @@
               <c:choose>
                 <c:when test="${user != null}">
                   <div class="btn-group">
-                    <button id="book" type="button" class="btn btn-primary" disabled>Book</button>
+                    <c:if test="${user.class.name eq 'com.gotour.models.Tourist'}">
+                      <button id="book" type="button" class="btn btn-primary" disabled>Book</button>
+                    </c:if>
                   </div>
                 </c:when>
                 <c:otherwise>
                   <div><a href="${context}/users/login">Login</a> To Book</div>
                 </c:otherwise>
               </c:choose>
-              <div >
-                <a href="<c:url value="/tours/${tour.id}/schedule"/>" class="btn btn-warning">Schedule</a>
-                <a href="<c:url value="/tours/${tour.id}/delete"/>" class="btn btn-danger">Delete</a>
-              </div>
+              <c:if test="${user.id eq tour.guide.id}">
+                <div >
+                  <a href="<c:url value="/tours/${tour.id}/schedule"/>" class="btn btn-warning">Schedule</a>
+                  <a href="<c:url value="/tours/${tour.id}/delete"/>" class="btn btn-danger">Delete</a>
+                  <a href="<c:url value="/tours/new"/>" class="btn btn-success"> Create new tour</a>
+                </div>
+              </c:if>
+
 
               <span id="is_enrolled" style="color:green" hidden>You already bought tickets for this day!</span>
               </div>
+
 
               <div id="message_success" class="alert alert-success" hidden>
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -210,77 +217,82 @@
                     </ul>
                   </div>
 
-                <div class="col-md-6">
-                  <c:choose>
-                    <c:when test="${user != null}">
-                      <form:form action="${context}/reviews/new" method="POST" commandName="reviewForm" class="comment-form" role="form">
-                         <h4>
-                           Add Comment ${user.name}
-                         </h4>
-                         <form:input path="tour.id" id="review_tour" type="hidden" value="${tour.id}" />
+                  <div class="col-md-6">
+                    <c:choose>
+                      <c:when test="${user != null && user.class.name != 'com.gotour.models.Guide'}">
+                        <form:form action="${context}/reviews/new" method="POST" commandName="reviewForm" class="comment-form" role="form">
+                          <h4>
+                            Add Comment ${user.name}
+                          </h4>
+                          <form:input path="tour.id" id="review_tour" type="hidden" value="${tour.id}" />
 
-                         <div class="form-group">
-                           <form:label path="title" class="sr-only">Title (Abstract)</form:label>
-                           <form:input path="title" id="review_title" class="form-control" placeholder="Title (Abstract)" required="true"/>
-                         </div>
-                         <div class="form-group">
-                           <form:label path="rating" class="sr-only">Rating</form:label>
-                           <form:input path="rating" id="review_rating" type="number" min="1" max="5" class="form-control" placeholder="Rating" required="true"/>
-                         </div>
-                         <div class="form-group">
-                           <form:label path="comment" class="sr-only">Comment</form:label>
-                           <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8" required="true"/>
-                         </div>
-                         <button class="btn btn-primary" type="submit"value="submit">Submit</button>
-                       </form:form>
-                    </c:when>
-                    <c:otherwise>
-                      <h4>
-                        Please, <a href="${context}/users/login">log in</a> to add a review
-                      </h4>
-                    </c:otherwise>
-                  </c:choose>
+                          <div class="form-group">
+                            <form:label path="title" class="sr-only">Title (Abstract)</form:label>
+                            <form:input path="title" id="review_title" class="form-control" placeholder="Title (Abstract)" required="true"/>
+                          </div>
+                          <div class="form-group">
+                            <form:label path="rating" class="sr-only">Rating</form:label>
+                            <form:input path="rating" id="review_rating" type="number" min="1" max="5" class="form-control" placeholder="Rating" required="true"/>
+                          </div>
+                          <div class="form-group">
+                            <form:label path="comment" class="sr-only">Comment</form:label>
+                            <form:textarea path="comment" id="review_comment" class="form-control" placeholder="Comment" rows="8" required="true"/>
+                          </div>
+                          <button class="btn btn-primary" type="submit"value="submit">Submit</button>
+                        </form:form>
+                      </c:when>
+                      <c:when test="${user.class.name == 'com.gotour.models.Guide'}">
+
+                      </c:when>
+                      <c:otherwise>
+                        <h4>
+                          Please, <a href="${context}/users/login">log in</a> to add a review
+                        </h4>
+                      </c:otherwise>
+                    </c:choose>
 
 
-              </div>
-              </div>
-
-
-            </div>
-
-            </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="point-title">Modal title</h4>
-                  </div>
-                  <div class="modal-body">
-                    <dl>
-                      <dt>Description</dt>
-                      <dd id="point-desc">...</dd>
-                      <dt>Location</dt>
-                      <dd id="point-loc">...</dd>
-                      <dt></dt>
-                      <dd>
-                        <br/>
-                        <img src="" id="point-img" alt="Picture" width="100%"></img>
-                      </dd>
-                    </dl>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning">Edit</button>
                   </div>
                 </div>
-              </div>
-            </div>              
 
-          </t:layout>
+
+              </div>
+
+              </div>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="poiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="point-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                      <dl>
+                        <dt>Description</dt>
+                        <dd id="point-desc">...</dd>
+                        <dt>Location</dt>
+                        <dd id="point-loc">...</dd>
+                        <dt></dt>
+                        <dd>
+                          <br/>
+                          <img src="" id="point-img" alt="Picture" width="100%"></img>
+                        </dd>
+                      </dl>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <c:if test="${user.id eq tour.guide.id}">
+                        <button type="button" class="btn btn-warning">Edit</button>
+                      </c:if>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+
+            </t:layout>
 
 
 
