@@ -102,6 +102,7 @@ public class CreateDatabase {
         p3.setName(l.fixedString(6) + " (" + i + ")");
         p3.setDescription(l.sentence() + " (" + i + ")");
         p3.setLocation(a.latitude() + ";" + a.longitude());
+        p3.setImage(51 + (i % 4) + ".jpg");
         cs.addPointOfInterest(c, p3);
       }
     }
@@ -172,12 +173,12 @@ public class CreateDatabase {
       t.setName(user);
       t.setEmail(user + "@gotour.com");
       t.setPassword("gotour");
-      t.setAvatar(i + "_" + user);
+      t.setAvatar(i + "_" + user + ".jpg");
       t.setDescription(faker.lorem().sentence());
       us.addTourist(t);
       i++;
     }
-
+    
     Name p = faker.name();
     String name;
     for (int j = 1; j <= TOURISTS; j++) {
@@ -187,6 +188,7 @@ public class CreateDatabase {
       t.setEmail(name.toLowerCase() + "@gotour.com");
       t.setPassword("gotour");
       t.setDescription(faker.lorem().sentence());
+      t.setAvatar(((j % tourists.length) + 1) + "_" + tourists[j%tourists.length] + ".jpg");
       us.addTourist(t);
     }
 
@@ -198,7 +200,7 @@ public class CreateDatabase {
       g.setPassword("gotour");
       g.setPhone(faker.phoneNumber().phoneNumber());
       g.setDescription(faker.lorem().paragraph(2));
-      g.setAvatar(i + "_" + user);
+      g.setAvatar(i + "_" + user + ".jpg");
       us.addGuide(g);
       i++;
     }
@@ -211,6 +213,7 @@ public class CreateDatabase {
       g.setPassword("gotour");
       g.setPhone(faker.phoneNumber().phoneNumber());
       g.setDescription(faker.lorem().paragraph(2));
+      g.setAvatar(((k % guides.length) + 1) + "_" + guides[k%guides.length] + ".jpg");
       us.addGuide(g);
     }
 
@@ -221,6 +224,7 @@ public class CreateDatabase {
     g.setPassword("gotour");
     g.setPhone("929292929");
     g.setDescription("");
+    g.setAvatar("pintinho.jpg");
     us.addGuide(g);
   }
 
