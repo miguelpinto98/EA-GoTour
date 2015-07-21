@@ -29,6 +29,7 @@ import org.springframework.web.bind.support.SessionAttributeStore;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
@@ -51,7 +52,7 @@ public class UsersController {
   }
 
   @RequestMapping(value = "/new", method = RequestMethod.POST)
-  public String register(@RequestParam Map<String, String> requestParams, ModelMap model) {
+  public String register(@RequestParam Map<String, String> requestParams, ModelMap model, RedirectAttributes redirectAttributes) {
     int userType = Integer.valueOf(requestParams.get("userType"));
     String name = requestParams.get("name");
     String email = requestParams.get("email");
@@ -65,6 +66,8 @@ public class UsersController {
       Guide user = new Guide(name, email, password, phone);
       userService.addGuide(user);
     }
+    
+    redirectAttributes.addFlashAttribute("notice", "Success! A new account was created.");
 
     return "redirect:/users/login";
   }
@@ -112,7 +115,7 @@ public class UsersController {
     User user = userService.getUser(id);
 
     if (user instanceof Guide) {
-      map.addAttribute("userForm", ((Guide) user));
+      map.addAttribute("_user", ((Guide) user));
       map.addAttribute("type", 1);
       
       return "user/enrollments";

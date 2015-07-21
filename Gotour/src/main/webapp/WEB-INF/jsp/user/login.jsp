@@ -11,6 +11,20 @@
         <li><a href="<c:url value="/"/>">Home</a></li>
         <li class="active">Login</li>
       </ol>
+
+      <c:if test="${not empty notice}">
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <h4>${notice}</h4>
+        </div>
+      </c:if>
+      <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <h4>${error}</h4>
+        </div>
+      </c:if>
+
       <form:form method="POST" action="signin" class="form-login form-wrapper form-medium form-horizontal" role="form">
         <h3 class="title-divider">
           <span>Login</span> 
@@ -19,13 +33,13 @@
         <div class="form-group">
           <label class="col-sm-3" for="login-email-page">Email</label>
           <div class="col-sm-9">
-            <input name="email" type="email" id="login-email-page" class="form-control email" placeholder="Email">
+            <input name="email" type="email" id="login-email-page" class="form-control email" placeholder="Email" required="true">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3" for="login-password-page">Password</label>
           <div class="col-sm-9">
-            <input name="password" type="password" id="login-password-page" class="form-control password" placeholder="Password">
+            <input name="password" type="password" id="login-password-page" class="form-control password" placeholder="Password" required="true">
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>

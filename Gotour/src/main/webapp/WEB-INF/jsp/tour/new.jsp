@@ -8,7 +8,7 @@
     <div class="container">
       <ol class="breadcrumb">
         <li><a href="<c:url value="/"/>">Home</a></li>
-        <li><a href="<c:url value="/tours"/>">Tours</a></li>
+        <li><a href="<c:url value="/cities"/>">Tours</a></li>
         <li class="active">Create</li>
       </ol>
 
@@ -34,17 +34,19 @@
           <span>Create <span class="de-em">Tour</span></span>
           <small>Add a new tour for a city!</small>
         </h3>
+        
+        <form:input type="hidden" path="guide.id" value="${user.id}"/>
 
         <div class="form-group">
           <form:label path="name" class="col-sm-4">Name</form:label>
             <div class="col-sm-6">
-            <form:input path="name" class="form-control" />
+            <form:input path="name" class="form-control" required="true"/>
           </div>
         </div>
         <div class="form-group">
           <form:label path="description" class="col-sm-4">Description</form:label>
             <div class="col-sm-6">
-            <form:textarea path="description" class="form-control" />
+            <form:textarea path="description" class="form-control" required="true"/>
           </div>
         </div>
         <div class="form-group">
@@ -81,7 +83,7 @@
         <div class="form-group">
           <form:label path="duration" class="col-sm-4">Duration</form:label>
             <div class="col-sm-4">
-            <form:input path="duration" class="form-control" />
+            <form:input path="duration" class="form-control" required="true"/>
           </div>
         </div>
         <div class="price form-group">

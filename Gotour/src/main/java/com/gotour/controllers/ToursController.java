@@ -2,6 +2,7 @@ package com.gotour.controllers;
 
 import com.gotour.models.City;
 import com.gotour.models.Enrollments;
+import com.gotour.models.Guide;
 import com.gotour.models.Language;
 import com.gotour.models.PointOfInterest;
 import com.gotour.models.Review;
@@ -13,6 +14,8 @@ import com.gotour.services.LanguageService;
 import com.gotour.services.ThemeService;
 import com.gotour.services.TourService;
 import com.gotour.services.PointOfInterestService;
+import com.gotour.services.UserService;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/tours")
@@ -42,9 +46,11 @@ public class ToursController {
   
   @Autowired private LanguageService langService;
   @Autowired private EnrollmentsService enrollmentsService;
+  @Autowired private UserService userService;
   
   @Autowired
   private TourService ts;
+  
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(Map<String, Object> model) {
@@ -54,7 +60,7 @@ public class ToursController {
   }
   
   @RequestMapping(value = "/{tourId}", method = RequestMethod.GET)
-  public String show(@PathVariable Long tourId, ModelMap model) {
+  public String show(@PathVariable Long tourId, ModelMap model, RedirectAttributes redirectAttributes) {
     Tour t = ts.getTour(tourId);
     model.addAttribute("tour", t);
     model.addAttribute("guide", t.getGuide());
@@ -92,13 +98,21 @@ public class ToursController {
   @RequestMapping(value="/edit", method = RequestMethod.POST)
   public String edit(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
     City c = cityService.getCityByID(tour.getCity().getId());
-    Theme t = themeService.getThemeByID(tour.getTheme().getId());
-    List<PointOfInterest> poi = poiService.getSelectedPoints(tour.getPoints());
-    tour.setPointsOfInterest(poi);
+    Theme t = themeService.getThemeByID(tour.getTheme().getId());    
+    
+    if(tour.getPoints() != null) {
+      List<PointOfInterest> poi = poiService.getSelectedPoints(tour.getPoints());
+      tour.setPointsOfInterest(poi); 
+    }
     tour.setCity(c);
     tour.setTheme(t);
     
-    System.out.println("zd"+tour.toString());
+    tour.setGuide((Guide) userService.getUser(tour.getGuide().getId()));
+    Set<Language> langs = new HashSet<Language>();
+    for (Language l : langService.getLanguages()) {
+      langs.add(l);
+    }
+    tour.setLanguages(langs);
     
     tourService.update(tour);
     
@@ -122,7 +136,7 @@ public class ToursController {
   }
   
   @RequestMapping(value = "/create", method = RequestMethod.POST)
-  public String create(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
+  public String create(@ModelAttribute("userForm") Tour tour, Map<String, Object> model, RedirectAttributes redirectAttributes) {
 
     City c = cityService.getCityByID(tour.getCity().getId());
     Theme t = themeService.getThemeByID(tour.getTheme().getId());
@@ -130,6 +144,13 @@ public class ToursController {
     tour.setPointsOfInterest(poi);
     tour.setCity(c);
     tour.setTheme(t);
+    tour.setGuide((Guide) userService.getUser(tour.getGuide().getId()));
+    
+    Set<Language> langs = new HashSet<Language>();
+    for (Language l : langService.getLanguages()) {
+      langs.add(l);
+    }
+    tour.setLanguages(langs);
 
     System.out.println("name: " + tour.getName());
     System.out.println("desc: " + tour.getDescription());
@@ -138,10 +159,11 @@ public class ToursController {
     System.out.println("Duration: " + tour.getDuration());
     System.out.println("Normal Price: " + tour.getNormalPrice());
     System.out.println("Student Price: " + tour.getStudentPrice());
-    System.out.println("Free?: " + tour.isFree());
     System.out.println("POIS: " + tour.getPointsOfInterest().toString());
     tourService.addTour(tour);
 
+    redirectAttributes.addFlashAttribute("notice", "Success! A new tour was created.");
+    
     return "redirect:/tours/"+String.valueOf(tour.getId());
   }
 

@@ -15,6 +15,12 @@
         <li><a href="<c:url value="/"/>">Home</a></li>
         <li class="active">${_user.name}</li>
       </ol>
+      <c:if test="${not empty notice}">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Success!</strong> Signed in successfully.
+        </div>
+      </c:if>
 
       <div class="row">
         <!-- sidebar -->
@@ -31,7 +37,7 @@
                   <i class="fa fa-angle-right"></i>
                 </a>
               </li>
-              <c:if test="${type eq 1}">
+              <c:if test="${type eq 1 && user.id == _user.id}">
                 <li>
                   <a href="${context}/users/${_user.id}/enrollments" class="first">
                     Tourists subscribers
@@ -67,9 +73,11 @@
                   <img src="${context}/resources/img/users/${_user.avatar}" alt="About me" class="img-responsive">
                 </c:when>
                 <c:otherwise>
-                  <div class="alert alert-warning" style="text-align: center;">
+                  <c:if test="${user.id == _user.id}">
+                    <div class="alert alert-warning" style="text-align: center;">
                     <a href="<c:url value="/users/${_user.id}/edit"></c:url>">add an image to your profile</a>
                     </div>
+                  </c:if>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -86,7 +94,13 @@
               </dl>
 
               <div class="social-media-branding">
-                <a href="<c:url value="/users/${_user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
+                <c:if test="${user.id == _user.id}">
+                  <a href="<c:url value="/users/${_user.id}/edit"></c:url>" class="btn btn-warning">Edit information</a>
+                  <c:if test="${user.class.name eq 'com.gotour.models.Guide'}">
+                    <a href="<c:url value="/tours/new"/>" class="btn btn-success"> Create new tour</a>
+                  </c:if>
+                </c:if>
+                
                   <!--@todo: replace with real social share links -->
                   <!--<a href="#" class="social-link branding-twitter"><i class="fa fa-twitter-square"></i></a>
                   <a href="#" class="social-link branding-facebook"><i class="fa fa-facebook-square"></i></a>
