@@ -102,6 +102,7 @@ public class CreateDatabase {
         p3.setName(l.fixedString(6) + " (" + i + ")");
         p3.setDescription(l.sentence() + " (" + i + ")");
         p3.setLocation(a.latitude() + ";" + a.longitude());
+        p3.setImage(51 + (i % 4) + ".jpg");
         cs.addPointOfInterest(c, p3);
       }
     }
