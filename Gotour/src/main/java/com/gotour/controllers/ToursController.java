@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/tours")
@@ -59,7 +60,7 @@ public class ToursController {
   }
   
   @RequestMapping(value = "/{tourId}", method = RequestMethod.GET)
-  public String show(@PathVariable Long tourId, ModelMap model) {
+  public String show(@PathVariable Long tourId, ModelMap model, RedirectAttributes redirectAttributes) {
     Tour t = ts.getTour(tourId);
     model.addAttribute("tour", t);
     model.addAttribute("guide", t.getGuide());
@@ -97,13 +98,21 @@ public class ToursController {
   @RequestMapping(value="/edit", method = RequestMethod.POST)
   public String edit(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
     City c = cityService.getCityByID(tour.getCity().getId());
-    Theme t = themeService.getThemeByID(tour.getTheme().getId());
-    List<PointOfInterest> poi = poiService.getSelectedPoints(tour.getPoints());
-    tour.setPointsOfInterest(poi);
+    Theme t = themeService.getThemeByID(tour.getTheme().getId());    
+    
+    if(tour.getPoints() != null) {
+      List<PointOfInterest> poi = poiService.getSelectedPoints(tour.getPoints());
+      tour.setPointsOfInterest(poi); 
+    }
     tour.setCity(c);
     tour.setTheme(t);
     
-    System.out.println("zd"+tour.toString());
+    tour.setGuide((Guide) userService.getUser(tour.getGuide().getId()));
+    Set<Language> langs = new HashSet<Language>();
+    for (Language l : langService.getLanguages()) {
+      langs.add(l);
+    }
+    tour.setLanguages(langs);
     
     tourService.update(tour);
     
@@ -127,7 +136,7 @@ public class ToursController {
   }
   
   @RequestMapping(value = "/create", method = RequestMethod.POST)
-  public String create(@ModelAttribute("userForm") Tour tour, Map<String, Object> model) {
+  public String create(@ModelAttribute("userForm") Tour tour, Map<String, Object> model, RedirectAttributes redirectAttributes) {
 
     City c = cityService.getCityByID(tour.getCity().getId());
     Theme t = themeService.getThemeByID(tour.getTheme().getId());
@@ -150,10 +159,11 @@ public class ToursController {
     System.out.println("Duration: " + tour.getDuration());
     System.out.println("Normal Price: " + tour.getNormalPrice());
     System.out.println("Student Price: " + tour.getStudentPrice());
-    System.out.println("Free?: " + tour.isFree());
     System.out.println("POIS: " + tour.getPointsOfInterest().toString());
     tourService.addTour(tour);
 
+    redirectAttributes.addFlashAttribute("notice", "Success! A new tour was created.");
+    
     return "redirect:/tours/"+String.valueOf(tour.getId());
   }
 

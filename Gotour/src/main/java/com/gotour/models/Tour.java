@@ -47,9 +47,6 @@ public class Tour implements Serializable {
 
   private String duration;
 
-  @Transient
-  private boolean free;
-
   @ManyToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SELECT)
   @JoinTable(name = "tours_points_of_interest")
@@ -168,14 +165,6 @@ public class Tour implements Serializable {
 
   public void setDuration(String duration) {
     this.duration = duration;
-  }
-
-  public boolean isFree() {
-    return free;
-  }
-
-  public void setFree(boolean free) {
-    this.free = free;
   }
 
   public String[] getPoints() {

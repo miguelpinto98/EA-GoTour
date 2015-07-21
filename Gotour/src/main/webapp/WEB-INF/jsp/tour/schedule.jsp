@@ -26,7 +26,7 @@
             <form:input path="tour.id" type="hidden" value="${tour.id}" />
 
             <div class="form-group">
-              <form:label path="date">End Date</form:label>
+              <form:label path="date">Date</form:label>
               
               <div class="input-group date" id="datetimepicker1">
                 <form:input path="date" class="form-control" placeholder="End date" />

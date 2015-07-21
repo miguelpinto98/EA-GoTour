@@ -38,7 +38,8 @@
           <small>Edit a tour for a city!</small>
         </h3>
         
-        <form:input path="id" type="hidden" />
+        <form:input type="hidden" path="id"/>
+        <form:input type="hidden" path="guide.id" value="${user.id}"/>
 
         <div class="form-group">
           <form:label path="name" class="col-sm-4">Name</form:label>
@@ -76,7 +77,7 @@
               <c:forEach items="${cityList}" var="city">
                 <c:choose>
                   <c:when test="${city.name == tour.city.name}">
-                    <option value="${tour.city.id}" selected="">${tour.city.name}</option>
+                    <option value="${city.id}" selected="">${city.name}</option>
                   </c:when>
                   <c:otherwise>
                     <option value="${city.id}">${city.name}</option>
@@ -97,7 +98,7 @@
               <c:forEach items="${pois}" var="point">
                 <c:choose>
                   <c:when test="${ tour.pointsOfInterest.contains(point) }">
-                    <option value="${point.id}" selected="">${point.name}</option>
+                    <option value="${point.id}" selected="true">${point.name}</option>
                   </c:when>
                   <c:otherwise>
                     <option value="${point.id}">${point.name}</option>

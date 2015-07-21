@@ -115,8 +115,8 @@
 
                           <c:if test="${not empty enroll.tourists}">
                             <ul>
-                              <c:forEach items="${enroll.tourists}" var="user">
-                                <li><a href="<c:url value="/users/${_user.id}"></c:url>">${_user.name}</a></li>
+                              <c:forEach items="${enroll.tourists}" var="abc">
+                                <li><a href="<c:url value="/users/${abc.id}"></c:url>">${abc.name}</a></li>
                               </c:forEach>
                             </ul>
                           </c:if>

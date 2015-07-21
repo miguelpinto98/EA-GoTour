@@ -12,9 +12,16 @@
     <div class="container">
       <ol class="breadcrumb">
         <li><a href="<c:url value="/"/>">Home</a></li>
-        <li><a href="<c:url value="/tours/"/>">Tours</a></li>
+        <li><a href="<c:url value="/cities"/>">Tours</a></li>
         <li class="active">${tour.name}</li>
       </ol>
+      <c:if test="${notice}">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          ${notice}
+        </div>
+      </c:if>
+
       <h2 class="title-divider">
         <span>${tour.name} <span class="de-em">${city.name}</span></span>
         <small>${theme.name} Tour</small>
@@ -73,6 +80,7 @@
               <c:if test="${user.id eq tour.guide.id}">
                 <div >
                   <a href="<c:url value="/tours/${tour.id}/schedule"/>" class="btn btn-warning">Schedule</a>
+                  <a href="<c:url value="/tours/${tour.id}/edit"/>" class="btn btn-primary"> Edit</a>
                   <a href="<c:url value="/tours/${tour.id}/delete"/>" class="btn btn-danger">Delete</a>
                   <a href="<c:url value="/tours/new"/>" class="btn btn-success"> Create new tour</a>
                 </div>
