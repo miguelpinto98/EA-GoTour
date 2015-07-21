@@ -223,7 +223,7 @@ public class CreateDatabase {
     g.setEmail("pintinho" + "@gotour.com");
     g.setPassword("gotour");
     g.setPhone("929292929");
-    g.setDescription("");
+    g.setDescription("Pregunta a Fernanda");
     g.setAvatar("pintinho.jpg");
     us.addGuide(g);
   }
