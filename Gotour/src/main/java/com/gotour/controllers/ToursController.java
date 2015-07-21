@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -208,5 +209,10 @@ public class ToursController {
     tourService.delete(tour);
     
     return "sucess";
+  }
+  
+  @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody List<Tour> list(Map<String, Object> model){
+    return tourService.getTours();
   }
 }

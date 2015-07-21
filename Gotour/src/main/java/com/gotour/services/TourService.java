@@ -49,7 +49,7 @@ public interface TourService {
 
   public List<Tour> getToursByTheme(Theme t);
 
-  public Object getTours();
+  public List<Tour> getTours();
 
   public void delete(Tour t);
 }
