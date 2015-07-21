@@ -202,7 +202,7 @@
 
                         <li class="media">
                           <a class="pull-left" href="${context}/users/${review.tourist.id}">
-                            <img src="${context}/resources/img/users/${review.tourist.avatar}.jpg" alt="Picture of ${review.tourist.name}" class="media-object img-thumbnail img-responsive" />
+                            <img src="${context}/resources/img/users/${review.tourist.avatar}" alt="Picture of ${review.tourist.name}" class="media-object img-thumbnail img-responsive" />
                           </a>
                           <div class="media-body">
                             <ul class="list-inline meta text-muted">
