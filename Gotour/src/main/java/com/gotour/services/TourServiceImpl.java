@@ -120,7 +120,7 @@ public class TourServiceImpl implements TourService {
     return tours.getTours(t);
   }
 
-  public Object getTours() {
+  public List<Tour> getTours() {
     return tours.getAll();
   }
 
