@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+.blue {
+    color:blue;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.price{
+  display: none;
+}
+
+#notice-success{
+  display: none;
+}
+
+#notice-error{
+  display: none;
+}
